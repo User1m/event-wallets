@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "apollographql.vscode-apollo",
+    "austenc.tailwind-docs",
+    "bmewburn.vscode-intelephense-client",
+    "bourhaouta.tailwindshades",
+    "bradlc.vscode-tailwindcss",
+    "dsznajder.es7-react-js-snippets",
+    "esbenp.prettier-vscode",
+    "jpoissonnier.vscode-styled-components",
+    "naumovs.color-highlight",
+    "orsenkucher.vscode-graphql",
+    "Orta.vscode-jest",
+    "rbbit.typescript-hero",
+    "Zarifprogrammer.tailwind-snippets",
+    "dsznajder.es7-react-js-snippets"
+  ]
+}

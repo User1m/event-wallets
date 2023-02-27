@@ -1,0 +1,6 @@
+# syntax = edrevo/dockerfile-plus
+
+INCLUDE+ Dockerfile
+
+ENV NODE_ENV development
+CMD yarn db:reset --force || true && yarn start:prod

@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider                 = "typegraphql-prisma-nestjs"
+  output                   = "../prisma/graphql/generated"
+  useSimpleInputs          = true
+  useUncheckedScalarInputs = true
+}
+
+model Org {
+  id       String  @id @default(uuid())
+  name     String?
+  email    String  @unique
+  password String
+  picture  String?
+  eventUrl String?
+  users    User[]
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String
+  username     String?
+  accAddress   String?       @default("")
+  org          Org?          @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  orgId        String
+  transactions Transaction[]
+
+  @@unique([email, orgId], name: "orgUserIdentifier")
+}
+
+model Transaction {
+  id     String  @id @default(uuid())
+  op     String?
+  uoHash String?
+  txHash String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId String
+}
