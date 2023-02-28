@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build:backend": "cd backend && yarn build",
     "backend": "cd backend",
+    "build:frontend": "cd frontend && yarn build",
     "frontend": "cd frontend"
   },
   "repository": {

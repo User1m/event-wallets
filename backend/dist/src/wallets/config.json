@@ -1,0 +1,8 @@
+{
+    "bundlerUrl": "https://node.stackup.sh/api/v1/bundler/caa091b2db4dd5777273a9a32af5352f41954e788ef551508a6eb3ab08553a86",
+    "rpcUrl": "https://endpoints.omniatech.io/v1/eth/goerli/public",
+    "signingKey": "0x91f0281f7a4a8c402c835b9e6d4cd74353b9c1a0b5bad0fea7e79dfa21f83a11",
+    "entryPoint": "0x0F46c65C17AA6b4102046935F33301f0510B163A",
+    "simpleAccountFactory": "0x63658F82752688E3E2Dd2FA8C511E85e919F62D7",
+    "paymasterUrl": ""
+}
