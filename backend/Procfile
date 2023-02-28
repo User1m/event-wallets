@@ -8,6 +8,7 @@ web: npm run start:prod
 // https://www.youtube.com/watch?v=KD9OaryS1Kw
 // https://devcenter.heroku.com/articles/git
 
+// https://devcenter.heroku.com/articles/procfile
 // heroku create -a event-wallets-api
 // heroku buildpacks:set heroku/nodejs //https://devcenter.heroku.com/articles/buildpacks
 // heroku config:set NODE_ENV=production
