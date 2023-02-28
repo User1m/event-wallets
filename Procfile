@@ -1,4 +1,4 @@
-web: cd backend && ls -l && yarn build && ls -l dist && yarn start:prod
+web: cd backend && ls -l && npm run build && ls -l dist && npm run start:dist
 
 // https://medium.com/@nikmacentosh/deploying-nestjs-server-to-heroku-guide-46e36f8ce779
 // https://medium.com/@terence410/setup-nestjs-server-on-heroku-1475c5cdb1d1
@@ -6,5 +6,7 @@ web: cd backend && ls -l && yarn build && ls -l dist && yarn start:prod
 // https://devcenter.heroku.com/articles/git
 // heroku create -a event-wallets
 // heroku buildpacks:set heroku/nodejs //https://devcenter.heroku.com/articles/buildpacks
+// heroku config:set NODE_ENV=production
 // git remote -v
 // git push heroku main
+// heroku logs --tail

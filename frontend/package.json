@@ -72,6 +72,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "start:dist": "node dist/src/main.js",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
