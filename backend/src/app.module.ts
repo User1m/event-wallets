@@ -5,7 +5,6 @@ import {
     crudResolvers,
     relationResolvers
 } from 'prisma/graphql/generated';
-// import { RecipesModule } from './recipes/recipes.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { GraphQLError } from 'graphql';
@@ -26,7 +25,6 @@ interface Context {
 
 @Module({
     imports: [
-        // RecipesModule,
         ScheduleModule.forRoot(),
         EventEmitterModule.forRoot(),
         GraphQLModule.forRoot({
