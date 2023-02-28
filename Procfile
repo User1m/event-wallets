@@ -1,4 +1,7 @@
-web: cd backend && ls -l && npm run build && ls -l dist && npm run start:dist
+web: cd backend && ls -l && npm run start:dist
+
+// web: cd backend && ls -l && npm run build && ls -l dist && npm run start:dist
+
 
 // https://medium.com/@nikmacentosh/deploying-nestjs-server-to-heroku-guide-46e36f8ce779
 // https://medium.com/@terence410/setup-nestjs-server-on-heroku-1475c5cdb1d1
