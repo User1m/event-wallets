@@ -84,7 +84,8 @@
     "cypress:open": "npx cypress open",
     "prepare": "husky install",
     "clean:modules": "rm -rf node_modules",
-    "ci": "yarn install --force --ignore-engines --frozen-lockfile"
+    "ci": "yarn install --ignore-engines",
+    "ci:fresh": "yarn install --force --ignore-engines --frozen-lockfile"
   },
   "lint-staged": {
     "*.{css,html}": [
