@@ -5,11 +5,12 @@ import { omit } from 'lodash';
 import genAddress from './smartAccount/address';
 import { CreateUserInput, ERC20TransferInput, TransferInput } from './inputs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { GET_CONFIG } from '@src/utils';
+import { faucetUrl, GET_CONFIG } from '@src/utils';
+import { ethers } from 'ethers';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) {}
+  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) { }
 
   // create user
   async createUser(input: CreateUserInput) {
@@ -54,6 +55,50 @@ export class UserService {
     return newUser;
   }
 
+  // async test(input: UserWhereUniqueInput) {
+
+  //   // https://ethereum.stackexchange.com/a/131944
+
+  //   const { orgUserIdentifier } = input;
+  //   //check for existing user;
+  //   const user = await this.prisma.user.findUnique({
+  //     where: {
+  //       orgUserIdentifier,
+  //     },
+  //   });
+
+  //   if (!user) throw new Error('User Not Found!');
+  //   const { email, orgId } = orgUserIdentifier;
+  //   const config = await GET_CONFIG(email, orgId);
+  //   //  https://docs.ethers.org/v5/getting-started/
+  //   const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
+  //   // https://ethereum.stackexchange.com/a/103532
+  //   const contractInstance = new ethers.Contract(contractAddress, contractABI, provider);
+  //   // const contractInstance = await new ethers.getContractAt("contracts/XYZ.sol:ContractName", contractAddress)
+  //   const balance = await provider.getBalance(user.accAddress);
+  //   return ethers.utils.formatEther(balance)
+  // }
+
+  async getBalance(input: UserWhereUniqueInput) {
+    const { orgUserIdentifier } = input;
+    //check for existing user;
+    const user = await this.prisma.user.findUnique({
+      where: {
+        orgUserIdentifier,
+      },
+    });
+
+    if (!user) throw new Error('User Not Found!');
+
+    const { email, orgId } = orgUserIdentifier;
+    const config = await GET_CONFIG(email, orgId);
+    //  https://docs.ethers.org/v5/getting-started/
+    const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
+    const balance = await provider.getBalance(user.accAddress);
+    return ethers.utils.formatEther(balance)
+  }
+
+
   // create wallet account
   async createWallet(input: UserWhereUniqueInput) {
     const { orgUserIdentifier } = input;
@@ -90,7 +135,6 @@ export class UserService {
 
     const { org } = res;
     const loginUrl = `https://eventwallets.com/${org.id}/login`;
-    const faucetUrl = `https://goerlifaucet.com/`;
     this.eventEmitter.emit('sendEmail', {
       subject: 'Account Created!',
       message: `Congrats! Get ready for ${org.name}!<br/>

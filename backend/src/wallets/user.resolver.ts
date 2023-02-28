@@ -17,6 +17,16 @@ export class UserResolver {
     return this.service.createWallet(input);
   }
 
+  @Query(() => Number)
+  _getWalletBalance(@Args('input') input: UserWhereUniqueInput) {
+    return this.service.getBalance(input);
+  }
+
+  // @Query(() => Number)
+  // _test(@Args('input') input: UserWhereUniqueInput) {
+  //   return this.service.getBalance(input);
+  // }
+
   @Mutation(() => String)
   _transfer(@Args('input') input: TransferInput) {
     return this.service.transfer(input);

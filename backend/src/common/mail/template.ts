@@ -2,13 +2,14 @@ export interface TemplateEmail {
   subject: string;
   message: string;
   image?: string;
-  action?: { link: string; text: string };
+  action?: { link: string; text: string }[];
   to: { name: string; email: string | string[] };
   from?: { name: string; email: string };
 }
 
 export const emailTemplate = (payload: TemplateEmail) => {
-  const { subject, message, action, to, from, image } = payload;
+  const { subject, message, to, from, image } = payload;
+  let action = payload?.action && (Array.isArray(payload?.action) ? payload?.action : [payload?.action]);
   const appName = 'Event Wallets';
   const defaultEmail = process.env.EMAIL_USER;
   const defaultImage = 'https://app.tor.us/v1.38.10/img/login-bg-new-2.96ae03fd.svg';
@@ -161,15 +162,17 @@ export const emailTemplate = (payload: TemplateEmail) => {
                                             </tr>
                                            ${
                                              action
-                                               ? `<tr>
+                                               ?action.map(x=>{
+                                                return  `<tr>
                                                 <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;">
                                                   <a href="${
-                                                    action?.link || ''
+                                                    x?.link || ''
                                                   }" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">${
-                                                   action?.text || ''
+                                                   x?.text || ''
                                                  }</a>
                                                 </td>
                                             </tr>`
+                                               })
                                                : ''
                                            }
                                           </tbody>

@@ -6,6 +6,8 @@ import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpc
 export default async function main(config: IConfig, t: string, amt: string, withPM: boolean): Promise<{ op: string; uoHash: string; txHash: string }> {
   const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
   const paymasterAPI = withPM ? getVerifyingPaymaster(config.paymasterUrl, config.entryPoint) : undefined;
+  console.log("paymasterAPI", paymasterAPI);
+
   const accountAPI = getSimpleAccount(provider, config.signingKey, config.entryPoint, config.simpleAccountFactory, paymasterAPI);
 
   const target = ethers.utils.getAddress(t);
