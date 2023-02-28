@@ -1,4 +1,4 @@
-web: cd backend && ls -l && npm run start:dist
+web: npm run db:sedd && npm run start:prod
 
 // web: cd backend && ls -l && npm run build && ls -l dist && npm run start:dist
 
@@ -8,11 +8,13 @@ web: cd backend && ls -l && npm run start:dist
 // https://www.youtube.com/watch?v=KD9OaryS1Kw
 // https://devcenter.heroku.com/articles/git
 
-// heroku create -a event-wallets
+// heroku create -a event-wallets-api
 // heroku buildpacks:set heroku/nodejs //https://devcenter.heroku.com/articles/buildpacks
 // heroku config:set NODE_ENV=production
 // git remote -v
-// git push heroku main
+// git push heroku master main
 // heroku logs --tail   // https://devcenter.heroku.com/articles/logging#view-logs
 // heroku apps:rename event-wallets-api     // https://devcenter.heroku.com/articles/renaming-apps
 // heroku config:set       //https://devcenter.heroku.com/articles/config-vars
+// heroku apps:destroy    //https://help.heroku.com/LGKL6LTN/how-do-i-delete-destroy-a-heroku-application
+// heroku config:unset NODE_ENV
