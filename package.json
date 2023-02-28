@@ -1,0 +1,20 @@
+{
+  "name": "burner-wallets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backend": "cd backend",
+    "frontend": "cd frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/User1m/event-wallets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/User1m/event-wallets/issues"
+  },
+  "homepage": "https://github.com/User1m/event-wallets#readme"
+}

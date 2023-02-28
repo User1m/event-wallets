@@ -5,4 +5,6 @@ web: cd backend && ls -l && yarn build && ls -l dist && yarn start:prod
 // https://www.youtube.com/watch?v=KD9OaryS1Kw
 // https://devcenter.heroku.com/articles/git
 // heroku create -a event-wallets
+// heroku buildpacks:set heroku/nodejs //https://devcenter.heroku.com/articles/buildpacks
 // git remote -v
+// git push heroku main
