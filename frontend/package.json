@@ -62,7 +62,7 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.31.10",
-    "husky": ">=6",
+    "husky": "^8.0.0",
     "lint-staged": ">=10",
     "postcss": "^8.4.18",
     "prettier": "^2.8.0",
@@ -82,7 +82,7 @@
     "schema:watch": "[ -z \"${GRAPHQL_URL}\" ] && echo 'ERROR: export GRAPHQL_URL= env not set....'; yarn apollo codegen:generate --endpoint $GRAPHQL_URL --target=typescript --globalTypesFile=src/graphql/__generated__/globalTypes.ts  --tagName=gql --watch",
     "cypress": "npx cypress open",
     "cypress:open": "npx cypress open",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install",
     "clean:modules": "rm -rf node_modules",
     "ci": "yarn install --ignore-engines",
     "ci:fresh": "yarn install --force --ignore-engines --frozen-lockfile"
