@@ -1,0 +1,61 @@
+@mixin shadow {
+    webkit-box-shadow: 3px 7px 15px 3px rgba(0, 0, 0, 0.31);
+    box-shadow: 3px 7px 15px 3px rgba(0, 0, 0, 0.31);
+  };
+
+  @mixin showBorder($color:null) {
+    @if $color==null {
+      border: none;
+    }
+  
+    @else {
+      border: solid $color
+    }
+  
+  };
+
+  @mixin cursor($num) {
+    @if $num==1 {
+      cursor: pointer;
+    }
+  
+    @else if $num==2 {
+      cursor: all-scroll;
+    }
+  
+    @else if $num==3 {
+      cursor: grab;
+    }
+  
+    @else if $num==4 {
+      cursor: move;
+    }
+  
+    @else if $num==5 {
+      cursor: progress;
+    }
+  };
+
+  @mixin dropdownParent {
+    position: relative;
+  }
+  
+  @mixin dropdownMenu {
+    position: absolute;
+    top: 100px;
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    pointer-events: none;
+    @include shadow();
+  }
+
+  @mixin myPadding($l:null,$r:null,$t:null,$b:null){
+    padding-left: $l;
+    padding-right: $r;
+    padding-top: $t;
+    padding-bottom: $b;
+
+  }

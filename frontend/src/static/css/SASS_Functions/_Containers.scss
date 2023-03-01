@@ -1,0 +1,32 @@
+@mixin lr($showChildBorder: false) {
+    display: flex;
+    flex-direction: row;
+
+    @if $showChildBorder {
+        >* {
+            @include showBorder(rgb(179, 255, 0));
+        }
+    }
+
+}
+
+
+@mixin topLvlCenter($orientation:'row') {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    @if $orientation=='row'
+
+        {
+        flex-direction: row;
+    }
+
+    @else if $orientation=='col'
+
+        {
+        flex-direction: column;
+    }
+
+}

@@ -1,0 +1,74 @@
+@mixin flexCol($contentPos: 'center') {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @if $contentPos=='center' {
+      align-items: center;
+      text-align: center;
+    }
+
+    @if $contentPos=='top' {
+      justify-content: flex-start;
+    }
+
+    @if $contentPos=='btm' {
+      justify-content: flex-end;
+    }
+  }
+  
+@mixin flexRow {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+@mixin rowItemPos($num) {
+    @if $num==1 {
+      justify-content: space-evenly
+    }
+  
+    @else if $num==2 {
+      justify-content: space-around
+    }
+  
+    @else if $num==3 {
+      justify-content: space-between
+    }
+  
+    @else if $num==4 {
+      justify-content: flex-end
+    }
+  
+    @else if $num==5 {
+      justify-content: flex-start
+    }
+  
+    @else if $num==6 or $num=='center' {
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+    }
+  }
+  
+@mixin colItemPos($num) {
+    @if $num==1 {
+      align-items: stretch
+    }
+  
+    @else if $num==2 {
+      align-items: flex-start
+    }
+  
+    @else if $num==3 {
+      align-items: flex-end
+    }
+  
+    @else if $num==4 or $num=='center' {
+      align-items: center
+    }
+  
+    @else if $num==5 {
+      align-items: baseline
+    }
+  }

@@ -1,0 +1,117 @@
+// Base Colors
+
+$red-color: rgba(220, 53, 69, 1);
+$green-color: rgba(25, 135, 84, 1);
+$blue-color: rgba(13, 110, 253, 1);
+$indigo-color: rgba(102, 16, 242, 1);
+$purple-color: rgba(111, 66, 193, 1);
+$pink-color: rgba(214, 51, 132, 1);
+$orange-color: rgba(253, 126, 20, 1);
+$gray-color: rgba(108, 117, 125, 1);
+$cyan-color: rgba(16, 185, 129, 1);
+$teal-color: rgba(0, 123, 255, 1);
+$yellow-color:  rgba(255, 193, 7, 1);
+
+
+// # Color Maps
+
+@function getColorMap($base-color) {
+  $map: (
+    100: scale-color($base-color, $lightness: 80%),
+    200: scale-color($base-color, $lightness: 40%),
+    300: scale-color($base-color, $lightness: 20%),
+    400: scale-color($base-color, $lightness: 10%),
+    500: $base-color,
+    600: scale-color($base-color,$lightness: -10%),
+    700: scale-color($base-color,$lightness: -20%),
+    800: scale-color($base-color,$lightness: -40%),
+    900: scale-color($base-color,$lightness: -60%),
+  );
+
+  @return $map;
+}
+
+$cm_red : getColorMap($red-color);
+$cm_green: getColorMap($green-color);
+$cm_blue: getColorMap($blue-color);
+$cm_indigo: getColorMap($indigo-color);
+$cm_purple: getColorMap($purple-color);
+$cm_pink: getColorMap($pink-color);
+$cm_orange: getColorMap($orange-color);
+$cm_gray: getColorMap($gray-color);
+$cm_cyan:  getColorMap($cyan-color);
+$cm_teal: getColorMap($teal-color);
+$cm_yellow: getColorMap($yellow-color);
+
+
+// # Named Colors
+
+$activeValue: 500;
+$hoveredValue: 600;
+$clickedValue: 700;
+$borderValue: 200;
+$disabledValue: 100;
+
+@function getNamedColor($color-map) {
+  $namedColor: (
+    "active": map-get($color-map, $activeValue),
+    "hovered": map-get($color-map, $hoveredValue),
+    "clicked":map-get($color-map, $clickedValue),
+    "border":map-get($color-map, $borderValue),
+    "disabled": map-get($color-map, $disabledValue),
+  );
+  
+  @return $namedColor;
+}
+
+$bkg-color: $cm_gray;
+$bkgdarkest: map-get($bkg-color, 500);
+$bkgdark: map-get($bkg-color, 400);
+$bkglight:map-get($bkg-color, 300);
+$bkglighter:map-get($bkg-color, 200);
+$bkglightest : map-get($bkg-color, 100);
+
+
+// Usage background-color: map-get($map: $secondary, $key: "disabled");
+
+$primary: getNamedColor($cm_pink);
+$secondary: getNamedColor($cm_purple);
+$warning: getNamedColor($cm_yellow);
+$success: getNamedColor($cm_green);
+$info: getNamedColor($cm_blue);
+$danger: getNamedColor($cm_red);
+$neutral: getNamedColor($cm_gray);
+
+
+$custom-active: map-get($cm_pink, $activeValue);
+$custom-hovered: map-get($cm_purple, $hoveredValue);
+$custom-clicked:map-get($cm_purple, $clickedValue);
+$custom-border:map-get($cm_pink, $borderValue);
+$custom-disabled: map-get($cm_pink, $disabledValue);
+
+
+
+// # Color Utils
+
+//usage
+// @include gradient(left, $list1);
+@mixin gradient($direction, $list) {
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);
+}
+
+///color/////////////-------------------------------------------------------------------------------------------------
+//darken($color, $amount) - darken is built in
+//lighten($main-colour, 25%); - lighten is built in
+//color.complement(#6b717f);  - complement is built in
+
+$main-color: hsl(251, 100%, 50%);
+$palette-span: 90deg;
+$saturation-increment: 5%;
+$number-of-colors: 5;
+
+@function getPaletteVariation($i) {
+  @return desaturate(adjust-hue($main-color, ($palette-span / $number-of-colors) * $i), $saturation-increment * $i);
+}

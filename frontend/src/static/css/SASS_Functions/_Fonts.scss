@@ -1,0 +1,32 @@
+$smallest: 1vw;
+$small: 1.5vw;
+$medium: 2vw;
+$large: 4vw;
+$largest: 4vw;//80px;
+
+
+
+@mixin font($size:'small'){
+
+    @if $size=='smallest' or $size==0 {
+        font-size: $smallest
+    }
+
+    @if $size=='small' or $size==1{
+        font-size: $small
+    }
+
+    @if $size=='medium' or $size==2{
+        font-size: $medium
+    }
+
+    @if $size=='large' or $size==3{
+        font-size: $large
+    }
+
+    @if $size=='largest' or $size==4{
+        font-size: $largest
+    }
+
+
+}
