@@ -5,16 +5,12 @@ import BannerImg from './bannerImg'
 import EDBannerImg from '../../../static/img/ed.png'
 import WalletComp from './Wallet'
 import TopNav from './topNav'
-import { useMutation } from '@apollo/client'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { CREATE_WALLET } from 'src/graphql/mutations'
 import { getUser } from 'src/graphql/queries'
 
 const WalletPage = () => {
-  const [ballance, setBallance] = useState('')
+  const [balance, setBalance] = useState('')
   const [user, setUser] = useState({ email: null, accAddress: null })
-  const [confirmUser, { loading }] = useMutation(CREATE_WALLET)
   // const navigation = useNavigate()
 
   // console.log(window.location.pathname.split('/')[2])
@@ -31,23 +27,6 @@ const WalletPage = () => {
     if (data) {
       console.log('data', data)
       setUser(data?.findFirstUser)
-      if (data?.findFirstUser?.accAddress === '') {
-        confirmUser({
-          variables: {
-            input: {
-              id: uId
-            }
-          },
-          onCompleted (data) {
-            console.log('_data', data)
-            setUser(data?._confirmUser)
-          },
-          onError (error) {
-            console.log(error)
-            toast.error(error?.message)
-          }
-        })
-      }
     }
   }, [])
 

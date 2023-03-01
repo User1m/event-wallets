@@ -1,6 +1,9 @@
+import { useMutation } from '@apollo/client'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUser } from 'src/graphql/queries'
+import { toast } from 'react-toastify'
+import { CREATE_WALLET } from 'src/graphql/mutations'
 
 const ConfirmEmail = () => {
   const confirmEmailRef = useRef<HTMLAnchorElement>(null)
@@ -9,6 +12,7 @@ const ConfirmEmail = () => {
     pathSplit[2] === 'emailConf' ? pathSplit[3] : ''
   )
   const { data, error } = getUser({ id: { equals: pathSplit[3] || '' } })
+  const [confirmUser, { loading }] = useMutation(CREATE_WALLET)
 
   // console.log("pathSplit", pathSplit[3])
   // console.log("email", email)
@@ -17,12 +21,30 @@ const ConfirmEmail = () => {
   useEffect(() => {
     if (data?.findFirstUser) {
       setEmail(data.findFirstUser?.email)
+      if (data?.findFirstUser?.accAddress === '') {
+        confirmUser({
+          variables: {
+            input: {
+              id: data?.findFirstUser.id
+            }
+          },
+          onCompleted (data) {
+            console.log('_data', data)
+            toast.success('Wallet Created!')
+            // setUser(data?._confirmUser)
+          },
+          onError (error) {
+            console.log(error)
+            toast.error(error?.message)
+          }
+        })
+      }
     }
     const confirmEmailTimer = setTimeout(() => {
       if (confirmEmailRef.current) {
         confirmEmailRef.current.click()
       }
-    }, 2000)
+    }, 3000)
     return () => clearTimeout(confirmEmailTimer)
   }, [data?.findFirstUser])
 
@@ -43,7 +65,7 @@ const ConfirmEmail = () => {
             ? 'Creating your event wallet....'
             : 'Go to your email to confirm your event wallet!'}
         </a>
-        <div className="subText">This page will redirect in 2 seconds...</div>
+        <div className="subText">This page will redirect in 3 seconds...</div>
       </div>
     </div>
   )
