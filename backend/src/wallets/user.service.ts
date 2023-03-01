@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 import genAddress from './smartAccount/address';
 import { CreateUserInput, ERC20TransferInput, TransferInput } from './inputs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { faucetUrl, GET_CONFIG } from '@src/utils';
+import { faucetUrl, getBaseUrl, GET_CONFIG } from '@src/utils';
 import { ethers } from 'ethers';
 
 @Injectable()
@@ -44,7 +44,7 @@ export class UserService {
 
     const { org } = newUser;
 
-    const verifyUrl = `https://event-wallets.herokuapp.com/${orgId}/u/${newUser.id}/confirm`;
+    const verifyUrl = `${getBaseUrl()}/${orgId}/u/${newUser.id}/confirm`;
     this.eventEmitter.emit('sendEmail', {
       subject: `Welcome to ${org.name}!`,
       message: `We hope you're as excited as us for ${org.name}!<br/> Create your ${org.name} event wallet below.`,
@@ -136,7 +136,7 @@ export class UserService {
     });
 
     const { org } = res;
-    const loginUrl = `https://event-wallets.herokuapp.com/${orgId}/u/${res.id}/wallet`;
+    const loginUrl = `${getBaseUrl()}/${orgId}/u/${res.id}/wallet`;
     this.eventEmitter.emit('sendEmail', {
       subject: 'Event Wallet Created!',
       message: `Congrats! Get ready for ${org.name}!<br/>

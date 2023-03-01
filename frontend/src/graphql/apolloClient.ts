@@ -1,6 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 
-const uri = window.location.href.includes('https;//')
+const uri = window.location.href.includes('https://')
   ? process.env.GRAPHQL_URL
   : process.env.DEV_GRAPHQL_URL
 

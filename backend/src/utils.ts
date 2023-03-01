@@ -13,6 +13,10 @@ export interface IConfig {
   paymasterUrl: string;
 }
 
+export const getBaseUrl = () => {
+  return isProd ? 'https://event-wallets.herokuapp.com' : 'http://localhost:3001';
+}
+
 export const GET_CONFIG = async (email: string, orgId: string) => {
   // https://www.geeksforgeeks.org/how-to-create-hash-from-string-in-javascript/
   const hashEmail = crypto.createHash('sha1').update(`${email}x${orgId}`).digest('hex');
