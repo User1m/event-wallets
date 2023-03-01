@@ -1,0 +1,870 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a.nostyle:link {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button, input[type="submit"], input[type="reset"], input[type="text"], input[type="email"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+@font-face {
+  font-family: "main";
+  src: url("../fonts/FjallaOne-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: main;
+}
+
+.topLevel {
+  background-color: #a6acb2;
+  background-color: #e2d9f3;
+  min-height: 100vh;
+}
+
+.divider {
+  background-color: #6c757d;
+  height: 2px;
+  border-radius: 10px;
+}
+
+.banner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  padding: 1vw;
+  background-color: pink;
+  font-size: 1.5vw;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.disappear {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.lr-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.lr-container .child-left {
+  padding: 20px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 40%;
+          flex: 1 1 40%;
+}
+
+.lr-container .child-left .loginCard {
+  background-color: white;
+  padding: 50px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  height: 100vh;
+  color: black;
+  gap: 40px;
+  background-color: #f7d6e6;
+}
+
+.lr-container .child-left .loginCard .logo {
+  font-size: 4vw;
+  font-weight: bold;
+  color: #d63384;
+}
+
+.lr-container .child-left .loginCard .cta {
+  font-size: 2vw;
+  font-weight: 500;
+}
+
+.lr-container .child-left .loginCard .authBtn {
+  font-size: 1.5vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #d63384;
+  gap: 10px;
+  width: 100%;
+  color: white;
+}
+
+.lr-container .child-left .loginCard .authBtn:hover {
+  background-color: #633ab0;
+}
+
+.lr-container .child-left .loginCard .authBtn:active {
+  background-color: #58339c;
+}
+
+.lr-container .child-left .loginCard .authBtn:disabled {
+  background-color: #f7d6e6;
+  cursor: none;
+}
+
+.lr-container .child-left .loginCard .authBtn:focus {
+  border: solid #e685b5 1px;
+}
+
+.lr-container .child-left .loginCard .authBtn svg {
+  width: 2vw;
+  height: 2vw;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.lr-container .child-left .loginCard .email {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.lr-container .child-left .loginCard .email input {
+  width: 100%;
+  border: solid 1px #6c757d;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 1.5vw;
+  background-color: white;
+  border: none;
+}
+
+.lr-container .child-right {
+  background-image: url("../img/ed.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 60%;
+          flex: 1 1 60%;
+}
+
+.nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5vw;
+  padding: 1vw;
+}
+
+.nav .navBtn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #d63384;
+  gap: 0.5vw;
+  border-radius: 50%;
+  width: 8vw;
+  height: 8vw;
+  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-items: center;
+}
+
+.nav .navBtn:hover {
+  background-color: #633ab0;
+}
+
+.nav .navBtn:active {
+  background-color: #58339c;
+}
+
+.nav .navBtn:disabled {
+  background-color: #f7d6e6;
+  cursor: none;
+}
+
+.nav .navBtn:focus {
+  border: solid #e685b5 1px;
+}
+
+.nav .navBtn .icon {
+  width: 2vw;
+  height: 2vw;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.nav .navBtn .text {
+  font-size: 1.2vw;
+}
+
+.test {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  background-color: white;
+  padding: 20px;
+  padding-bottom: 20px;
+}
+
+.test > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 50%;
+          flex: 1 1 50%;
+  height: 100px;
+}
+
+.test ._100 {
+  background-color: #f8d7da;
+}
+
+.test ._200 {
+  background-color: #ea868f;
+}
+
+.test ._300 {
+  background-color: #e35d6a;
+}
+
+.test ._400 {
+  background-color: #e04958;
+}
+
+.test ._500 {
+  background-color: #dc3545;
+}
+
+.test ._600 {
+  background-color: #d12435;
+}
+
+.test ._700 {
+  background-color: #ba202f;
+}
+
+.test ._800 {
+  background-color: #8c1823;
+}
+
+.test ._900 {
+  background-color: #5d1017;
+}
+
+.bannerImg {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  padding: 1vw;
+}
+
+.bannerImg img {
+  height: 8vw;
+}
+
+.wallet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.wallet .main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 0px;
+  padding-bottom: 1vw;
+  webkit-box-shadow: 3px 7px 15px 3px rgba(0, 0, 0, 0.31);
+  -webkit-box-shadow: 3px 7px 15px 3px rgba(0, 0, 0, 0.31);
+          box-shadow: 3px 7px 15px 3px rgba(0, 0, 0, 0.31);
+  background-color: #f7d6e6;
+  width: 80%;
+  -ms-flex-item-align: center;
+      align-self: center;
+  margin-bottom: 5vw;
+  border-radius: 10px;
+}
+
+.wallet .main .mainNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  gap: 10px;
+}
+
+.wallet .main .mainNav .navItem {
+  -ms-flex-preferred-size: 40%;
+      flex-basis: 40%;
+  padding: 2vw;
+  cursor: pointer;
+  font-size: 2vw;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.wallet .main .navItemActive {
+  border-bottom: solid #d63384 0.4vw;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.Tokens .tokenCard {
+  background-color: pink;
+  padding: 1vw;
+  border-bottom: solid gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+}
+
+.Tokens .tokenCard .icon {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 10%;
+          flex: 1 1 10%;
+  border-radius: 50%;
+}
+
+.Tokens .tokenCard .icon img {
+  width: 4vw;
+  height: 4vw;
+  border-radius: 100%;
+}
+
+.Tokens .tokenCard .info1 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 90%;
+          flex: 1 1 90%;
+}
+
+.Tokens .tokenCard .info2 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 10%;
+          flex: 1 1 10%;
+}
+
+.Tokens .tokenCard .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  gap: 0px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.nfts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 1vw;
+}
+
+.nfts .nftCard {
+  cursor: pointer;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .2s ease-in-out;
+  transition: -webkit-transform .2s ease-in-out;
+  transition: transform .2s ease-in-out;
+  transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+  border: solid gray 1px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.nfts .nftCard:hover {
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+.nfts .nftCard > * {
+  padding: 1vw;
+  border-radius: 10px;
+}
+
+.nfts .nftCard .imgContainer img {
+  width: 10vw;
+  height: 10vw;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.nfts .nftCard .imgContainer .blank {
+  width: 10vw;
+  height: 10vw;
+  background-color: gray;
+}
+
+.nfts .nftCard .textContainer {
+  background-color: black;
+}
+
+.nfts .nftCard .textContainer .name {
+  font-size: 1vw;
+  font-weight: bold;
+  width: 100%;
+  color: white;
+}
+
+.confirmEmail {
+  border: solid blue;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 10vw;
+}
+
+.confirmEmail .container {
+  border: solid white;
+  padding: 5vw;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 3.5vw;
+  text-align: center;
+}
+
+.confirmEmail .container .subText {
+  font-size: 1.5vw;
+}
+
+.modalWrapper {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.modalWrapper .modalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.modalWrapper .modalContent {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 80vw;
+  overflow: auto;
+  z-index: 2;
+}
+
+.modalWrapper .modalContent .modalHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 16px;
+}
+
+.modalWrapper .modalContent .modalHeader .modalCloseButton {
+  border: none;
+  background-color: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.modalWrapper .modalContent .modalHeader .modalCloseButton:hover {
+  color: #000;
+}
+
+.sendModal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 0px;
+  padding-bottom: 2vw;
+  background-color: #f7d6e6;
+  -ms-flex-item-align: center;
+      align-self: center;
+  border-radius: 10px;
+  gap: .5vw;
+}
+
+.sendModal .mainNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  gap: 10px;
+}
+
+.sendModal .mainNav .navItem {
+  -ms-flex-preferred-size: 40%;
+      flex-basis: 40%;
+  padding: 2vw;
+  cursor: pointer;
+  font-size: 2vw;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.sendModal .navItemActive {
+  border-bottom: solid #d63384 0.4vw;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.sendModal .field {
+  border-radius: 10px;
+  border: solid gray 1px;
+  height: 5vw;
+  background-color: #e2d9f3;
+  padding: 1vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+}
+
+.sendModal .field input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%;
+  font-size: 2vw;
+}
+
+.sendModal .sendBtn {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #d63384;
+  font-size: 2vw;
+  color: #fff;
+}
+
+.sendModal .sendBtn:hover {
+  background-color: #c72877;
+}
+
+.sendModal .sendBtn:active {
+  background-color: #b1236a;
+}
+
+.sendModal .sendBtn:disabled {
+  background-color: #f7d6e6;
+  cursor: none;
+}
+
+.sendModal .sendBtn:focus {
+  border: solid #e685b5 1px;
+}
+
+.topNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 0px;
+  padding-bottom: 0vw;
+}
+
+.topNav .navBtns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1vw;
+}
+
+.topNav .navBtns .logout {
+  cursor: pointer;
+}
+
+.topNav .navBtns .logout:hover {
+  color: #d63384;
+}
+
+.topNav .navBtns .network {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #d63384;
+  gap: 1vw;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.topNav .navBtns .network:hover {
+  background-color: #c72877;
+}
+
+.topNav .navBtns .network:active {
+  background-color: #b1236a;
+}
+
+.topNav .navBtns .network:disabled {
+  background-color: #f7d6e6;
+  cursor: none;
+}
+
+.topNav .navBtns .network:focus {
+  border: solid #e685b5 1px;
+}
+
+.topNav .navBtns .network .icon {
+  width: 2vw;
+  height: 2vw;
+}
+/*# sourceMappingURL=styles.css.map */

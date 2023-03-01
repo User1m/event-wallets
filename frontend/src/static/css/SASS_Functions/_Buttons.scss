@@ -1,0 +1,153 @@
+@mixin btn(
+            $style:'primary', 
+            $padding: 10px, 
+            $borderRadius: 10px
+          )
+{
+
+    padding: $padding;
+    border-radius: $borderRadius;
+    cursor: pointer;
+
+
+    @if $style=='primary' {
+        $namedColor : $primary;
+        
+        background-color: map-get($map: $namedColor, $key: active);
+        
+        &:hover {
+            background-color: map-get($map: $namedColor, $key: hovered);
+        }
+
+        &:active {
+            background-color: map-get($map: $namedColor, $key: clicked);
+        }
+
+        &:disabled {
+            background-color:  map-get($map: $namedColor, $key: disabled);
+            cursor: none;
+        }
+
+        &:focus {
+            border: solid map-get($map: $namedColor, $key: border ) 1px;
+        }
+
+
+    }
+
+    @if $style=='secondary' {
+        $namedColor : $secondary;
+        
+        background-color: map-get($map: $namedColor, $key: active);
+        
+        &:hover {
+            background-color: map-get($map: $namedColor, $key: hovered);
+        }
+
+        &:active {
+            background-color: map-get($map: $namedColor, $key: clicked);
+        }
+
+        &:disabled {
+            background-color:  map-get($map: $namedColor, $key: disabled);
+            cursor: none;
+        }
+
+        &:focus {
+            border: solid map-get($map: $namedColor, $key: border ) 1px;
+        }
+
+
+    }
+
+    @if $style=='neutral' {
+        $namedColor : $neutral;
+        
+        background-color: map-get($map: $namedColor, $key: active);
+        
+        &:hover {
+            background-color: map-get($map: $namedColor, $key: hovered);
+        }
+
+        &:active {
+            background-color: map-get($map: $namedColor, $key: clicked);
+        }
+
+        &:disabled {
+            background-color:  map-get($map: $namedColor, $key: disabled);
+            cursor: none;
+        }
+
+        &:focus {
+            border: solid map-get($map: $namedColor, $key: border ) 1px;
+        }
+
+
+    }
+
+    @if $style=='custom' {
+        background-color: $custom-active;
+        &:hover {
+            background-color: $custom-hovered;
+        }
+
+        &:active {
+            background-color: $custom-clicked;
+        }
+
+        &:disabled {
+            background-color: $custom-disabled;
+            cursor: none;
+        }
+
+        &:focus {
+            border: solid $custom-border 1px;
+        }
+
+
+    }
+}
+
+@mixin iconBtn(
+                $style:'primary', 
+                $padding: 10px, 
+                $borderRadius: 10px, 
+                $gap:10px,
+                $orientation:'row',
+              )
+{
+
+    @if $orientation=='row' {
+        @include flexRow();
+        @include rowItemPos('center');
+    }
+
+    @if $orientation=='col' {
+        @include flexCol();
+    }
+
+    @include btn($style, $padding, $borderRadius);
+    gap: $gap;
+    
+}
+
+@mixin circleIconBtn(
+                $style:'primary', 
+                $padding: 10px, 
+                $gap:0px,
+                $orientation:'col',
+                $size: 5vw,
+              )
+{
+
+    @include iconBtn($style:$style, $padding:$padding, $gap:$gap, $orientation:$orientation);
+
+    border-radius: 50%;
+    width:  $size;
+    height: $size;
+    align-items: center;
+    justify-content: center;
+
+}
+
+

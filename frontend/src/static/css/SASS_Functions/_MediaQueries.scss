@@ -1,0 +1,13 @@
+$mobile: 800px;
+$laptop: 1920px;
+
+@mixin Mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
+//if the screen is equal to or less than 480px - do something
+// @media screen and (max-width: 480px){
+//   do: something
+// }

@@ -1,0 +1,581 @@
+@import 'SASS_Functions/Base';
+@import 'SASS_Functions/Color';
+@import 'SASS_Functions/Flex';
+@import 'SASS_Functions/Hover';
+@import 'SASS_Functions/MediaQueries';
+@import 'SASS_Functions/Utils';
+@import 'SASS_Functions/Containers';
+@import 'SASS_Functions/Buttons';
+@import 'SASS_Functions/Fonts';
+@import 'SASS_Functions/Inputs';
+
+
+@font-face {
+    font-family: "main";
+    src: url("../fonts/FjallaOne-Regular.ttf") format("truetype");
+}
+
+body {
+
+    font-family: main;
+
+}
+
+.topLevel {
+    background-color: $bkglighter;
+    background-color: map-get($map: $cm_purple, $key: 100);
+
+    //@include showBorder(blue);
+    min-height: 100vh;
+
+}
+
+.divider {
+    background-color: map-get($map: $neutral, $key: active);
+    height: 2px;
+    border-radius: 10px;
+}
+
+.banner {
+    @include flexRow();
+    @include rowItemPos(1);
+    padding: 1vw;
+
+    background-color: pink;
+
+    @include font('small');
+
+    transition: all 0.2s ease-in-out;
+
+}
+
+.disappear {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.lr-container {
+
+    @include lr($showChildBorder:false);
+
+    .child-left {
+        padding: 20px;
+        flex: 1 1 40%;
+
+        .loginCard {
+            background-color: white;
+            padding: 50px;
+            justify-content: center;
+            border-radius: 20px;
+            @include flexCol('top');
+            height: 100vh;
+            color: rgb(0, 0, 0);
+            gap: 40px;
+
+            background-color: map-get($map: $cm_pink, $key: 100);
+
+            .logo {
+                @include font('largest');
+                font-weight: bold;
+                color: map-get($map: $primary, $key: active);
+            }
+
+            .cta {
+                @include font('medium');
+                font-weight: 500;
+            }
+
+
+            .authBtn {
+                @include font('small');
+                @include iconBtn($style:'custom', $padding:20px);
+                width: 100%;
+                color: white;
+                // //align-items: center;
+                // //justify-content: center;
+                // @include flexRow();
+
+                svg {
+                    width: 2vw;
+                    height: 2vw;
+                    //@include showBorder(red);
+                    align-self: center;
+                }
+            }
+
+            .email {
+                @include flexCol();
+
+                input {
+                    @include input();
+                    @include font('small');
+                    background-color: white; //map-get($map: $cm_gray, $key: 100);
+                    border: none;
+                }
+            }
+
+
+        }
+
+    }
+
+    .child-right {
+        background-image: url("../img/ed.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        flex: 1 1 60%;
+    }
+}
+
+.nav {
+    @include flexRow();
+
+    //@include showBorder(blue);
+    @include rowItemPos(6);
+    gap: 5vw;
+
+    padding: 1vw;
+
+    .navBtn {
+        @include circleIconBtn($style:'custom', $gap:.5vw, $size:8vw);
+        align-items: center;
+        text-align: center;
+        //@include showBorder(blue);
+        @include colItemPos(4);
+
+
+        .icon {
+            width: 2vw;
+            height: 2vw;
+            align-self: center;
+            //@include showBorder(blue);
+
+        }
+
+        .text {
+            font-size: 1.2vw;
+            //@include showBorder(blue);
+            //visibility: hidden;
+
+        }
+    }
+}
+
+
+.test {
+    @include flexRow();
+    background-color: white;
+    padding: 20px;
+
+    >* {
+        //@include showBorder(blue);
+        flex: 1 1 50%;
+        height: 100px;
+    }
+
+    padding-bottom: 20px;
+
+    ._100 {
+        //background-color: map-get($map: $red, $key: 100);
+        background-color: map-get($map: $cm_red, $key: 100);
+    }
+
+    ._200 {
+        background-color: map-get($map: $cm_red, $key: 200);
+    }
+
+    ._300 {
+        background-color: map-get($map: $cm_red, $key: 300);
+    }
+
+    ._400 {
+        background-color: map-get($map: $cm_red, $key: 400);
+    }
+
+    ._500 {
+        background-color: map-get($map: $cm_red, $key: 500);
+    }
+
+    ._600 {
+        background-color: map-get($map: $cm_red, $key: 600);
+    }
+
+    ._700 {
+        background-color: map-get($map: $cm_red, $key: 700);
+    }
+
+    ._800 {
+        background-color: map-get($map: $cm_red, $key: 800);
+    }
+
+    ._900 {
+        background-color: map-get($map: $cm_red, $key: 900);
+    }
+}
+
+.bannerImg {
+    @include flexRow();
+    @include rowItemPos(1);
+    padding: 1vw;
+
+    img {
+        height: 8vw;
+    }
+
+    //@include showBorder(blue);
+}
+
+
+.wallet {
+
+    @include flexCol();
+
+    .main {
+
+        @include flexCol();
+        @include colItemPos(1);
+        @include myPadding(2vw, 2vw, 0px, 1vw);
+        @include shadow();
+
+        background-color: map-get($map: $primary, $key: disabled);
+        width: 80%;
+
+        align-self: center;
+        margin-bottom: 5vw;
+
+        border-radius: 10px;
+
+        .mainNav {
+            //@include showBorder(red);
+            //flex: 1 1 auto;
+
+            @include flexRow();
+            @include rowItemPos(2);
+
+            gap: 10px;
+
+            .navItem {
+                flex-basis: 40%;
+                padding: 2vw;
+
+
+                cursor: pointer;
+
+                @include font('medium');
+                align-items: center;
+                text-align: center;
+                transition: all 0.2s ease-in-out;
+
+
+            }
+        }
+
+        .navItemActive {
+
+            border-bottom: solid map-get($map: $primary, $key: active) .4vw;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+
+        }
+
+
+
+
+    }
+}
+
+.Tokens {
+    .tokenCard {
+
+        background-color: pink;
+        padding: 1vw;
+        border-bottom: solid gray;
+
+        @include flexRow();
+
+        .icon {
+
+            //@include showBorder(blue);
+            flex: 1 1 10%;
+            // background-color: white;
+            // width:  ;
+            // height: 4vw;
+            border-radius: 50%;
+
+            img {
+                width: 4vw;
+                height: 4vw;
+                border-radius: 100%;
+            }
+
+        }
+
+        .info1 {
+            flex: 1 1 90%;
+
+        }
+
+        .info2 {
+            flex: 1 1 10%;
+
+        }
+
+        .info {
+            @include flexCol();
+            gap: 0px;
+            @include colItemPos(2);
+            @include rowItemPos(1);
+
+            //@include showBorder(blue);
+            .top {}
+
+            .btm {}
+        }
+    }
+}
+
+.nfts {
+    @include flexRow();
+    flex-wrap: wrap;
+    padding: 1vw;
+    //@include showBorder(blue);
+
+    .nftCard {
+        cursor: pointer;
+        @include growOnHover(1.01);
+        border: solid gray 1px;
+        background-color: white;
+        border-radius: 10px;
+
+        >* {
+            padding: 1vw;
+            border-radius: 10px;
+        }
+
+        .imgContainer {
+
+            //@include showBorder(blue);
+
+            img {
+                width: 10vw;
+                height: 10vw;
+                object-fit: cover;
+
+            }
+
+            .blank {
+                width: 10vw;
+                height: 10vw;
+                background-color: gray;
+            }
+        }
+
+        .textContainer {
+            background-color: black;
+
+            .name {
+                @include font('smallest');
+                font-weight: bold;
+
+                //@include showBorder(blue);
+                width: 100%;
+                //height: 100%;
+                color: white;
+            }
+        }
+    }
+
+}
+
+.confirmEmail {
+    @include showBorder(blue);
+    @include topLvlCenter('col');
+    // display: flex;
+    // flex-direction: column;
+    padding: 10vw;
+
+    .container {
+        border: solid white;
+        padding: 5vw;
+        border-radius: 10px;
+        background-color: white;
+        font-size: 3.5vw;
+
+        text-align: center;
+
+        .subText{
+            @include font('small');
+        }
+    }
+}
+
+
+
+.modalWrapper {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .modalOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+    }
+
+    .modalContent {
+        background-color: #fff;
+        border-radius: 8px;
+        // max-width: 80%;
+        // max-height: 80%;
+        width: 80vw;
+        overflow: auto;
+        z-index: 2;
+
+        .modalHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+
+            .modalCloseButton {
+                border: none;
+                background-color: transparent;
+                color: #888;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+
+                &:hover {
+                    color: #000;
+                }
+            }
+        }
+
+        .modalBody {
+            //padding: 16px;
+        }
+    }
+}
+
+
+.sendModal {
+    @include flexCol();
+    @include colItemPos(1);
+    @include myPadding(2vw, 2vw, 0px, 2vw);
+
+    background-color: map-get($map: $primary, $key: disabled);
+    align-self: center;
+    border-radius: 10px;
+    gap: .5vw;
+
+    .mainNav {
+
+        @include flexRow();
+        @include rowItemPos(2);
+
+        gap: 10px;
+
+        .navItem {
+            flex-basis: 40%;
+            padding: 2vw;
+
+
+            cursor: pointer;
+
+            @include font('medium');
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease-in-out;
+
+
+        }
+    }
+
+    .navItemActive {
+
+        border-bottom: solid map-get($map: $primary, $key: active) .4vw;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+    }
+
+    .field {
+        border-radius: 10px;
+        border: solid gray 1px;
+        height: 5vw;
+        background-color: map-get($map: $secondary, $key: disabled);
+        padding: 1vw;
+        @include flexRow();
+
+        input {
+            //@include showBorder(blue);
+            flex: 1 1 100%;
+            @include font('medium');
+        }
+    }
+
+    .sendBtn {
+        @include btn();
+        @include font('medium');
+        color: #fff;
+    }
+}
+
+.topNav {
+
+    @include flexRow();
+    @include rowItemPos(4);
+    @include myPadding(2vw, 2vw, 0px, 0vw);
+
+    .navBtns {
+
+        @include flexRow();
+        @include rowItemPos(4);
+
+        @include colItemPos('center');
+        gap: 1vw;
+
+        .navBtn {
+            //@include showBorder(blue);
+        }
+
+        .logout {
+            cursor: pointer;
+
+            &:hover {
+                color: map-get($map: $primary, $key: active);
+            }
+        }
+
+        .network {
+            // @include btn();
+
+
+            @include iconBtn($gap:1vw);
+            //@include myPadding(2vw, 2vw, 10px,10px);
+
+            border-radius: 20px;
+            color: #fff;
+
+            .icon {
+                width: 2vw;
+                height: 2vw;
+            }
+        }
+
+    }
+
+}
