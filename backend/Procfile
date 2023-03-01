@@ -1,4 +1,4 @@
-web: npm run start:prod
+web: npm run db:seed:deploy || true && npm run start:prod
 
 // web: cd backend && ls -l && npm run build && ls -l dist && npm run start:dist
 

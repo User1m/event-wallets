@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 // import signUpReducer from '../cleanerPages/onboarding/Signup/signupSlice';
 // import verifyOtp from '../cleanerPages/onboarding/verifyOtp/verifyOtpSlice';
 // import resetPasswordReducer from '../cleanerPages/onboarding/resetPassword/resetPasswordSlice';
@@ -17,7 +17,7 @@ export const store = configureStore({
     // emailVerification: emailVerificationReducer,
     // phoneVerification: phoneVerificationReducer
   }
-});
+})
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

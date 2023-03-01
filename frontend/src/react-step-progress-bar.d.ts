@@ -1,5 +1,5 @@
 declare module 'react-step-progress-bar' {
-  import React from 'react';
+  import React from 'react'
 
   interface ProgressBarProps {
     percent: number

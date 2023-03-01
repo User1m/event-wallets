@@ -1,47 +1,42 @@
-// import React from 'react';
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-// function ConfirmEmail() {
-//   return (
-//     <div className="confirmEmail">
-//       <div className="container">
-//         <a href="/">
-//         Confirm Email
-//         </a>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default ConfirmEmail;
-
-import React, { useEffect, useRef } from 'react';
-
-function ConfirmEmail () {
-  const confirmEmailRef = useRef<HTMLAnchorElement>(null);
+const ConfirmEmail = () => {
+  const [uId, setUID] = useState('')
+  const confirmEmailRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
+    const pathSplit = window.location.pathname.split('/')
+    console.log('pathSplit', pathSplit.length)
+    setUID(pathSplit[2])
     const confirmEmailTimer = setTimeout(() => {
       if (confirmEmailRef.current) {
-        confirmEmailRef.current.click();
+        confirmEmailRef.current.click()
       }
-    }, 5000);
-
-    return () => clearTimeout(confirmEmailTimer);
-  }, []);
+    }, 2000)
+    return () => clearTimeout(confirmEmailTimer)
+  }, [])
 
   return (
     <div className="confirmEmail">
       <div className="container">
-        <a href="/" ref={confirmEmailRef}>
-          Go to your email to confirm your event wallet!
+        <a
+          href={
+            uId
+              ? window.location.href.replace('confirm', 'wallet')
+              : 'https://www.mailinator.com/'
+          }
+          rel="noreferrer"
+          ref={confirmEmailRef}
+        >
+          {uId
+            ? 'Creating your event wallet....'
+            : 'Go to your email to confirm your event wallet!'}
         </a>
-
-        <div className="subText">
-          This page will refresh in 5 seconds...
-        </div>
+        <div className="subText">This page will redirect in 2 seconds...</div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ConfirmEmail;
+export default ConfirmEmail

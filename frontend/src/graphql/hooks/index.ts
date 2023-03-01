@@ -1,5 +1,5 @@
-import swal from 'sweetalert';
-import { toast } from 'react-toastify';
+import swal from 'sweetalert'
+import { toast } from 'react-toastify'
 
 export default function useDialog () {
   const createSuccess = () => {
@@ -10,13 +10,13 @@ export default function useDialog () {
       buttons: ['', 'check your email']
     })
       .then(() => {
-        toast.success('Your clean request is pending \n check your email');
+        toast.success('Your clean request is pending \n check your email')
       })
       .catch(() => {
-        toast.error('Something went wrong. Please try again.');
-      });
-  };
+        toast.error('Something went wrong. Please try again.')
+      })
+  }
   return {
     createSuccess
-  };
+  }
 }

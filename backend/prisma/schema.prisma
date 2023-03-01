@@ -23,13 +23,14 @@ generator typegraphql {
 }
 
 model Org {
-  id       String  @id @default(uuid())
-  name     String?
-  email    String  @unique
-  password String
-  picture  String?
-  eventUrl String?
-  users    User[]
+  id        String  @id @default(uuid())
+  name      String?
+  email     String  @unique
+  password  String
+  picture   String?
+  eventUrl  String?
+  // eventSlug String?
+  users     User[]
 }
 
 model User {

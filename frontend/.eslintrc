@@ -52,10 +52,8 @@
     "@typescript-eslint/object-curly-spacing": 1,
     "@typescript-eslint/space-before-function-paren": 1,
     "@typescript-eslint/keyword-spacing": 1,
-    "semi": [
-      "error",
-      "always"
-    ],
+    "@typescript-eslint/quotes": 1,
+    "semi": 1,
     "multiline-ternary": 0
   }
 }

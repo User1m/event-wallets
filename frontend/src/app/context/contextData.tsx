@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { ContextStore } from '@app/context/contextStore';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react'
+import { ContextStore } from '@app/context/contextStore'
+import { useLocation } from 'react-router-dom'
 
 interface FormDataProps {
   children: React.ReactNode
 }
 
 const FormDataProvider = ({ children }: FormDataProps) => {
-  const [nextForm, setNextForm] = useState(1);
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [usernameEntered, setUsernameEntered] = useState('');
-  const [instantQuote, setInstantQuote] = useState<number>(1);
-  const [estimateCostModal, setEstimateCostModal] = useState(false);
-  const [bookCleanModal, setBookCleanModal] = useState(false);
-  const [clientDetail, setClientDetail] = useState({});
-  const [cleanCost, setCleanCost] = useState(null);
-  const [cleanerDetail, setCleanerDetail] = useState({});
+  const [nextForm, setNextForm] = useState(1)
+  const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [usernameEntered, setUsernameEntered] = useState('')
+  const [instantQuote, setInstantQuote] = useState<number>(1)
+  const [estimateCostModal, setEstimateCostModal] = useState(false)
+  const [bookCleanModal, setBookCleanModal] = useState(false)
+  const [clientDetail, setClientDetail] = useState({})
+  const [cleanCost, setCleanCost] = useState(null)
+  const [cleanerDetail, setCleanerDetail] = useState({})
   const [quoteFormData, setQuoteFormData] = useState({
     // step-1
     serviceCategory: '',
@@ -53,7 +53,7 @@ const FormDataProvider = ({ children }: FormDataProps) => {
     lastName: '',
     phoneNumber: '',
     email: ''
-  });
+  })
 
   const [contactInfo, setContactInfo] = useState({
     title: '',
@@ -61,14 +61,14 @@ const FormDataProvider = ({ children }: FormDataProps) => {
     lastName: '',
     phoneNumber: '',
     email: ''
-  });
+  })
   const getLastLink = () => {
-    const location = useLocation();
-    const path = location.pathname;
-    const getLink = path.split('/');
-    const getLastLink = getLink[getLink.length - 1];
-    return getLastLink;
-  };
+    const location = useLocation()
+    const path = location.pathname
+    const getLink = path.split('/')
+    const getLastLink = getLink[getLink.length - 1]
+    return getLastLink
+  }
 
   const value = {
     nextForm,
@@ -96,11 +96,11 @@ const FormDataProvider = ({ children }: FormDataProps) => {
     getLastLink,
     cleanerDetail,
     setCleanerDetail
-  };
+  }
 
   return (
     <ContextStore.Provider value={value}>{children}</ContextStore.Provider>
-  );
-};
+  )
+}
 
-export default FormDataProvider;
+export default FormDataProvider

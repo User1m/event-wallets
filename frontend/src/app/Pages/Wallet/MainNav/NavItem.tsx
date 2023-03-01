@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 interface NavItemProps {
   Icon: JSX.Element
@@ -11,7 +11,7 @@ function NavItem ({ Icon, Text }: NavItemProps) {
       <div className="icon">{Icon}</div>
       <div className="text">{Text}</div>
     </>
-  );
+  )
 }
 
-export default NavItem;
+export default NavItem

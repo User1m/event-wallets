@@ -1,17 +1,11 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
   Img: JSX.Element
 }
 
 function BannerImg ({ Img }: Props) {
-  return (
-    <div className='bannerImg'>
+  return <div className="bannerImg">{Img}</div>
+}
 
-        {Img}
-
-    </div>
-  );
-};
-
-export default BannerImg;
+export default BannerImg

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 interface NFTCardProps {
   NFTImg: JSX.Element
@@ -8,16 +8,12 @@ interface NFTCardProps {
 function NFTCard ({ NFTImg, Name }: NFTCardProps) {
   return (
     <>
-      <div className="imgContainer">
-        {NFTImg}
-      </div>
+      <div className="imgContainer">{NFTImg}</div>
       <div className="textContainer">
-        <div className="name">
-          {Name}
-        </div>
+        <div className="name">{Name}</div>
       </div>
     </>
-  );
+  )
 }
 
-export default NFTCard;
+export default NFTCard

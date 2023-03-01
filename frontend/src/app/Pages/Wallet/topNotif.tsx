@@ -1,40 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 interface TopNotifProps {
   Text: string
 }
 
 const TopNotif: React.FC<TopNotifProps> = ({ Text }) => {
-  const removeAfter = (timeout: number) => { //, callback: () => void) => {
+  const removeAfter = (timeout: number) => {
+    //, callback: () => void) => {
     const timeoutId = setTimeout(() => {
       // callback();
-    }, timeout);
+    }, timeout)
 
     setTimeout(() => {
-      const bannerEl = document.querySelector('.banner');
+      const bannerEl = document.querySelector('.banner')
       if (bannerEl) {
-        bannerEl.classList.add('disappear');
+        bannerEl.classList.add('disappear')
       }
-    }, timeout - 1000);
+    }, timeout - 1000)
 
     return () => {
-      clearTimeout(timeoutId);
-    };
-  };
+      clearTimeout(timeoutId)
+    }
+  }
 
   useEffect(() => {
-    removeAfter(10000);// () => setShowNotif(false));
-  }, []);
+    removeAfter(10000) // () => setShowNotif(false));
+  }, [])
 
   return (
     <>
-
-        <div className="banner">
-          {Text}
-        </div>
-
+      <div className="banner">{Text}</div>
     </>
-  );
-};
+  )
+}
 
-export default TopNotif;
+export default TopNotif

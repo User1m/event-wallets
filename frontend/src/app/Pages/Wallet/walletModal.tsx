@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 interface ModalProps {
   isOpen: boolean
@@ -8,7 +8,7 @@ interface ModalProps {
 
 function Modal ({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) {
-    return null;
+    return null
   }
 
   return (
@@ -23,7 +23,7 @@ function Modal ({ isOpen, onClose, children }: ModalProps) {
         <div className="modalBody">{children}</div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Modal;
+export default Modal
