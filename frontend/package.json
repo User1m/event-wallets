@@ -74,7 +74,7 @@
   "scripts": {
     "start": "craco start",
     "start:prod": "serve -s build",
-    "build": "craco build",
+    "build": "yarn schema:gen:ci || true && craco build",
     "test": "craco test",
     "eject": "craco eject",
     "compile": "graphql-codegen",
