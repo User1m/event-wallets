@@ -9,7 +9,11 @@ const Email = () => {
   const [createUser, { loading }] = useMutation(CREATE_USER)
   const navigation = useNavigate()
 
-  const onSubmit = async () => {
+  // console.log('window.location', window.location)
+
+  const onSubmit = async (e: React.MouseEvent<HTMLElement>) => {
+    // console.log("here")
+    e.preventDefault()
     if (email === '') {
       return
     }
@@ -17,18 +21,23 @@ const Email = () => {
       toast.error('Network error')
       return
     }
-    const orgId = window.location.pathname.split('/')[1]
+    const pathSplit = window.location.pathname.split('/')
+    const orgId = pathSplit[1]
+    const input = { email, orgId }
+    // console.log('input', input)
+
     createUser({
       variables: {
-        input: {
-          email,
-          orgId
-        }
+        input
       },
       onCompleted (data) {
-        console.log('data', data)
+        // console.log('data', data)
         if (data) {
-          navigation(`${orgId}/emailConf`)
+          // navigation(`${orgId}/emailConf/${email}`)
+          window.location.href = window.location.href.replace(
+            `/${orgId}`,
+            `/${orgId}/emailConf/${email}`
+          )
         }
       },
       onError (error) {
@@ -47,7 +56,7 @@ const Email = () => {
         placeholder="Enter Your Email"
       />
       <div className="authBtn">
-        <a href="emailConf" onClick={onSubmit}>
+        <a href="" onClick={onSubmit}>
           Sign in With Email
         </a>
       </div>

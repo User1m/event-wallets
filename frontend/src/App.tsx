@@ -12,7 +12,7 @@ function App () {
         <Route path="/:orgId" element={<LandingPage />} />
         <Route path="/:orgId/u/:uId/confirm" element={<ConfirmEmail />} />
         <Route path="/:orgId/u/:uId/wallet" element={<WalletPage />} />
-        <Route path="/:orgId/emailConf" element={<ConfirmEmail />} />
+        <Route path="/:orgId/emailConf/*" element={<ConfirmEmail />} />
       </Routes>
     </div>
   )

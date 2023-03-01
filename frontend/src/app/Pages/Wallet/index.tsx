@@ -29,6 +29,7 @@ const WalletPage = () => {
       return
     }
     if (data) {
+      console.log('data', data)
       setUser(data?.findFirstUser)
       if (data?.findFirstUser?.accAddress === '') {
         confirmUser({
@@ -39,7 +40,7 @@ const WalletPage = () => {
           },
           onCompleted (data) {
             console.log('_data', data)
-            // setUser(data?.findFirstUser)
+            setUser(data?._confirmUser)
           },
           onError (error) {
             console.log(error)

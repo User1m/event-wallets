@@ -38,7 +38,7 @@ model User {
   email        String
   username     String?
   accAddress   String?       @default("")
-  org          Org?          @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  org          Org          @relation(fields: [orgId], references: [id], onDelete: Cascade)
   orgId        String
   transactions Transaction[]
 

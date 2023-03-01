@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom'
 const ConfirmEmail = () => {
   const [uId, setUID] = useState('')
   const confirmEmailRef = useRef<HTMLAnchorElement>(null)
+  const pathSplit = window.location.pathname.split('/')
+  const email = pathSplit[3]
 
   useEffect(() => {
-    const pathSplit = window.location.pathname.split('/')
-    console.log('pathSplit', pathSplit.length)
-    setUID(pathSplit[2])
+    // console.log('pathSplit', pathSplit.length)
+    if (pathSplit[2] !== 'emailConf') {
+      setUID(pathSplit[2])
+    }
     const confirmEmailTimer = setTimeout(() => {
       if (confirmEmailRef.current) {
         confirmEmailRef.current.click()
@@ -24,7 +27,7 @@ const ConfirmEmail = () => {
           href={
             uId
               ? window.location.href.replace('confirm', 'wallet')
-              : 'https://www.mailinator.com/'
+              : `https://www.${email.split('@')[1]}`
           }
           rel="noreferrer"
           ref={confirmEmailRef}

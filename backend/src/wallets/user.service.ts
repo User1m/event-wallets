@@ -16,10 +16,12 @@ export class UserService {
   async createUser(input: CreateUserInput) {
     const { email, orgId } = input;
     //check for existing user;
-    const user = await this.prisma.user.findFirst({
+    const user = await this.prisma.user.findUnique({
       where: {
-        email: email,
-        orgId: orgId,
+        orgUserIdentifier: {
+          email,
+          orgId,
+        }
       },
     });
 
@@ -31,7 +33,7 @@ export class UserService {
         ...omit(input, ['orgId', 'accAddress']),
         org: {
           connect: {
-            id: input.orgId,
+            id: orgId,
           },
         },
       },
