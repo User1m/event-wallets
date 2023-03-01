@@ -18,14 +18,12 @@ npm-debug.log
 /.nyc_output
 
 # dist
-**/dist
-**/build
-**/prisma/*.db*
-**/prisma/graphql/generated/
-**/schema.gql
-**/.eslintcache
-**/.env
-**/__generated__
-**/*.mp4
-**/*.txt
-**/*.log
+/dist
+# **/build
+/prisma/*.db*
+/prisma/graphql/generated/
+schema.gql
+.eslintcache
+.env
+*.log
+*.txt

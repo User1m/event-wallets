@@ -14,7 +14,7 @@ export class CreateUserInput implements Pick<UserUncheckedCreateInput, 'email' |
   orgId!: string;
 
   @Field((_type) => String, {
-    nullable: false,
+    nullable: true,
   })
   username?: string;
 }
