@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Email() {
+function Email () {
   return (
     <div className="email">
       <input type="email" placeholder="Enter Your Email"/>

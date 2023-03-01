@@ -1,0 +1,24 @@
+web: npm run schema:gen:ci || true && npm run start:prod
+
+// https://stackoverflow.com/a/66633522
+
+// https://medium.com/@nikmacentosh/deploying-nestjs-server-to-heroku-guide-46e36f8ce779
+// https://medium.com/@terence410/setup-nestjs-server-on-heroku-1475c5cdb1d1
+// https://www.youtube.com/watch?v=KD9OaryS1Kw
+// https://devcenter.heroku.com/articles/git
+
+// https://devcenter.heroku.com/articles/procfile
+// heroku create -a event-wallets-api
+// heroku buildpacks:set heroku/nodejs //https://devcenter.heroku.com/articles/buildpacks
+// heroku config:set NODE_ENV=production
+// heroku config:set NPM_CONFIG_PRODUCTION=false   //https://stackoverflow.com/a/28443982 
+// git remote -v
+// git push heroku master main
+// heroku logs --tail   // https://devcenter.heroku.com/articles/logging#view-logs
+// heroku apps:rename event-wallets-api     // https://devcenter.heroku.com/articles/renaming-apps
+// heroku config:set       //https://devcenter.heroku.com/articles/config-vars
+// heroku apps:destroy    //https://help.heroku.com/LGKL6LTN/how-do-i-delete-destroy-a-heroku-application
+// heroku config:unset NODE_ENV
+// heroku config
+// heroku config:set NODE_OPTIONS="--max_old_space_size=8192" //https://blog.heroku.com/node-habits-2016#7-avoid-garbage
+// gcomm 'updates' && git push heroku master

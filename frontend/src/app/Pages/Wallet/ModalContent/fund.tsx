@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FundModal() {
+function FundModal () {
   return (
     <div>FundPage</div>
   );

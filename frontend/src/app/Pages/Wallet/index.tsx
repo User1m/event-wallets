@@ -21,4 +21,3 @@ function WalletPage () {
 }
 
 export default WalletPage;
-

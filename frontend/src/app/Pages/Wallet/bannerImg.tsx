@@ -1,10 +1,10 @@
 import React from 'react';
 
 interface Props {
-    Img: JSX.Element;
-  }
+  Img: JSX.Element
+}
 
-function BannerImg({ Img }: Props) {
+function BannerImg ({ Img }: Props) {
   return (
     <div className='bannerImg'>
 

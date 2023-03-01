@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface NavItemProps {
-  Icon: JSX.Element;
-  Text: string;
+  Icon: JSX.Element
+  Text: string
 }
 
-function NavItem({ Icon, Text }: NavItemProps) {
+function NavItem ({ Icon, Text }: NavItemProps) {
   return (
     <>
       <div className="icon">{Icon}</div>
@@ -15,4 +15,3 @@ function NavItem({ Icon, Text }: NavItemProps) {
 }
 
 export default NavItem;
-

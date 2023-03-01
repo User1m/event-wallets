@@ -16,7 +16,7 @@
 
 import React, { useEffect, useRef } from 'react';
 
-function ConfirmEmail() {
+function ConfirmEmail () {
   const confirmEmailRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {

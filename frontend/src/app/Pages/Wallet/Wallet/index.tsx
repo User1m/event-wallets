@@ -3,9 +3,7 @@
 // import Nfts from './nfts';
 // import Tokens from './tokens';
 
-
 // function WalletComp () {
-
 
 //   return (
 
@@ -34,7 +32,7 @@ import WalletNav from './nav';
 import Nfts from './nfts';
 import Tokens from './tokens';
 
-function WalletComp() {
+function WalletComp () {
   const [activeTab, setActiveTab] = useState('Tokens');
 
   const handleTabClick = (tabName: string) => {

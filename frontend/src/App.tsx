@@ -18,10 +18,10 @@ function App () {
     case '/':
       Page = <LandingPage></LandingPage>;
       break;
-    
+
     case '/wallet':
-       Page =     <WalletPage></WalletPage>;
-       break;
+      Page = <WalletPage></WalletPage>;
+      break;
 
     case '/emailConf':
       Page = <ConfirmEmail></ConfirmEmail>;
@@ -35,7 +35,7 @@ function App () {
       {Page}
       {/* <LandingPage></LandingPage> */}
       {/* <WalletPage></WalletPage> */}
-  
+
   </div>
 
   );

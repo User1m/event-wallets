@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface TopNotifProps {
-  Text: string;
+  Text: string
 }
 
 const TopNotif: React.FC<TopNotifProps> = ({ Text }) => {
@@ -23,7 +23,7 @@ const TopNotif: React.FC<TopNotifProps> = ({ Text }) => {
   };
 
   useEffect(() => {
-    removeAfter(10000,);// () => setShowNotif(false));
+    removeAfter(10000);// () => setShowNotif(false));
   }, []);
 
   return (
@@ -32,10 +32,9 @@ const TopNotif: React.FC<TopNotifProps> = ({ Text }) => {
         <div className="banner">
           {Text}
         </div>
-  
+
     </>
   );
 };
 
 export default TopNotif;
-

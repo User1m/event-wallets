@@ -1,7 +1,4 @@
 import gql from 'graphql-tag';
-import {
-  LoginInput,
-} from '../__generated__/globalTypes';
 import { useQuery } from '@apollo/client';
 
 // export const LOGIN = gql`
@@ -18,7 +15,7 @@ import { useQuery } from '@apollo/client';
 //       input
 //     }
 //   });
-  
+
 //   localStorage.setItem('token', data?._login?.access_token || '');
 
 //   return { data, error, loading };

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 interface WalletNavProps {
-  onTabClick: (tabName: string) => void;
+  onTabClick: (tabName: string) => void
 }
 
 const navItems: string[] = ['Tokens', 'NFTs'];
 
-function WalletNav(props: WalletNavProps) {
+function WalletNav (props: WalletNavProps) {
   const [activeNavItem, setActiveNavItem] = useState(navItems[0]);
 
   const handleNavItemClick = (navItem: string) => {

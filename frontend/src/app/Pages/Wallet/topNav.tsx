@@ -1,7 +1,7 @@
 import React from 'react';
 import matic from '../../../static/img/matic.png';
 
-function TopNav() {
+function TopNav () {
   return (
     <div className="topNav">
       <div className="navBtns">
@@ -20,7 +20,6 @@ function TopNav() {
           Log Out
 
         </div>
-
 
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactComponent as GoogleLogo} from './google.svg';
+import { ReactComponent as GoogleLogo } from './google.svg';
 import Email from './email';
 
 function LoginCard () {
@@ -17,7 +17,7 @@ function LoginCard () {
         </div>
       </div>
       <div className="divider">
-        
+
       </div>
       <Email></Email>
 

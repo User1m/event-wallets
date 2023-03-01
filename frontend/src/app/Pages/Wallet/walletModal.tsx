@@ -1,12 +1,12 @@
 import React from 'react';
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
+  isOpen: boolean
+  onClose: () => void
+  children: React.ReactNode
 }
 
-function Modal({ isOpen, onClose, children }: ModalProps) {
+function Modal ({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) {
     return null;
   }
@@ -27,4 +27,3 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
 }
 
 export default Modal;
-

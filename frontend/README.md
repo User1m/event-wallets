@@ -21,7 +21,7 @@ Starter Frontend App
 ```bash
 RUN
 > mv .env.sample .env
-> export REACT_APP_GRAPHQL_URL=https://api.develop.usespritz.com/graphql (or your gQL endpoint)
+> export GRAPHQL_URL=https://api.develop.usespritz.com/graphql (or your gQL endpoint)
 > yarn schema:gen:ci   
 > yarn start 
 
