@@ -1,47 +1,74 @@
-// import React from 'react';
+import { useMutation } from '@apollo/client'
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { getUser } from 'src/graphql/queries'
+import { toast } from 'react-toastify'
+import { CREATE_WALLET } from 'src/graphql/mutations'
 
-// function ConfirmEmail() {
-//   return (
-//     <div className="confirmEmail">
-//       <div className="container">
-//         <a href="/">
-//         Confirm Email
-//         </a>
-//       </div>
-//     </div>
-//   );
-// }
+const ConfirmEmail = () => {
+  const confirmEmailRef = useRef<HTMLAnchorElement>(null)
+  const pathSplit = window.location.pathname.split('/')
+  const [email, setEmail] = useState(
+    pathSplit[2] === 'emailConf' ? pathSplit[3] : ''
+  )
+  const { data, error } = getUser({ id: { equals: pathSplit[3] || '' } })
+  const [confirmUser, { loading }] = useMutation(CREATE_WALLET)
 
-// export default ConfirmEmail;
-
-import React, { useEffect, useRef } from 'react';
-
-function ConfirmEmail () {
-  const confirmEmailRef = useRef<HTMLAnchorElement>(null);
+  // console.log("pathSplit", pathSplit[3])
+  // console.log("email", email)
+  // console.log("data", data)
 
   useEffect(() => {
+    if (data?.findFirstUser) {
+      setEmail(data.findFirstUser?.email)
+      if (data?.findFirstUser?.accAddress === '') {
+        confirmUser({
+          variables: {
+            input: {
+              id: data?.findFirstUser.id
+            }
+          },
+          onCompleted (data) {
+            console.log('_data', data)
+            toast.success('Wallet Created!')
+            // setUser(data?._confirmUser)
+          },
+          onError (error) {
+            console.log(error)
+            toast.error(error?.message)
+          }
+        })
+      }
+    }
     const confirmEmailTimer = setTimeout(() => {
       if (confirmEmailRef.current) {
-        confirmEmailRef.current.click();
+        confirmEmailRef.current.click()
       }
-    }, 5000);
-
-    return () => clearTimeout(confirmEmailTimer);
-  }, []);
+    }, 3000)
+    return () => clearTimeout(confirmEmailTimer)
+  }, [data?.findFirstUser])
 
   return (
     <div className="confirmEmail">
       <div className="container">
-        <a href="/" ref={confirmEmailRef}>
-          Go to your email to confirm your event wallet!
+        <a
+          href={
+            // data?.findFirstUser
+            //   ? window.location.href.replace('confirm', 'wallet')
+            //   :
+            `https://www.${email.split('@')[1]}`
+          }
+          rel="noreferrer"
+          ref={confirmEmailRef}
+        >
+          {data?.findFirstUser
+            ? 'Creating your event wallet....'
+            : 'Go to your email to confirm your event wallet!'}
         </a>
-
-        <div className="subText">
-          This page will refresh in 5 seconds...
-        </div>
+        <div className="subText">This page will redirect in 3 seconds...</div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ConfirmEmail;
+export default ConfirmEmail

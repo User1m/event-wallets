@@ -1,9 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 function FundModal () {
-  return (
-    <div>FundPage</div>
-  );
+  return <div>FundPage</div>
 }
 
-export default FundModal;
+export default FundModal

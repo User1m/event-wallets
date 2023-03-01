@@ -1,23 +1,44 @@
-import React from 'react';
-import MainNav from './MainNav';
-import TopNotif from './topNotif';
-import BannerImg from './bannerImg';
-import EDBannerImg from '../../../static/img/ed.png';
-import WalletComp from './Wallet';
-import TopNav from './topNav';
+import React, { useEffect, useState } from 'react'
+import MainNav from './MainNav'
+import TopNotif from './topNotif'
+import BannerImg from './bannerImg'
+import EDBannerImg from '../../../static/img/ed.png'
+import WalletComp from './Wallet'
+import TopNav from './topNav'
+import { toast } from 'react-toastify'
+import { getUser } from 'src/graphql/queries'
 
-function WalletPage () {
+const WalletPage = () => {
+  const [balance, setBalance] = useState('')
+  const [user, setUser] = useState({ email: null, accAddress: null })
+  // const navigation = useNavigate()
+
+  // console.log(window.location.pathname.split('/')[2])
+  const uId = window.location.pathname.split('/')[3]
+  const { data, error } = getUser({ id: { equals: uId } })
+  // console.log("data", data)
+  // console.log("uId", uId)
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+    if (data) {
+      console.log('data', data)
+      setUser(data?.findFirstUser)
+    }
+  }, [])
+
   return (
-
     <>
-      <TopNotif Text="👏 🎉 - Congrats! You just receieved 344.82 $SPORK for creating your Event Wallet!" />
-      <TopNav />
-      <BannerImg Img={<img src={EDBannerImg}/>} />
+      <TopNotif Text="👏 🎉 - Congrats! You just received 344.82 $SPORK for creating your Event Wallet!" />
+      <TopNav user={user?.accAddress || user?.email || uId} />
+      <BannerImg Img={<img src={EDBannerImg} />} />
       <MainNav />
       <WalletComp />
     </>
-
-  );
+  )
 }
 
-export default WalletPage;
+export default WalletPage

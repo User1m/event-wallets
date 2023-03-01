@@ -27,17 +27,17 @@
 
 // export default WalletComp;
 
-import React, { useState } from 'react';
-import WalletNav from './nav';
-import Nfts from './nfts';
-import Tokens from './tokens';
+import React, { useState } from 'react'
+import WalletNav from './nav'
+import Nfts from './nfts'
+import Tokens from './tokens'
 
 function WalletComp () {
-  const [activeTab, setActiveTab] = useState('Tokens');
+  const [activeTab, setActiveTab] = useState('Tokens')
 
   const handleTabClick = (tabName: string) => {
-    setActiveTab(activeTab === tabName ? '' : tabName);
-  };
+    setActiveTab(activeTab === tabName ? '' : tabName)
+  }
 
   return (
     <div className="wallet">
@@ -52,7 +52,7 @@ function WalletComp () {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default WalletComp;
+export default WalletComp

@@ -32,6 +32,7 @@
     "db:migrate:dev": "SKIP_PRISMA_VERSION_CHECK=true prisma db push",
     "db:migrate": "SKIP_PRISMA_VERSION_CHECK=true prisma migrate dev",
     "db:migrate:ci": "SKIP_PRISMA_VERSION_CHECK=true prisma migrate",
+    "db:seed:deploy": "node dist/prisma/seed.js",
     "db:seed": "yarn prisma db seed",
     "db:seed:dev": "DEBUG='prisma*' yarn prisma db seed",
     "db:gen:migrate": "yarn db:gen && yarn db:migrate",

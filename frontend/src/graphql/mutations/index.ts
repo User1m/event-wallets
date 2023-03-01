@@ -1,11 +1,22 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const CREATE_USER = gql`
-  mutation m($input: CreateUserInput!) {
+  mutation m1($input: CreateUserInput!) {
     _createUser(input: $input) {
       id
       orgId
       email
     }
   }
-`;
+`
+
+export const CREATE_WALLET = gql`
+  mutation m2($input: UserWhereUniqueInput!) {
+    _confirmUser(input: $input) {
+      id
+      orgId
+      email
+      accAddress
+    }
+  }
+`

@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 import genAddress from './smartAccount/address';
 import { CreateUserInput, ERC20TransferInput, TransferInput } from './inputs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { faucetUrl, GET_CONFIG } from '@src/utils';
+import { faucetUrl, getBaseUrl, GET_CONFIG } from '@src/utils';
 import { ethers } from 'ethers';
 
 @Injectable()
@@ -16,10 +16,12 @@ export class UserService {
   async createUser(input: CreateUserInput) {
     const { email, orgId } = input;
     //check for existing user;
-    const user = await this.prisma.user.findFirst({
+    const user = await this.prisma.user.findUnique({
       where: {
-        email: email,
-        orgId: orgId,
+        orgUserIdentifier: {
+          email,
+          orgId,
+        }
       },
     });
 
@@ -31,7 +33,7 @@ export class UserService {
         ...omit(input, ['orgId', 'accAddress']),
         org: {
           connect: {
-            id: input.orgId,
+            id: orgId,
           },
         },
       },
@@ -42,7 +44,7 @@ export class UserService {
 
     const { org } = newUser;
 
-    const verifyUrl = `https://event-wallets.herokuapp.com/${orgId}/${newUser.id}/confirm`;
+    const verifyUrl = `${getBaseUrl()}/${orgId}/u/${newUser.id}/confirm`;
     this.eventEmitter.emit('sendEmail', {
       subject: `Welcome to ${org.name}!`,
       message: `We hope you're as excited as us for ${org.name}!<br/> Create your ${org.name} event wallet below.`,
@@ -101,18 +103,18 @@ export class UserService {
 
   // create wallet account
   async createWallet(input: UserWhereUniqueInput) {
-    const { orgUserIdentifier } = input;
+    const { id } = input;
     //check for existing user;
     const user = await this.prisma.user.findUnique({
       where: {
-        orgUserIdentifier,
+        id,
       },
     });
 
     if (!user) throw new Error('User Not Found!');
 
     //create wallet
-    const { email, orgId } = orgUserIdentifier;
+    const { email, orgId } = user;
     const config = await GET_CONFIG(email, orgId);
     const accAddress = await genAddress(config);
     console.log('accAddress', accAddress);
@@ -134,15 +136,15 @@ export class UserService {
     });
 
     const { org } = res;
-    const loginUrl = `https://eventwallets.com/${org.id}/login`;
+    const loginUrl = `${getBaseUrl()}/${orgId}/u/${res.id}/wallet`;
     this.eventEmitter.emit('sendEmail', {
-      subject: 'Account Created!',
+      subject: 'Event Wallet Created!',
       message: `Congrats! Get ready for ${org.name}!<br/>
         Your event wallet <strong><${accAddress}></strong> has been created.<br/><br/>
         Here are your details:<br/>
         Email: ${res.email}<br/>
         Wallet Address: ${accAddress}<br/>
-        Login: <a href="${loginUrl}">${loginUrl}</a>
+        Wallet Login: <a href="${loginUrl}">${loginUrl}</a>
         <br/>
         <br/>
         <strong>Navigate to a faucet, such as <a href="${faucetUrl}">${faucetUrl}</a> to top off your wallet with some (Test)ETH!</strong>`,

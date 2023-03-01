@@ -1,5 +1,9 @@
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag'
+import { useQuery } from '@apollo/client'
+import {
+  UserWhereInput,
+  UserWhereUniqueInput
+} from '../__generated__/globalTypes'
 
 // export const LOGIN = gql`
 //   mutation login($input: LoginInput!) {
@@ -9,14 +13,43 @@ import { useQuery } from '@apollo/client';
 //   }
 // `;
 
-// export const loginService = (input: LoginInput) => {
-//   const { data, error, loading } = useQuery(LOGIN, {
-//     variables: {
-//       input
-//     }
-//   });
+export const WALLET_BALANCE = gql`
+  query q1($input: UserWhereUniqueInput!) {
+    _getWalletBalance(input: $input)
+  }
+`
 
-//   localStorage.setItem('token', data?._login?.access_token || '');
+export const getBalance = (input: UserWhereUniqueInput) => {
+  const { data, error, loading } = useQuery(WALLET_BALANCE, {
+    variables: {
+      input
+    }
+  })
 
-//   return { data, error, loading };
-// };
+  // localStorage.setItem('token', data?._login?.access_token || '');
+
+  return { data, error, loading }
+}
+
+export const GET_USER = gql`
+  query q2($input: UserWhereInput) {
+    findFirstUser(where: $input) {
+      id
+      orgId
+      email
+      accAddress
+    }
+  }
+`
+
+export const getUser = (input: UserWhereInput) => {
+  const { data, error, loading } = useQuery(GET_USER, {
+    variables: {
+      input
+    }
+  })
+
+  // localStorage.setItem('token', data?._login?.access_token || '');
+
+  return { data, error, loading }
+}

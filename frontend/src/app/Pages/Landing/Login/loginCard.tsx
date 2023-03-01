@@ -1,13 +1,12 @@
-import React from 'react';
-import { ReactComponent as GoogleLogo } from './google.svg';
-import Email from './email';
+import React from 'react'
+import { ReactComponent as GoogleLogo } from './google.svg'
+import Email from './email'
 
 function LoginCard () {
   return (
-
     <div className="loginCard">
       <div className="logo">EthDenver</div>
-      <div className="cta">Sign In To Access Your Wallet</div>
+      <div className="cta">Sign In To Access Your Event Wallet</div>
       <div className="authBtns">
         <div className="authBtn google">
           <div className="icon">
@@ -16,14 +15,10 @@ function LoginCard () {
           <div className="text">Sign In with Google</div>
         </div>
       </div>
-      <div className="divider">
-
-      </div>
-      <Email></Email>
-
-  </div>
-
-  );
+      <div className="divider"></div>
+      <Email />
+    </div>
+  )
 }
 
-export default LoginCard;
+export default LoginCard

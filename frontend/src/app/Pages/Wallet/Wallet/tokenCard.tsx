@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 interface TokenCardProps {
   TokenImg: JSX.Element
@@ -11,27 +11,17 @@ interface TokenCardProps {
 function TokenCard ({ TokenImg, Ticker, Price, Amount, Value }: TokenCardProps) {
   return (
     <>
-      <div className="icon">
-        {TokenImg}
-      </div>
+      <div className="icon">{TokenImg}</div>
       <div className="info info1">
-        <div className="top">
-          {Ticker}
-        </div>
-        <div className="btm">
-          {Price}
-        </div>
+        <div className="top">{Ticker}</div>
+        <div className="btm">{Price}</div>
       </div>
       <div className="info info2">
-        <div className="top">
-          {Amount}
-        </div>
-        <div className="btm">
-          {Value}
-        </div>
+        <div className="top">{Amount}</div>
+        <div className="btm">{Value}</div>
       </div>
     </>
-  );
+  )
 }
 
-export default TokenCard;
+export default TokenCard
