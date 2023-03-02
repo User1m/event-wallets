@@ -44,13 +44,13 @@ const SendModal = () => {
       toAddress: address,
       amount
     }
-    console.log('input', input)
+    // console.log('input', input)
     transferAmount({
       variables: {
         input
       },
       onCompleted (data) {
-        console.log('_data', data)
+        // console.log('_data', data)
         if (data) {
           alert(data._transfer)
           window.location.href = window.location.href.replace(
@@ -60,7 +60,7 @@ const SendModal = () => {
         }
       },
       onError (error) {
-        console.log('error', error)
+        // console.log('error', error)
         alert(error?.message)
       }
     })
