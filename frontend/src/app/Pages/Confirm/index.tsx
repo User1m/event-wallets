@@ -5,12 +5,16 @@ import { getUser } from 'src/graphql/queries'
 import { toast } from 'react-toastify'
 import { CREATE_WALLET } from 'src/graphql/mutations'
 
-const ConfirmEmail = () => {
+const ConfirmPage = () => {
   const confirmEmailRef = useRef<HTMLAnchorElement>(null)
-  const pathSplit = window.location.pathname.split('/')
-  const [email, setEmail] = useState(
-    pathSplit[2] === 'emailConf' ? pathSplit[3] : ''
-  )
+
+  const path = window.location.pathname
+  const isConfirm = path.includes('/confirm')
+  const isEmail = path.includes('/emailConf')
+  const isTransfer = path.includes('/transfer')
+
+  const pathSplit = path.split('/')
+  const [email, setEmail] = useState(isConfirm ? pathSplit[3] : '')
   const { data, error } = getUser({ id: { equals: pathSplit[3] || '' } })
   const [confirmUser, { loading }] = useMutation(CREATE_WALLET)
 
@@ -35,7 +39,7 @@ const ConfirmEmail = () => {
           },
           onError (error) {
             console.log(error)
-            toast.error(error?.message)
+            alert(error?.message)
           }
         })
       }
@@ -61,9 +65,13 @@ const ConfirmEmail = () => {
           rel="noreferrer"
           ref={confirmEmailRef}
         >
-          {data?.findFirstUser
-            ? 'Creating your event wallet....'
-            : 'Go to your email to confirm your event wallet!'}
+          {isEmail
+            ? 'Go to your email to confirm your event wallet!'
+            : isConfirm
+              ? 'Creating your event wallet....'
+              : isTransfer
+                ? 'Transfer initiated....'
+                : ''}
         </a>
         <div className="subText">This page will redirect in 3 seconds...</div>
       </div>
@@ -71,4 +79,4 @@ const ConfirmEmail = () => {
   )
 }
 
-export default ConfirmEmail
+export default ConfirmPage

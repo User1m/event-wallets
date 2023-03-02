@@ -18,7 +18,7 @@ const Email = () => {
       return
     }
     if (!navigator.onLine) {
-      toast.error('Network error')
+      alert('Network error')
       return
     }
     const pathSplit = window.location.pathname.split('/')
@@ -42,7 +42,7 @@ const Email = () => {
       },
       onError (error) {
         console.log(error)
-        toast.error(error?.message)
+        alert(error?.message)
       }
     })
   }

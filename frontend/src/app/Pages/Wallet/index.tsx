@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 import { getUser } from 'src/graphql/queries'
 
 const WalletPage = () => {
-  const [balance, setBalance] = useState('')
+  // const [balance, setBalance] = useState('')
   const [user, setUser] = useState({ email: null, accAddress: null })
   // const navigation = useNavigate()
 
@@ -21,14 +21,14 @@ const WalletPage = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error.message)
+      alert(error.message)
       return
     }
     if (data) {
-      console.log('data', data)
+      // console.log('data', data)
       setUser(data?.findFirstUser)
     }
-  }, [])
+  }, [data?.findFirstUser])
 
   return (
     <>
