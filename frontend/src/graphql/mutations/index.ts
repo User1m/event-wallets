@@ -20,3 +20,9 @@ export const CREATE_WALLET = gql`
     }
   }
 `
+
+export const TRANSFER_AMOUNT = gql`
+  mutation m3($input: TransferInput!) {
+    _transfer(input: $input)
+  }
+`

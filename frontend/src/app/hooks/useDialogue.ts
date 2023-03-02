@@ -13,7 +13,7 @@ export default function useDialog () {
         toast.success('Your clean request is pending \n check your email')
       })
       .catch(() => {
-        toast.error('Something went wrong. Please try again.')
+        alert('Something went wrong. Please try again.')
       })
   }
   return {
