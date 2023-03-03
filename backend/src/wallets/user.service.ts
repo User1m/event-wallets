@@ -3,7 +3,7 @@ import { PrismaService } from '@src/prisma/prisma.service';
 import { UserUncheckedCreateInput, UserWhereUniqueInput } from 'prisma/graphql/generated';
 import { omit } from 'lodash';
 import genAddress from './smartAccount/address';
-import { CreateUserInput, ERC20TransferInput, TransferInput } from './inputs';
+import { CreateUserInput, ERC20TransferInput, TransferInput, UserNetworkInput } from './inputs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { faucetUrl, getBaseUrl, GET_CONFIG } from '@src/utils';
 import { ethers } from 'ethers';
@@ -81,22 +81,26 @@ export class UserService {
   //   return ethers.utils.formatEther(balance)
   // }
 
-  async getBalance(input: UserWhereUniqueInput) {
-    const { orgUserIdentifier } = input;
+  async getBalance(input: UserNetworkInput) {
+    const { id, network } = input;
     //check for existing user;
     const user = await this.prisma.user.findUnique({
       where: {
-        orgUserIdentifier,
+        id,
       },
+      include: {
+        accounts: true
+      }
     });
 
     if (!user) throw new Error('User Not Found!');
 
-    const { email, orgId } = orgUserIdentifier;
+    const { email, orgId } = user;
     const config = await GET_CONFIG(email, orgId);
     //  https://docs.ethers.org/v5/getting-started/
     const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
-    const balance = await provider.getBalance(user.accAddress);
+    const networkAddress = user.accounts.find(x => x.network === network).address;
+    const balance = await provider.getBalance(networkAddress);
     return ethers.utils.formatEther(balance)
   }
 
@@ -109,48 +113,74 @@ export class UserService {
       where: {
         id,
       },
-    });
-
-    if (!user) throw new Error('User Not Found!');
-
-    //create wallet
-    const { email, orgId } = user;
-    const config = await GET_CONFIG(email, orgId);
-    const accAddress = await genAddress(config);
-    console.log('accAddress', accAddress);
-
-    // update user
-    const res = await this.prisma.user.update({
-      where: {
-        orgUserIdentifier: {
-          email,
-          orgId,
-        },
-      },
-      data: {
-        accAddress,
-      },
       include: {
         org: true,
       },
     });
 
-    const { org } = res;
-    const loginUrl = `${getBaseUrl()}/${orgId}/u/${res.id}/wallet`;
+    if (!user) throw new Error('User Not Found!');
+
+    //create 3 wallets
+    const { email, orgId } = user;
+    const config = await GET_CONFIG(email, orgId);
+    const network = 'goerli';
+    const accAddress = await genAddress(config);
+    console.log('accAddress', accAddress);
+
+    // // update user
+    // const res = await this.prisma.user.update({
+    //   where: {
+    //     orgUserIdentifier: {
+    //       email,
+    //       orgId,
+    //     },
+    //   },
+    //   data: {
+    //     accAddress,
+    //   },
+    //   include: {
+    //     org: true,
+    //   },
+    // });
+
+    // TODO: create 3 network accounts
+    await this.prisma.account.create({
+      data: {
+        network, 
+        address: accAddress,
+        user: {
+          connect: {
+            id: user.id
+          }
+        }
+      }
+    })
+
+    const { org } = user;
+    const loginUrl = `${getBaseUrl()}/${org.id}/u/${user.id}/wallet`;
     this.eventEmitter.emit('sendEmail', {
       subject: 'Event Wallet Created!',
       message: `Congrats! Get ready for ${org.name}!<br/>
         Your event wallet <strong><${accAddress}></strong> has been created.<br/><br/>
         Here are your details:<br/>
-        Email: ${res.email}<br/>
-        Wallet Address: ${accAddress}<br/>
-        Wallet Login: <a href="${loginUrl}">${loginUrl}</a>
+        Email: ${user.email}<br/>
+        Event Wallet Login: <a href="${loginUrl}">${loginUrl}</a>
         <br/>
         <br/>
         <strong>Navigate to a faucet, such as <a href="${faucetUrl}">${faucetUrl}</a> to top off your wallet with some (Test)ETH!</strong>`,
-      to: { name: res.username || 'there!', email: res.email },
+      to: { name: user.username || 'there!', email: user.email },
       image: org.picture,
       from: { name: org.name, email: org.email },
+    });
+
+    const res = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        org: true,
+        accounts: true,
+      },
     });
 
     return res;
@@ -158,13 +188,15 @@ export class UserService {
 
   private async getUserId(input: TransferInput) {
     // let userId = input.userId;
-    const { email, orgId } = input;
     const user = await this.prisma.user.findUnique({
       where: {
-        orgUserIdentifier: {
-          email,
-          orgId,
-        },
+        ...(input.id ?
+          { id: input.id } : {
+            orgUserIdentifier: {
+              email: input.email,
+              orgId: input.orgId,
+            },
+          })
       },
     });
     if (!user) throw new Error('User Not Found!');

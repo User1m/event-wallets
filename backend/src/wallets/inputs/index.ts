@@ -1,5 +1,29 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { UserWhereUniqueInput } from 'prisma/graphql/generated';
 import { UserUncheckedCreateInput } from 'prisma/graphql/generated';
+
+@InputType()
+export class UserNetworkInput implements Pick<UserWhereUniqueInput, 'id'> {
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  id!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  network!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  email?: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  orgId?: string;
+}
 
 @InputType()
 export class CreateUserInput implements Pick<UserUncheckedCreateInput, 'email' | 'orgId'> {
@@ -20,21 +44,11 @@ export class CreateUserInput implements Pick<UserUncheckedCreateInput, 'email' |
 }
 
 @InputType()
-export class TransferInput {
+export class TransferInput extends UserNetworkInput {
   // @Field(_type => String, {
   //   nullable: true
   // })
   // userId?: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  email?: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  orgId?: string;
 
   @Field((_type) => String, {
     nullable: false,

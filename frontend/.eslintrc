@@ -54,6 +54,8 @@
     "@typescript-eslint/keyword-spacing": 1,
     "@typescript-eslint/quotes": 1,
     "semi": 1,
-    "multiline-ternary": 0
+    "multiline-ternary": 0,
+    "arrow-spacing": 1,
+    "@typescript-eslint/type-annotation-spacing": 1
   }
 }

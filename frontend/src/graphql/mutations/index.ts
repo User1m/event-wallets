@@ -16,7 +16,7 @@ export const CREATE_WALLET = gql`
       id
       orgId
       email
-      accAddress
+      accounts
     }
   }
 `
