@@ -1,8 +1,7 @@
 import * as sabi from "./simpleAcctABI.json";
 import * as safbi from "./SimpleAccountFactory.json";
-import dotenv from 'dotenv';
-
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 export const abis = {
   simpleAccount: sabi,
@@ -17,7 +16,7 @@ export interface Network {
   owner?: string;
 }
 
-const WAGMIGangDeployer = "0x8b559858E63f14d323A1ad7c5238A96b273f999c";
+const WAGMI_OWNER = "0x8b559858E63f14d323A1ad7c5238A96b273f999c";
 
 export const NETWORKS: { [key: string]: Network } = {
   goerli: {
@@ -25,22 +24,22 @@ export const NETWORKS: { [key: string]: Network } = {
     chainId: 5,
     scanUrl: "https://goerli.etherscan.io",
     SAFAddress: "0x822cFC6B982285Ccb35Df85287DE57f44cb25814",
-    owner: WAGMIGangDeployer,
+    owner: WAGMI_OWNER,
   },
   mumbai: {
     url: process.env.MUMBAI_INFURA_URL,
     chainId: 80001,
     scanUrl: "https://mumbai.polygonscan.com",
     SAFAddress: "0xC529a6A67181E50859808eEFe5bBc589eB3dd609",
-    owner: WAGMIGangDeployer,
+    owner: WAGMI_OWNER,
   },
-  // base: {
-  //   url: process.env.BASE_INFURA_URL,
-  //   chainId: 84531,
-  // scanUrl: "",
-  //   SAFAddress: "0x???",
-  //   owner: WAGMIGangDeployer,
-  // },
+  base: {
+    url: process.env.BASE_INFURA_URL,
+    chainId: 84531,
+    scanUrl: "https://goerli.basescan.org",
+    SAFAddress: "0x25e7F2B0887A7d1D3B918563019eC44C3425c4b0",
+    owner: WAGMI_OWNER,
+  },
 }
 
 export const prevCreatedSimpleAccts = {

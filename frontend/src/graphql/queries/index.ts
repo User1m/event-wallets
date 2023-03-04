@@ -2,24 +2,17 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/client'
 import {
   UserWhereInput,
-  UserWhereUniqueInput
+  UserWhereUniqueInput,
+  UserNetworkInput
 } from '../__generated__/globalTypes'
 
-// export const LOGIN = gql`
-//   mutation login($input: LoginInput!) {
-//     _login(input: $input) {
-//       access_token
-//     }
-//   }
-// `;
-
 export const WALLET_BALANCE = gql`
-  query q1($input: UserWhereUniqueInput!) {
+  query q1($input: UserNetworkInput!) {
     _getWalletBalance(input: $input)
   }
 `
 
-export const getBalance = (input: UserWhereUniqueInput) => {
+export const getBalance = (input: UserNetworkInput) => {
   const { data, error, loading } = useQuery(WALLET_BALANCE, {
     variables: {
       input
@@ -37,7 +30,10 @@ export const GET_USER = gql`
       id
       orgId
       email
-      accounts
+      accounts {
+        network
+        address
+      }
     }
   }
 `

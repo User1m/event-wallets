@@ -40,8 +40,10 @@ export async function createSmartWallet(network: Network, salt: string) {
   // Get the simple acount factory contract
   const contract = await sdk.getContractFromAbi(network.SAFAddress, abis.simpleAccountFactory.abi);
 
+  console.log("network", network)
   //call the createAccount function on the factory contract
   const newSimpleAcct = await contract.call("createAccount", network.owner, salt);
+  console.log("here2")
 
   return { receipt: newSimpleAcct, address: await getWalletAddress(network, salt) }
 

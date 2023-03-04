@@ -10,11 +10,12 @@ const ConfirmPage = () => {
 
   const path = window.location.pathname
   const isConfirm = path.includes('/confirm')
-  const isEmail = path.includes('/emailConf')
+  const isEmailConf = path.includes('/emailConf')
   const isTransfer = path.includes('/transfer')
 
   const pathSplit = path.split('/')
-  const [email, setEmail] = useState(isConfirm ? pathSplit[3] : '')
+  console.log("pathSplit", pathSplit)
+  const [email, setEmail] = useState(isEmailConf ? pathSplit[3] : '')
   const { data, error } = getUser({ id: { equals: pathSplit[3] || '' } })
   const [confirmUser, { loading }] = useMutation(CREATE_WALLET)
 
@@ -65,7 +66,7 @@ const ConfirmPage = () => {
           rel="noreferrer"
           ref={confirmEmailRef}
         >
-          {isEmail
+          {isEmailConf
             ? 'Go to your email to confirm your event wallet!'
             : isConfirm
               ? 'Creating your event wallet....'
