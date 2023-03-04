@@ -4,10 +4,10 @@ import { UserUncheckedCreateInput } from 'prisma/graphql/generated';
 
 @InputType()
 export class UserNetworkInput implements Pick<UserWhereUniqueInput, 'id'> {
-  @Field((_type) => String, {
+  @Field((_type) => Number, {
     nullable: false,
   })
-  id!: string;
+  id!: number;
 
   @Field((_type) => String, {
     nullable: false,
@@ -33,9 +33,14 @@ export class CreateUserInput implements Pick<UserUncheckedCreateInput, 'email' |
   email!: string;
 
   @Field((_type) => String, {
-    nullable: false,
+    nullable: true,
   })
   orgId!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  eventSlug!: string;
 
   @Field((_type) => String, {
     nullable: true,
@@ -63,7 +68,6 @@ export class TransferInput extends UserNetworkInput {
 
 @InputType()
 export class TransferOwnerInput extends UserNetworkInput implements Omit<TransferInput, 'amount'> {
-
   @Field((_type) => String, {
     nullable: false,
   })

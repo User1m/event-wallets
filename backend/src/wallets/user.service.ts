@@ -2,28 +2,33 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@src/prisma/prisma.service';
 import { UserUncheckedCreateInput, UserWhereUniqueInput } from 'prisma/graphql/generated';
 import { omit } from 'lodash';
-import genAddress from './smartAccount/address';
+// import genAddress from './smartAccount/address';
 import { CreateUserInput, ERC20TransferInput, TransferInput, TransferOwnerInput, UserNetworkInput } from './inputs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { faucetUrl, getBaseUrl, GET_CONFIG } from '@src/utils';
 import { ethers } from 'ethers';
-import { NETWORKS } from './thirdweb/constants';
-import { createSmartWallet } from './thirdweb/script';
+// import { NETWORKS } from './thirdweb/constants';
+// import { createSmartWallet } from './thirdweb/script';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) { }
+  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) {}
 
   // create user
   async createUser(input: CreateUserInput) {
-    const { email, orgId } = input;
+    const { email, eventSlug } = input;
+    const org = await this.prisma.org.findUnique({
+      where: {
+        eventSlug,
+      },
+    });
     //check for existing user;
     const user = await this.prisma.user.findUnique({
       where: {
         orgUserIdentifier: {
           email,
-          orgId,
-        }
+          orgId: org.id,
+        },
       },
     });
 
@@ -32,11 +37,11 @@ export class UserService {
     // create user
     const newUser = await this.prisma.user.create({
       data: {
-        ...omit(input, ['orgId', 'accAddress']),
+        ...omit(input, ['orgId', 'eventSlug']),
         username: input?.username || email.split('@')[0],
         org: {
           connect: {
-            id: orgId,
+            id: org.id,
           },
         },
       },
@@ -45,9 +50,7 @@ export class UserService {
       },
     });
 
-    const { org } = newUser;
-
-    const verifyUrl = `${getBaseUrl()}/${orgId}/u/${newUser.id}/confirm`;
+    const verifyUrl = `${getBaseUrl()}/${org.eventSlug}/u/${newUser.id}/confirm`;
     this.eventEmitter.emit('sendEmail', {
       subject: `Welcome to ${org.name}!`,
       message: `We hope you're as excited as us for ${org.name}!<br/> Create your ${org.name} event wallet below.`,
@@ -89,11 +92,11 @@ export class UserService {
     //check for existing user;
     const user = await this.prisma.user.findUnique({
       where: {
-        id,
+        id: Number(id),
       },
       include: {
-        accounts: true
-      }
+        accounts: true,
+      },
     });
 
     if (!user) throw new Error('User Not Found!');
@@ -102,13 +105,14 @@ export class UserService {
     const config = await GET_CONFIG(email, orgId);
     //  https://docs.ethers.org/v5/getting-started/
     const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
-    const networkAddress = user.accounts.find(x => x.network === network).address;
+    const networkAddress = user.accounts.find((x) => x.network === network).address;
     const balance = await provider.getBalance(networkAddress);
-    return ethers.utils.formatEther(balance)
+    return ethers.utils.formatEther(balance);
   }
 
   // create wallet account
   async createWallet(input: UserWhereUniqueInput) {
+    console.log('input', input);
     const { id } = input;
     //check for existing user;
     const user = await this.prisma.user.findUnique({
@@ -124,24 +128,25 @@ export class UserService {
 
     //create 3 wallets
     const { email, orgId } = user;
-    this.eventEmitter.emit('createWallets', { userId: user.id, orgId });
+    this.eventEmitter.emit('createWallets', { userId: user.id });
+
     // const config = await GET_CONFIG(email, orgId);
     // const accAddress = await genAddress(config);
     // console.log('accAddress', accAddress);
 
     const { org } = user;
-    const loginUrl = `${getBaseUrl()}/${org.id}/u/${user.id}/wallet`;
+    const loginUrl = `${getBaseUrl()}/${org.eventSlug}/u/${user.id}/wallet`;
     this.eventEmitter.emit('sendEmail', {
       subject: 'Event Wallet Created!',
       message: `Congrats! Get ready for ${org.name}!<br/>
-        Your event wallet <strong><${user.id}></strong> has been created.<br/><br/>
+        Your event wallet has been created.<br/><br/>
         Here are your details:<br/>
         Email: ${user.email}<br/>
-        Event Wallet Login: <a href="${loginUrl}">${loginUrl}</a>
         <br/>
         <br/>
         <strong>Navigate to a faucet, such as <a href="${faucetUrl}">${faucetUrl}</a> to top off your wallet with some (Test)ETH!</strong>`,
       to: { name: user.username || 'there!', email: user.email },
+      action: [{ link: loginUrl, text: 'Event Wallet Login' }],
       image: org.picture,
       from: { name: org.name, email: org.email },
     });
@@ -163,13 +168,14 @@ export class UserService {
     // let userId = input.userId;
     const user = await this.prisma.user.findUnique({
       where: {
-        ...(input.id ?
-          { id: input.id } : {
-            orgUserIdentifier: {
-              email: input.email,
-              orgId: input.orgId,
-            },
-          })
+        ...(input.id
+          ? { id: Number(input.id) }
+          : {
+              orgUserIdentifier: {
+                email: input.email,
+                orgId: input.orgId,
+              },
+            }),
       },
     });
     if (!user) throw new Error('User Not Found!');

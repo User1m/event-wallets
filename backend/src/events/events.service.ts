@@ -7,7 +7,7 @@ import { faucetUrl, GET_CONFIG } from '@src/utils';
 // import erc20Transfer from '@src/wallets/smartAccount/erc20Transfer';
 // import transfer from '@src/wallets/smartAccount/transfer';
 import { Network, NETWORKS } from '@src/wallets/thirdweb/constants';
-import { createSmartWallet, transfer, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
+import { createWallet, transfer, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
 import { User } from 'prisma/graphql/generated';
 
 function sendErrorMsg(user: User) {
@@ -22,16 +22,19 @@ function sendErrorMsg(user: User) {
 
 @Injectable()
 export class EventsService {
-  constructor(private eventEmitter: EventEmitter2) { }
+  constructor(private eventEmitter: EventEmitter2) {}
   private prisma = new PrismaService();
   private readonly logger = new Logger(EventsService.name);
 
   @OnEvent('transferOwner', { async: true })
-  async transferOwner(payload: { userId: string; toAddress: string; network: string }) {
+  async transferOwner(payload: { userId: number; toAddress: string; network: string }) {
     // console.log('payload', payload);
     this.logger.log('transferring ownership...');
-    const { userId, toAddress, network
-      // usePaymaster 
+    const {
+      userId,
+      toAddress,
+      network,
+      // usePaymaster
     } = payload;
     const user = await this.prisma.user.findUnique({
       where: {
@@ -39,15 +42,15 @@ export class EventsService {
       },
       include: {
         org: true,
-        accounts: true
+        accounts: true,
       },
     });
 
-    const fromAddress = user.accounts.find(x => x.network === network).address;
+    const fromAddress = user.accounts.find((x) => x.network === network).address;
     const _network = NETWORKS[network];
     try {
       const res = await transferOwner(_network, fromAddress, toAddress);
-      
+
       this.eventEmitter.emit('sendEmail', {
         subject: 'Owner Transfer Completed',
         message: `Congrats! Your ownership transfer completed. <strong>${toAddress}</strong> is now the owner of <strong>${fromAddress}</strong> on <strong>${network}</strong>`,
@@ -62,11 +65,15 @@ export class EventsService {
 
   @OnEvent('transfer', { async: true })
   // async transfer(payload: { userId: string; toAddress: string; amount: string; usePaymaster: boolean }) {
-  async transfer(payload: { userId: string; toAddress: string; amount: string; network: string }) {
+  async transfer(payload: { userId: number; toAddress: string; amount: string; network: string }) {
     // console.log('payload', payload);
     this.logger.log('transferring...');
-    const { userId, toAddress, amount, network
-      // usePaymaster 
+    const {
+      userId,
+      toAddress,
+      amount,
+      network,
+      // usePaymaster
     } = payload;
     const user = await this.prisma.user.findUnique({
       where: {
@@ -74,18 +81,18 @@ export class EventsService {
       },
       include: {
         org: true,
-        accounts: true
+        accounts: true,
       },
     });
     // const { email, org: { id: orgId }, } = user;
     // const config = await GET_CONFIG(email, orgId);
     // console.log("config", config);
     // const withPM = Boolean(usePaymaster || false);
-    const fromAddress = user.accounts.find(x => x.network === network).address;
+    const fromAddress = user.accounts.find((x) => x.network === network).address;
     const _network = NETWORKS[network];
     try {
       // const res = await transfer(config, toAddress, amount, withPM);
-      const res = await transfer(_network, amount, fromAddress, toAddress)
+      const res = await transfer(_network, amount, fromAddress, toAddress);
       await this.prisma.transaction.create({
         data: {
           // ...res,
@@ -118,10 +125,15 @@ export class EventsService {
 
   @OnEvent('erc20Transfer', { async: true })
   // async erc20Transfer(payload: { userId: string; token: string; toAddress: string; amount: string; usePaymaster: boolean }) {
-  async erc20Transfer(payload: { userId: string; token: string; toAddress: string; amount: string; network: string }) {
+  async erc20Transfer(payload: { userId: number; token: string; toAddress: string; amount: string; network: string }) {
     this.logger.log('erc20Transferring...');
-    const { token, userId, toAddress, amount, network
-      // usePaymaster 
+    const {
+      token,
+      userId,
+      toAddress,
+      amount,
+      network,
+      // usePaymaster
     } = payload;
 
     const user = await this.prisma.user.findUnique({
@@ -137,12 +149,12 @@ export class EventsService {
     // const { email, org: { id: orgId }, } = user;
     // const config = await GET_CONFIG(email, orgId);
     // const withPM = Boolean(usePaymaster || false);
-    const fromAddress = user.accounts.find(x => x.network === network).address;
+    const fromAddress = user.accounts.find((x) => x.network === network).address;
     const _network = NETWORKS[network];
 
     try {
       // const res = await erc20Transfer(config, token, toAddress, amount, withPM);
-      const res = await transferECR20(_network, token, amount, fromAddress, toAddress)
+      const res = await transferECR20(_network, token, amount, fromAddress, toAddress);
       await this.prisma.transaction.create({
         data: {
           // ...res,
@@ -152,7 +164,7 @@ export class EventsService {
               id: userId,
             },
           },
-        }
+        },
       });
 
       this.eventEmitter.emit('sendEmail', {
@@ -164,7 +176,8 @@ export class EventsService {
           { link: `${_network.scanUrl}/tx/${res}`, text: 'View on Transaction' },
           { link: `${_network.scanUrl}/address/${fromAddress}#internaltx`, text: 'View on Sender' },
           { link: `${_network.scanUrl}/address/${toAddress}#internaltx`, text: 'View on Receiver' },
-        ], image: user.org.picture,
+        ],
+        image: user.org.picture,
         from: { name: user.org.name, email: user.org.email },
       });
     } catch (error) {
@@ -179,14 +192,14 @@ export class EventsService {
   }
 
   @OnEvent('createWallets', { async: true })
-  async createWallets(payload: { userId: string, orgId: string }) {
+  async createWallets(payload: { userId: number }) {
     this.logger.log('Creating Wallets ...');
-    const { userId, orgId } = payload;
+    const { userId } = payload;
 
     for (const network of Object.keys(NETWORKS)) {
       //create address
       // const accAddress = await genAddress(config);
-      const { address } = await createSmartWallet(NETWORKS[network], orgId);
+      const { address } = await createWallet(NETWORKS[network], `${userId}`);
 
       //save address
       await this.prisma.account.create({
@@ -195,12 +208,15 @@ export class EventsService {
           address,
           user: {
             connect: {
-              id: userId
-            }
-          }
-        }
+              id: userId,
+            },
+          },
+        },
       });
     }
+
+    // const accAddress = await genAddress(config);
+    // const { address } = await createWallet(NETWORKS.goerli, '1234');
+    // console.log("address", address);
   }
 }
-

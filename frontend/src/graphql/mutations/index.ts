@@ -16,7 +16,10 @@ export const CREATE_WALLET = gql`
       id
       orgId
       email
-      accounts
+      accounts {
+        network
+        address
+      }
     }
   }
 `
@@ -24,5 +27,11 @@ export const CREATE_WALLET = gql`
 export const TRANSFER_AMOUNT = gql`
   mutation m3($input: TransferInput!) {
     _transfer(input: $input)
+  }
+`
+
+export const TRANSFER_OWNER = gql`
+  mutation m4($input: TransferOwnerInput!) {
+    _transferOwner(input: $input)
   }
 `

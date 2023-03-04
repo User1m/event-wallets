@@ -13,15 +13,20 @@ const TopNav = (props: PropType) => {
       <div className="navBtns">
         <div className="navBtn network">
           <div className="text">Network</div>
-          <select name="networks" id="networks"
+          <select
+            name="networks"
+            id="networks"
             style={{ backgroundColor: '#633ab0' }}
             onChange={(e) => {
               const network = e.target.value
-              console.log('network', network)
+              // console.log('network', network)
               props.setNetwork(network)
-            }}>
-            <option value="goerli" selected>Goerli</option>
-            <option value="polygon">Polygon</option>
+            }}
+          >
+            <option value="goerli" selected>
+              Goerli
+            </option>
+            <option value="mumbai">Polygon</option>
             <option value="base">Base</option>
           </select>
           <div className="icon">

@@ -26,6 +26,7 @@ RUN
 > yarn start 
 
 export GRAPHQL_URL=https://event-wallets-api.herokuapp.com/graphql && yarn schema:gen:ci && yarn start 
+export GRAPHQL_URL=http://localhost:3000/graphql && yarn schema:gen:ci && yarn start 
 ```
 
 ## Test

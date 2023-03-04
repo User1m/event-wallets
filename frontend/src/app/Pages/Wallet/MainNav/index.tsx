@@ -24,7 +24,11 @@ const MainNav = (props: PropType) => {
   const [modalContent, setModalContent] = useState<JSX.Element>()
 
   const navItems: NavItemDict[] = [
-    { label: 'Send', icon: <ArrowUp />, modalContent: <SendModal network={props?.network} /> },
+    {
+      label: 'Send',
+      icon: <ArrowUp />,
+      modalContent: <SendModal network={props?.network} />
+    },
     { label: 'Receive', icon: <ArrowDown /> },
     { label: 'Fund', icon: <Money />, modalContent: <FundModal /> },
     { label: 'Connect', icon: <Connect /> },

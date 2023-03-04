@@ -1,9 +1,8 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client';
 
-const password =
-  '$2b$10$KND4mTX9KGRJToSh/9ha.u6pmyQmPNaLxw/AQ3yUW6rVKYT33Gi6C'; // Password@1
+const password = '$2b$10$KND4mTX9KGRJToSh/9ha.u6pmyQmPNaLxw/AQ3yUW6rVKYT33Gi6C'; // Password@1
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // https://github.com/prisma/prisma-examples/tree/latest/typescript/graphql-nestjs/prisma
 const orgData: Prisma.OrgCreateInput[] = [
@@ -22,26 +21,26 @@ const orgData: Prisma.OrgCreateInput[] = [
         },
       ],
     },
-  }
-]
+  },
+];
 
 async function main() {
-  console.log(`Start seeding ...`)
+  console.log(`Start seeding ...`);
   for (const o of orgData) {
     const org = await prisma.org.create({
       data: o,
-    })
-    console.log(`Created org with id: ${org.id}`)
+    });
+    console.log(`Created org with id: ${org.id}`);
   }
-  console.log(`Seeding finished.`)
+  console.log(`Seeding finished.`);
 }
 
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

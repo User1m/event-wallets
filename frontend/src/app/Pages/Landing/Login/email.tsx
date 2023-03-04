@@ -1,13 +1,13 @@
 import { useMutation } from '@apollo/client'
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+// import { Link, useNavigate } from 'react-router-dom'
 import { CREATE_USER } from 'src/graphql/mutations'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 
 const Email = () => {
   const [email, setEmail] = useState('')
   const [createUser, { loading }] = useMutation(CREATE_USER)
-  const navigation = useNavigate()
+  // const navigation = useNavigate()
 
   // console.log('window.location', window.location)
 
@@ -22,8 +22,8 @@ const Email = () => {
       return
     }
     const pathSplit = window.location.pathname.split('/')
-    const orgId = pathSplit[1]
-    const input = { email, orgId }
+    const eventSlug = pathSplit[1]
+    const input = { email, eventSlug }
     // console.log('input', input)
 
     createUser({
@@ -35,8 +35,8 @@ const Email = () => {
         if (data) {
           // navigation(`${orgId}/emailConf/${email}`)
           window.location.href = window.location.href.replace(
-            `/${orgId}`,
-            `/${orgId}/emailConf/${email}`
+            `/${eventSlug}`,
+            `/${eventSlug}/emailConf/${email}`
           )
         }
       },
