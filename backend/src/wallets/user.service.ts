@@ -3,7 +3,7 @@ import { PrismaService } from '@src/prisma/prisma.service';
 import { UserUncheckedCreateInput, UserWhereUniqueInput } from 'prisma/graphql/generated';
 import { omit } from 'lodash';
 import genAddress from './smartAccount/address';
-import { CreateUserInput, ERC20TransferInput, TransferInput, UserNetworkInput } from './inputs';
+import { CreateUserInput, ERC20TransferInput, TransferInput, TransferOwnerInput, UserNetworkInput } from './inputs';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { faucetUrl, getBaseUrl, GET_CONFIG } from '@src/utils';
 import { ethers } from 'ethers';
@@ -159,7 +159,7 @@ export class UserService {
     return res;
   }
 
-  private async getUserId(input: TransferInput) {
+  private async getUserId(input: Partial<TransferInput>) {
     // let userId = input.userId;
     const user = await this.prisma.user.findUnique({
       where: {
@@ -175,6 +175,12 @@ export class UserService {
     if (!user) throw new Error('User Not Found!');
 
     return user.id;
+  }
+
+  async transferOwner(input: TransferOwnerInput) {
+    const userId = await this.getUserId(input);
+    this.eventEmitter.emit('transferOwner', { userId, ...input });
+    return "Ownership Transfer started. You'll be alerted once completed.";
   }
 
   async transfer(input: TransferInput) {

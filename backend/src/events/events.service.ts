@@ -4,16 +4,71 @@ import { sendMail } from '@src/common/mail';
 import { TemplateEmail } from '@src/common/mail/template';
 import { PrismaService } from '@src/prisma/prisma.service';
 import { faucetUrl, GET_CONFIG } from '@src/utils';
-import erc20Transfer from '@src/wallets/smartAccount/erc20Transfer';
+// import erc20Transfer from '@src/wallets/smartAccount/erc20Transfer';
 // import transfer from '@src/wallets/smartAccount/transfer';
 import { Network, NETWORKS } from '@src/wallets/thirdweb/constants';
-import { createSmartWallet, transfer, transferECR20 } from '@src/wallets/thirdweb/script';
+import { createSmartWallet, transfer, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
+import { User } from 'prisma/graphql/generated';
+
+function sendErrorMsg(user: User) {
+  this.eventEmitter.emit('sendEmail', {
+    subject: 'Transfer Failed!',
+    message: `Sorry! Your transfer failed.<br/><strong>Please <a href="${faucetUrl}">Top Off</a> your account with more money for GAS before trying your transfer again.</strong>`,
+    to: { name: user.username || 'there!', email: user.email },
+    image: user.org.picture,
+    from: { name: user.org.name, email: user.org.email },
+  });
+}
 
 @Injectable()
 export class EventsService {
   constructor(private eventEmitter: EventEmitter2) { }
   private prisma = new PrismaService();
   private readonly logger = new Logger(EventsService.name);
+
+  @OnEvent('transferOwner', { async: true })
+  async transferOwner(payload: { userId: string; toAddress: string; network: string }) {
+    // console.log('payload', payload);
+    this.logger.log('transferring ownership...');
+    const { userId, toAddress, network
+      // usePaymaster 
+    } = payload;
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        org: true,
+        accounts: true
+      },
+    });
+
+    const fromAddress = user.accounts.find(x => x.network === network).address;
+    const _network = NETWORKS[network];
+    try {
+      const res = await transferOwner(_network, fromAddress, toAddress)
+      await this.prisma.transaction.create({
+        data: {
+          txHash: res,
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
+      });
+
+      this.eventEmitter.emit('sendEmail', {
+        subject: 'Owner Transfer Completed',
+        message: `Congrats! Your ownership transfer completed. <strong>${toAddress}</strong> is now the owner of <strong>${fromAddress}</strong> on <strong>${network}</strong>`,
+        to: { name: user.username || 'there!', email: user.email },
+        image: user.org.picture,
+        from: { name: user.org.name, email: user.org.email },
+      });
+    } catch (error) {
+      sendErrorMsg(user);
+    }
+  }
 
   @OnEvent('transfer', { async: true })
   // async transfer(payload: { userId: string; toAddress: string; amount: string; usePaymaster: boolean }) {
@@ -67,13 +122,7 @@ export class EventsService {
         from: { name: user.org.name, email: user.org.email },
       });
     } catch (error) {
-      this.eventEmitter.emit('sendEmail', {
-        subject: 'Transfer Failed!',
-        message: `Sorry! Your transfer failed.<br/><strong>Please <a href="${faucetUrl}">Top Off</a> your account with more ETH before trying your transfer again.</strong>`,
-        to: { name: user.username || 'there!', email: user.email },
-        image: user.org.picture,
-        from: { name: user.org.name, email: user.org.email },
-      });
+      sendErrorMsg(user);
     }
   }
 
@@ -129,13 +178,7 @@ export class EventsService {
         from: { name: user.org.name, email: user.org.email },
       });
     } catch (error) {
-      this.eventEmitter.emit('sendEmail', {
-        subject: 'Transfer Failed!',
-        message: `Sorry! Your transfer failed.<br/><strong>Please <a href="${faucetUrl}">Top Off</a> your account with more ETH before trying your transfer again.</strong>`,
-        to: { name: user.username || 'there!', email: user.email },
-        image: user.org.picture,
-        from: { name: user.org.name, email: user.org.email },
-      });
+      sendErrorMsg(user);
     }
   }
 
@@ -168,7 +211,6 @@ export class EventsService {
         }
       });
     }
-
   }
 }
 

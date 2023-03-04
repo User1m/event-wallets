@@ -45,11 +45,6 @@ export class CreateUserInput implements Pick<UserUncheckedCreateInput, 'email' |
 
 @InputType()
 export class TransferInput extends UserNetworkInput {
-  // @Field(_type => String, {
-  //   nullable: true
-  // })
-  // userId?: string;
-
   @Field((_type) => String, {
     nullable: false,
   })
@@ -60,10 +55,19 @@ export class TransferInput extends UserNetworkInput {
   })
   amount!: string;
 
-  @Field((_type) => Boolean, {
-    nullable: true,
+  // @Field((_type) => Boolean, {
+  //   nullable: true,
+  // })
+  // usePaymaster?: boolean;
+}
+
+@InputType()
+export class TransferOwnerInput extends UserNetworkInput implements Omit<TransferInput, 'amount'> {
+
+  @Field((_type) => String, {
+    nullable: false,
   })
-  usePaymaster?: boolean;
+  toAddress!: string;
 }
 
 @InputType()

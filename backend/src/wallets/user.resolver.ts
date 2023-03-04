@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { User, UserUncheckedCreateInput, UserWhereUniqueInput } from 'prisma/graphql/generated';
-import { CreateUserInput, ERC20TransferInput, TransferInput } from './inputs';
+import { CreateUserInput, ERC20TransferInput, TransferInput, TransferOwnerInput, UserNetworkInput } from './inputs';
 import { UserService } from './user.service';
 
 @Resolver(() => User)
@@ -18,7 +18,7 @@ export class UserResolver {
   }
 
   @Query(() => Number)
-  _getWalletBalance(@Args('input') input: UserWhereUniqueInput) {
+  _getWalletBalance(@Args('input') input: UserNetworkInput) {
     return this.service.getBalance(input);
   }
 
@@ -35,6 +35,11 @@ export class UserResolver {
   @Mutation(() => String)
   _transferERC20Token(@Args('input') input: ERC20TransferInput) {
     return this.service.erc20Transfer(input);
+  }
+
+  @Mutation(() => String)
+  _transferOwner(@Args('input') input: TransferOwnerInput) {
+    return this.service.transferOwner(input);
   }
 
   // @Query(() => [Wallet], { name: 'wallets' })

@@ -65,8 +65,7 @@ export async function getSimpleAcctOwner(network: Network, accountAddress: strin
   return owner
 }
 
-// TODO:
-export async function setSimpleAcctOwner(network: Network, accountAddress: string, newOwnerAddr: string) {
+export async function transferOwner(network: Network, accountAddress: string, newOwnerAddr: string) {
   const contract = await getContract(network, accountAddress);
   await contract.call("setOwner", newOwnerAddr);
   const owner = await contract.call("owner");
@@ -80,6 +79,7 @@ export async function transfer(network: Network, amount: string, fromAddress: st
   return txHash;
 }
 
+// TODO:
 export async function transferECR20(network: Network, token: string, amount: string, fromAddress: string, toAddress: string): Promise<string> {
   const contract = await getContract(network, fromAddress);
   const txHash = await contract.call("erc20transfer", toAddress, amount, token,);
