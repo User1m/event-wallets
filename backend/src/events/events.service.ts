@@ -46,18 +46,8 @@ export class EventsService {
     const fromAddress = user.accounts.find(x => x.network === network).address;
     const _network = NETWORKS[network];
     try {
-      const res = await transferOwner(_network, fromAddress, toAddress)
-      await this.prisma.transaction.create({
-        data: {
-          txHash: res,
-          user: {
-            connect: {
-              id: userId,
-            },
-          },
-        },
-      });
-
+      const res = await transferOwner(_network, fromAddress, toAddress);
+      
       this.eventEmitter.emit('sendEmail', {
         subject: 'Owner Transfer Completed',
         message: `Congrats! Your ownership transfer completed. <strong>${toAddress}</strong> is now the owner of <strong>${fromAddress}</strong> on <strong>${network}</strong>`,
