@@ -7,6 +7,8 @@ import { CreateUserInput, ERC20TransferInput, TransferInput, UserNetworkInput } 
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { faucetUrl, getBaseUrl, GET_CONFIG } from '@src/utils';
 import { ethers } from 'ethers';
+import { NETWORKS } from './thirdweb/constants';
+import { createSmartWallet } from './thirdweb/script';
 
 @Injectable()
 export class UserService {
@@ -31,6 +33,7 @@ export class UserService {
     const newUser = await this.prisma.user.create({
       data: {
         ...omit(input, ['orgId', 'accAddress']),
+        username: input?.username || email.split('@')[0],
         org: {
           connect: {
             id: orgId,
@@ -104,7 +107,6 @@ export class UserService {
     return ethers.utils.formatEther(balance)
   }
 
-
   // create wallet account
   async createWallet(input: UserWhereUniqueInput) {
     const { id } = input;
@@ -122,46 +124,17 @@ export class UserService {
 
     //create 3 wallets
     const { email, orgId } = user;
-    const config = await GET_CONFIG(email, orgId);
-    const network = 'goerli';
-    const accAddress = await genAddress(config);
-    console.log('accAddress', accAddress);
-
-    // // update user
-    // const res = await this.prisma.user.update({
-    //   where: {
-    //     orgUserIdentifier: {
-    //       email,
-    //       orgId,
-    //     },
-    //   },
-    //   data: {
-    //     accAddress,
-    //   },
-    //   include: {
-    //     org: true,
-    //   },
-    // });
-
-    // TODO: create 3 network accounts
-    await this.prisma.account.create({
-      data: {
-        network, 
-        address: accAddress,
-        user: {
-          connect: {
-            id: user.id
-          }
-        }
-      }
-    })
+    this.eventEmitter.emit('createWallets', { userId: user.id, orgId });
+    // const config = await GET_CONFIG(email, orgId);
+    // const accAddress = await genAddress(config);
+    // console.log('accAddress', accAddress);
 
     const { org } = user;
     const loginUrl = `${getBaseUrl()}/${org.id}/u/${user.id}/wallet`;
     this.eventEmitter.emit('sendEmail', {
       subject: 'Event Wallet Created!',
       message: `Congrats! Get ready for ${org.name}!<br/>
-        Your event wallet <strong><${accAddress}></strong> has been created.<br/><br/>
+        Your event wallet <strong><${user.id}></strong> has been created.<br/><br/>
         Here are your details:<br/>
         Email: ${user.email}<br/>
         Event Wallet Login: <a href="${loginUrl}">${loginUrl}</a>
