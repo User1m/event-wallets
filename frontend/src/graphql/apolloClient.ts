@@ -7,8 +7,8 @@ const uri = window.location.href.includes('https://')
 console.log('uri', uri)
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({ uri })
-  // link: new HttpLink({ uri: 'https://event-wallets-api.herokuapp.com/graphql' })
+  // link: new HttpLink({ uri })
+  link: new HttpLink({ uri: 'https://event-wallets-api.herokuapp.com/graphql' })
 })
 
 export default client
