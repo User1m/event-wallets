@@ -74,27 +74,27 @@
     }
   ],
   "allSourcePaths": {
-    "0": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/interfaces/draft-IERC1822.sol",
-    "1": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/ERC1967/ERC1967Proxy.sol",
-    "10": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/Strings.sol",
-    "11": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/cryptography/ECDSA.sol",
-    "12": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/math/Math.sol",
+    "0": "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
+    "1": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
+    "10": "@openzeppelin/contracts/utils/Strings.sol",
+    "11": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+    "12": "@openzeppelin/contracts/utils/math/Math.sol",
     "13": "contracts/core/BaseAccount.sol",
     "15": "contracts/interfaces/IAccount.sol",
     "16": "contracts/interfaces/IAggregator.sol",
     "17": "contracts/interfaces/IEntryPoint.sol",
     "18": "contracts/interfaces/IStakeManager.sol",
     "19": "contracts/interfaces/UserOperation.sol",
-    "2": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/ERC1967/ERC1967Upgrade.sol",
+    "2": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol",
     "20": "contracts/samples/SimpleAccount.sol",
     "21": "contracts/samples/SimpleAccountFactory.sol",
-    "3": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/Proxy.sol",
-    "4": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/beacon/IBeacon.sol",
-    "5": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/utils/Initializable.sol",
-    "6": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/utils/UUPSUpgradeable.sol",
-    "7": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/Address.sol",
-    "8": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/Create2.sol",
-    "9": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/StorageSlot.sol"
+    "3": "@openzeppelin/contracts/proxy/Proxy.sol",
+    "4": "@openzeppelin/contracts/proxy/beacon/IBeacon.sol",
+    "5": "@openzeppelin/contracts/proxy/utils/Initializable.sol",
+    "6": "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol",
+    "7": "@openzeppelin/contracts/utils/Address.sol",
+    "8": "@openzeppelin/contracts/utils/Create2.sol",
+    "9": "@openzeppelin/contracts/utils/StorageSlot.sol"
   },
   "ast": {
     "absolutePath": "contracts/samples/SimpleAccountFactory.sol",
@@ -195,7 +195,7 @@
         "src": "36:24:21"
       },
       {
-        "absolutePath": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/Create2.sol",
+        "absolutePath": "@openzeppelin/contracts/utils/Create2.sol",
         "file": "@openzeppelin/contracts/utils/Create2.sol",
         "id": 367,
         "nameLocation": "-1:-1:-1",
@@ -207,7 +207,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/ERC1967/ERC1967Proxy.sol",
+        "absolutePath": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
         "file": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
         "id": 368,
         "nameLocation": "-1:-1:-1",

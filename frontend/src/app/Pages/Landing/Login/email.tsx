@@ -30,7 +30,7 @@ const Email = () => {
       variables: {
         input
       },
-      onCompleted(data) {
+      onCompleted (data) {
         // console.log('data', data)
         if (data) {
           // navigation(`${orgId}/emailConf/${email}`)
@@ -40,7 +40,7 @@ const Email = () => {
           )
         }
       },
-      onError(error) {
+      onError (error) {
         console.log(error)
         alert(error?.message)
       }

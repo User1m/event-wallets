@@ -22,7 +22,7 @@ const SendModal = (props: PropType) => {
   const orgId = pathSplit[1]
   const uId = pathSplit[3]
 
-  const { data, error } = getUser({ id: { equals: uId } })
+  const { data, error } = getUser({ id: { equals: Number(uId) } })
   // console.log("data", data)
   // console.log("uId", uId)
 

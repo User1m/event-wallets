@@ -4,10 +4,10 @@ import { UserUncheckedCreateInput } from 'prisma/graphql/generated';
 
 @InputType()
 export class UserNetworkInput implements Pick<UserWhereUniqueInput, 'id'> {
-  @Field((_type) => String, {
+  @Field((_type) => Number, {
     nullable: false,
   })
-  id!: string;
+  id!: number;
 
   @Field((_type) => String, {
     nullable: false,

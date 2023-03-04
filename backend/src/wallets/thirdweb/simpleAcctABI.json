@@ -368,20 +368,20 @@
       }
     ],
     "allSourcePaths": {
-      "0": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/interfaces/draft-IERC1822.sol",
-      "10": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/Strings.sol",
-      "11": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/cryptography/ECDSA.sol",
-      "12": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/math/Math.sol",
+      "0": "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
+      "10": "@openzeppelin/contracts/utils/Strings.sol",
+      "11": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+      "12": "@openzeppelin/contracts/utils/math/Math.sol",
       "13": "contracts/core/BaseAccount.sol",
       "15": "contracts/interfaces/IAccount.sol",
       "16": "contracts/interfaces/IAggregator.sol",
       "17": "contracts/interfaces/IEntryPoint.sol",
       "18": "contracts/interfaces/IStakeManager.sol",
       "19": "contracts/interfaces/UserOperation.sol",
-      "2": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/ERC1967/ERC1967Upgrade.sol",
+      "2": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol",
       "20": "contracts/samples/SimpleAccount.sol",
-      "5": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/utils/Initializable.sol",
-      "6": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/utils/UUPSUpgradeable.sol"
+      "5": "@openzeppelin/contracts/proxy/utils/Initializable.sol",
+      "6": "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol"
     },
     "ast": {
       "absolutePath": "contracts/samples/SimpleAccount.sol",
@@ -470,7 +470,7 @@
           "src": "36:24:20"
         },
         {
-          "absolutePath": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/utils/cryptography/ECDSA.sol",
+          "absolutePath": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
           "file": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
           "id": 2,
           "nameLocation": "-1:-1:-1",
@@ -482,7 +482,7 @@
           "unitAlias": ""
         },
         {
-          "absolutePath": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/utils/Initializable.sol",
+          "absolutePath": "@openzeppelin/contracts/proxy/utils/Initializable.sol",
           "file": "@openzeppelin/contracts/proxy/utils/Initializable.sol",
           "id": 3,
           "nameLocation": "-1:-1:-1",
@@ -494,7 +494,7 @@
           "unitAlias": ""
         },
         {
-          "absolutePath": "./contracts/@OpenZepplin/openzeppelin-contracts@4.8.1/contracts/proxy/utils/UUPSUpgradeable.sol",
+          "absolutePath": "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol",
           "file": "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol",
           "id": 4,
           "nameLocation": "-1:-1:-1",

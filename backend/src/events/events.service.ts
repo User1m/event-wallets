@@ -7,7 +7,7 @@ import { faucetUrl, GET_CONFIG } from '@src/utils';
 // import erc20Transfer from '@src/wallets/smartAccount/erc20Transfer';
 // import transfer from '@src/wallets/smartAccount/transfer';
 import { Network, NETWORKS } from '@src/wallets/thirdweb/constants';
-import { createSmartWallet, transfer, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
+import { createWallet, transfer, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
 import { User } from 'prisma/graphql/generated';
 
 function sendErrorMsg(user: User) {
@@ -27,7 +27,7 @@ export class EventsService {
   private readonly logger = new Logger(EventsService.name);
 
   @OnEvent('transferOwner', { async: true })
-  async transferOwner(payload: { userId: string; toAddress: string; network: string }) {
+  async transferOwner(payload: { userId: number; toAddress: string; network: string }) {
     // console.log('payload', payload);
     this.logger.log('transferring ownership...');
     const { userId, toAddress, network
@@ -62,7 +62,7 @@ export class EventsService {
 
   @OnEvent('transfer', { async: true })
   // async transfer(payload: { userId: string; toAddress: string; amount: string; usePaymaster: boolean }) {
-  async transfer(payload: { userId: string; toAddress: string; amount: string; network: string }) {
+  async transfer(payload: { userId: number; toAddress: string; amount: string; network: string }) {
     // console.log('payload', payload);
     this.logger.log('transferring...');
     const { userId, toAddress, amount, network
@@ -118,7 +118,7 @@ export class EventsService {
 
   @OnEvent('erc20Transfer', { async: true })
   // async erc20Transfer(payload: { userId: string; token: string; toAddress: string; amount: string; usePaymaster: boolean }) {
-  async erc20Transfer(payload: { userId: string; token: string; toAddress: string; amount: string; network: string }) {
+  async erc20Transfer(payload: { userId: number; token: string; toAddress: string; amount: string; network: string }) {
     this.logger.log('erc20Transferring...');
     const { token, userId, toAddress, amount, network
       // usePaymaster 
@@ -179,14 +179,14 @@ export class EventsService {
   }
 
   @OnEvent('createWallets', { async: true })
-  async createWallets(payload: { userId: string, orgId: string }) {
+  async createWallets(payload: { userId: number }) {
     this.logger.log('Creating Wallets ...');
-    const { userId, orgId } = payload;
+    const { userId } = payload;
 
     for (const network of Object.keys(NETWORKS)) {
       //create address
       // const accAddress = await genAddress(config);
-      const { address } = await createSmartWallet(NETWORKS[network], orgId);
+      const { address } = await createWallet(NETWORKS[network], `${userId}`);
 
       //save address
       await this.prisma.account.create({
@@ -201,6 +201,10 @@ export class EventsService {
         }
       });
     }
+
+    // const accAddress = await genAddress(config);
+    // const { address } = await createWallet(NETWORKS.goerli, '1234');
+    // console.log("address", address);
   }
 }
 

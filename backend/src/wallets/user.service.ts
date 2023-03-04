@@ -92,7 +92,7 @@ export class UserService {
     //check for existing user;
     const user = await this.prisma.user.findUnique({
       where: {
-        id,
+        id: Number(id),
       },
       include: {
         accounts: true
@@ -112,6 +112,7 @@ export class UserService {
 
   // create wallet account
   async createWallet(input: UserWhereUniqueInput) {
+    console.log("input",input)
     const { id } = input;
     //check for existing user;
     const user = await this.prisma.user.findUnique({
@@ -127,7 +128,8 @@ export class UserService {
 
     //create 3 wallets
     const { email, orgId } = user;
-    this.eventEmitter.emit('createWallets', { userId: user.id, orgId });
+    this.eventEmitter.emit('createWallets', { userId: user.id });
+
     // const config = await GET_CONFIG(email, orgId);
     // const accAddress = await genAddress(config);
     // console.log('accAddress', accAddress);
@@ -137,7 +139,7 @@ export class UserService {
     this.eventEmitter.emit('sendEmail', {
       subject: 'Event Wallet Created!',
       message: `Congrats! Get ready for ${org.name}!<br/>
-        Your event wallet <strong><${user.id}></strong> has been created.<br/><br/>
+        Your event wallet has been created.<br/><br/>
         Here are your details:<br/>
         Email: ${user.email}<br/>
         <br/>
@@ -169,7 +171,7 @@ export class UserService {
     const user = await this.prisma.user.findUnique({
       where: {
         ...(input.id ?
-          { id: input.id } : {
+          { id: Number(input.id) } : {
             orgUserIdentifier: {
               email: input.email,
               orgId: input.orgId,

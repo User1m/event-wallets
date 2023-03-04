@@ -10,12 +10,12 @@ import { getUser } from 'src/graphql/queries'
 
 const WalletPage = () => {
   const [network, setNetwork] = useState('goerli')
-  const [user, setUser] = useState({ email: null, accounts: null })
+  const [user, setUser] = useState({} as any)
   // const navigation = useNavigate()
 
   // console.log(window.location.pathname.split('/')[2])
   const uId = window.location.pathname.split('/')[3]
-  const { data, error } = getUser({ id: { equals: uId } })
+  const { data, error } = getUser({ id: { equals: Number(uId) } })
   // console.log("data", data)
   // console.log("uId", uId)
 
@@ -25,7 +25,7 @@ const WalletPage = () => {
       return
     }
     if (data) {
-      // console.log('data', data)
+      console.log('data', data)
       setUser(data?.findFirstUser)
     }
   }, [data?.findFirstUser])
@@ -33,7 +33,8 @@ const WalletPage = () => {
   return (
     <>
       <TopNotif Text="👏 🎉 - Congrats! You just received 344.82 $SPORK for creating your Event Wallet!" />
-      <TopNav user={user?.email || uId} setNetwork={setNetwork}/>
+      <TopNav user={(user?.accounts && user?.accounts.find((x: { network: string }) => x.network === network)?.address) || user?.email || uId}
+        setNetwork={setNetwork} />
       <BannerImg Img={<img src={EDBannerImg} />} />
       <MainNav network={network} />
       <WalletComp />
