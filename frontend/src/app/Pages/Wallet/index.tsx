@@ -33,8 +33,17 @@ const WalletPage = () => {
   return (
     <>
       <TopNotif Text="👏 🎉 - Congrats! You just received 344.82 $SPORK for creating your Event Wallet!" />
-      <TopNav user={(user?.accounts && user?.accounts.find((x: { network: string }) => x.network === network)?.address) || user?.email || uId}
-        setNetwork={setNetwork} />
+      <TopNav
+        user={
+          (user?.accounts &&
+            user?.accounts.find(
+              (x: { network: string }) => x.network === network
+            )?.address) ||
+          user?.email ||
+          uId
+        }
+        setNetwork={setNetwork}
+      />
       <BannerImg Img={<img src={EDBannerImg} />} />
       <MainNav network={network} />
       <WalletComp />

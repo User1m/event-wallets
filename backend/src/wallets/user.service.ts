@@ -12,15 +12,15 @@ import { ethers } from 'ethers';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) { }
+  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) {}
 
   // create user
   async createUser(input: CreateUserInput) {
     const { email, eventSlug } = input;
     const org = await this.prisma.org.findUnique({
       where: {
-        eventSlug
-      }
+        eventSlug,
+      },
     });
     //check for existing user;
     const user = await this.prisma.user.findUnique({
@@ -28,7 +28,7 @@ export class UserService {
         orgUserIdentifier: {
           email,
           orgId: org.id,
-        }
+        },
       },
     });
 
@@ -95,8 +95,8 @@ export class UserService {
         id: Number(id),
       },
       include: {
-        accounts: true
-      }
+        accounts: true,
+      },
     });
 
     if (!user) throw new Error('User Not Found!');
@@ -105,14 +105,14 @@ export class UserService {
     const config = await GET_CONFIG(email, orgId);
     //  https://docs.ethers.org/v5/getting-started/
     const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
-    const networkAddress = user.accounts.find(x => x.network === network).address;
+    const networkAddress = user.accounts.find((x) => x.network === network).address;
     const balance = await provider.getBalance(networkAddress);
-    return ethers.utils.formatEther(balance)
+    return ethers.utils.formatEther(balance);
   }
 
   // create wallet account
   async createWallet(input: UserWhereUniqueInput) {
-    console.log("input",input)
+    console.log('input', input);
     const { id } = input;
     //check for existing user;
     const user = await this.prisma.user.findUnique({
@@ -146,9 +146,7 @@ export class UserService {
         <br/>
         <strong>Navigate to a faucet, such as <a href="${faucetUrl}">${faucetUrl}</a> to top off your wallet with some (Test)ETH!</strong>`,
       to: { name: user.username || 'there!', email: user.email },
-      action: [
-        { link: loginUrl, text: 'Event Wallet Login' },
-      ],
+      action: [{ link: loginUrl, text: 'Event Wallet Login' }],
       image: org.picture,
       from: { name: org.name, email: org.email },
     });
@@ -170,13 +168,14 @@ export class UserService {
     // let userId = input.userId;
     const user = await this.prisma.user.findUnique({
       where: {
-        ...(input.id ?
-          { id: Number(input.id) } : {
-            orgUserIdentifier: {
-              email: input.email,
-              orgId: input.orgId,
-            },
-          })
+        ...(input.id
+          ? { id: Number(input.id) }
+          : {
+              orgUserIdentifier: {
+                email: input.email,
+                orgId: input.orgId,
+              },
+            }),
       },
     });
     if (!user) throw new Error('User Not Found!');

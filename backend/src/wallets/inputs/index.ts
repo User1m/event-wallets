@@ -68,7 +68,6 @@ export class TransferInput extends UserNetworkInput {
 
 @InputType()
 export class TransferOwnerInput extends UserNetworkInput implements Omit<TransferInput, 'amount'> {
-
   @Field((_type) => String, {
     nullable: false,
   })
