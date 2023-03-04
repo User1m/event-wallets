@@ -37,7 +37,7 @@ export const GET_USER = gql`
       id
       orgId
       email
-      accAddress
+      accounts
     }
   }
 `

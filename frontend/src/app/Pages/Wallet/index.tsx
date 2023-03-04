@@ -9,8 +9,8 @@ import { toast } from 'react-toastify'
 import { getUser } from 'src/graphql/queries'
 
 const WalletPage = () => {
-  // const [balance, setBalance] = useState('')
-  const [user, setUser] = useState({ email: null, accAddress: null })
+  const [network, setNetwork] = useState('goerli')
+  const [user, setUser] = useState({ email: null, accounts: null })
   // const navigation = useNavigate()
 
   // console.log(window.location.pathname.split('/')[2])
@@ -33,9 +33,9 @@ const WalletPage = () => {
   return (
     <>
       <TopNotif Text="👏 🎉 - Congrats! You just received 344.82 $SPORK for creating your Event Wallet!" />
-      <TopNav user={user?.accAddress || user?.email || uId} />
+      <TopNav user={user?.email || uId} setNetwork={setNetwork}/>
       <BannerImg Img={<img src={EDBannerImg} />} />
-      <MainNav />
+      <MainNav network={network} />
       <WalletComp />
     </>
   )

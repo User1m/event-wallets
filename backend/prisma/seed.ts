@@ -12,7 +12,8 @@ const orgData: Prisma.OrgCreateInput[] = [
     password,
     email: 'team@ethdenver.com',
     picture: 'https://miro.medium.com/max/1400/0*a0Fw_LmuPG4_JBhV',
-    eventUrl: 'https://www.ethdenver.com/',
+    eventUrl: 'https://event-wallets.herokuapp.com/eth-denver-2023',
+    eventSlug: 'eth-denver-2023',
     users: {
       create: [
         {

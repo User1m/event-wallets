@@ -15,17 +15,21 @@ interface NavItemDict {
   modalContent?: JSX.Element
 }
 
-const navItems: NavItemDict[] = [
-  { label: 'Send', icon: <ArrowUp />, modalContent: <SendModal /> },
-  { label: 'Receive', icon: <ArrowDown /> },
-  { label: 'Fund', icon: <Money />, modalContent: <FundModal /> },
-  { label: 'Connect', icon: <Connect /> },
-  { label: 'Notifications', icon: <Notif /> }
-]
+interface PropType {
+  network?: string
+}
 
-function MainNav () {
+const MainNav = (props: PropType) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalContent, setModalContent] = useState<JSX.Element>()
+
+  const navItems: NavItemDict[] = [
+    { label: 'Send', icon: <ArrowUp />, modalContent: <SendModal network={props?.network} /> },
+    { label: 'Receive', icon: <ArrowDown /> },
+    { label: 'Fund', icon: <Money />, modalContent: <FundModal /> },
+    { label: 'Connect', icon: <Connect /> },
+    { label: 'Notifications', icon: <Notif /> }
+  ]
 
   const handleNavItemClick = (modalContent: JSX.Element) => {
     setIsModalOpen(true)

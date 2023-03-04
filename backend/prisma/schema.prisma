@@ -29,7 +29,7 @@ model Org {
   password  String
   picture   String?
   eventUrl  String?
-  // eventSlug String?
+  eventSlug String? @unique
   users     User[]
 }
 
@@ -37,12 +37,21 @@ model User {
   id           String        @id @default(uuid())
   email        String
   username     String?
-  accAddress   String?       @default("")
-  org          Org          @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  // accAddress   String?       @default("")
+  org          Org           @relation(fields: [orgId], references: [id], onDelete: Cascade)
   orgId        String
   transactions Transaction[]
+  accounts     Account[]
 
   @@unique([email, orgId], name: "orgUserIdentifier")
+}
+
+model Account {
+  id      String @id @default(uuid())
+  network String
+  address String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
 }
 
 model Transaction {
@@ -50,6 +59,11 @@ model Transaction {
   op     String?
   uoHash String?
   txHash String?
-  user   User    @relation(fields: [userId], references: [id])
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 }
+
+// enum Network {
+//   BASE
+//   GOERLI
+// }

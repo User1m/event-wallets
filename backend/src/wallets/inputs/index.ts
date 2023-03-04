@@ -1,5 +1,29 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { UserWhereUniqueInput } from 'prisma/graphql/generated';
 import { UserUncheckedCreateInput } from 'prisma/graphql/generated';
+
+@InputType()
+export class UserNetworkInput implements Pick<UserWhereUniqueInput, 'id'> {
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  id!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  network!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  email?: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+  })
+  orgId?: string;
+}
 
 @InputType()
 export class CreateUserInput implements Pick<UserUncheckedCreateInput, 'email' | 'orgId'> {
@@ -20,22 +44,7 @@ export class CreateUserInput implements Pick<UserUncheckedCreateInput, 'email' |
 }
 
 @InputType()
-export class TransferInput {
-  // @Field(_type => String, {
-  //   nullable: true
-  // })
-  // userId?: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  email?: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-  })
-  orgId?: string;
-
+export class TransferInput extends UserNetworkInput {
   @Field((_type) => String, {
     nullable: false,
   })
@@ -46,10 +55,19 @@ export class TransferInput {
   })
   amount!: string;
 
-  @Field((_type) => Boolean, {
-    nullable: true,
+  // @Field((_type) => Boolean, {
+  //   nullable: true,
+  // })
+  // usePaymaster?: boolean;
+}
+
+@InputType()
+export class TransferOwnerInput extends UserNetworkInput implements Omit<TransferInput, 'amount'> {
+
+  @Field((_type) => String, {
+    nullable: false,
   })
-  usePaymaster?: boolean;
+  toAddress!: string;
 }
 
 @InputType()

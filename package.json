@@ -18,5 +18,7 @@
   "bugs": {
     "url": "https://github.com/User1m/event-wallets/issues"
   },
-  "homepage": "https://github.com/User1m/event-wallets#readme"
+  "homepage": "https://github.com/User1m/event-wallets#readme",
+  "dependencies": {
+  }
 }

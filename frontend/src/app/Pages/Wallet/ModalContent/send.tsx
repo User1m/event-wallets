@@ -6,8 +6,11 @@ import { TRANSFER_AMOUNT } from 'src/graphql/mutations'
 import { getUser } from 'src/graphql/queries'
 
 const navItems: string[] = ['Send', 'Send All']
+interface PropType {
+  network?: string
+}
 
-const SendModal = () => {
+const SendModal = (props: PropType) => {
   const [activeNavItem, setActiveNavItem] = useState(navItems[0])
   const [address, setAddress] = useState('')
   const [amount, setAmount] = useState('')
@@ -31,6 +34,7 @@ const SendModal = () => {
     //   console.log('data', data)
     //   setUser(data?.findFirstUser)
     // }
+    // console.log('net', props.network)
   }, [])
   // console.log('window.location', window.location)
 
@@ -42,7 +46,8 @@ const SendModal = () => {
       email: data?.findFirstUser?.email,
       orgId,
       toAddress: address,
-      amount
+      amount,
+      network: props.network,
     }
     // console.log('input', input)
     transferAmount({

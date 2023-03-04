@@ -25,7 +25,7 @@ const ConfirmPage = () => {
   useEffect(() => {
     if (data?.findFirstUser) {
       setEmail(data.findFirstUser?.email)
-      if (data?.findFirstUser?.accAddress === '') {
+      if (!data?.findFirstUser?.accounts.length) {
         confirmUser({
           variables: {
             input: {
