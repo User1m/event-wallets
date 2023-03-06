@@ -34,7 +34,8 @@ model Org {
 }
 
 model User {
-  id           Int        @id @default(autoincrement())
+  // id           Int        @id @default(autoincrement())
+  id           String        @id @default(uuid())
   email        String
   username     String?
   // accAddress   String?       @default("")
@@ -51,7 +52,7 @@ model Account {
   network String
   address String
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  Int
+  userId  String
 }
 
 model Transaction {
@@ -60,7 +61,7 @@ model Transaction {
   uoHash String?
   txHash String?
   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  userId String
 }
 
 // enum Network {
