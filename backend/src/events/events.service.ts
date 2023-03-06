@@ -26,7 +26,7 @@ export class EventsService {
       from: { name: user.org.name, email: user.org.email },
     });
   }
-  
+
   @OnEvent('transferOwner', { async: true })
   async transferOwner(payload: { userId: string; toAddress: string; network: string }) {
     // console.log('payload', payload);
@@ -229,7 +229,7 @@ export class EventsService {
         accounts: true,
       },
     });
-    
+
     const { org } = user;
     const loginUrl = `${getBaseUrl()}/${org.eventSlug}/u/${user.id}/wallet`;
     this.eventEmitter.emit('sendEmail', {

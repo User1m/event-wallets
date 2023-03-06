@@ -12,7 +12,7 @@ import { ethers } from 'ethers';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) { }
+  constructor(private prisma: PrismaService, private eventEmitter: EventEmitter2) {}
 
   // create user
   async createUser(input: CreateUserInput) {
@@ -91,7 +91,7 @@ export class UserService {
     const { id, network } = input;
     //check for existing user;
     const user = await this.prisma.user.findUnique({
-      where: { id, },
+      where: { id },
       include: {
         accounts: true,
       },
@@ -148,7 +148,7 @@ export class UserService {
     // let userId = input.userId;
     const { id, email, orgId } = input;
     const user = await this.prisma.user.findUnique({
-      where: { id }
+      where: { id },
     });
     if (!user) throw new Error('User Not Found!');
 

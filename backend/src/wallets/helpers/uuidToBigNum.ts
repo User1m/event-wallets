@@ -1,9 +1,8 @@
-
 // https://gist.github.com/therightstuff/9f83967b9c23354a27ed691a6b591b0c
 const BigNumber = require('bignumber.js');
 // import BigNumber from 'bignumber';
 
-const id = "b64c5f74-4b45-40f3-b36c-2c1e9663b5c2";
+const id = 'b64c5f74-4b45-40f3-b36c-2c1e9663b5c2';
 
 export const convertGuidToInt = (id) => {
   // remove the dashes from the given uuid and convert to a hexadecimal BigNumber object
