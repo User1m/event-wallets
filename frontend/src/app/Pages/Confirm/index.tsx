@@ -17,7 +17,7 @@ const ConfirmPage = () => {
   console.log('pathSplit', pathSplit)
   const [email, setEmail] = useState(isEmailConf ? pathSplit[3] : '')
   const { data, error } = getUser({
-    id: { equals: Number(pathSplit[3]) || 0 }
+    id: { equals: pathSplit[3] || '' }
   })
   const [confirmUser, { loading }] = useMutation(CREATE_WALLET)
 

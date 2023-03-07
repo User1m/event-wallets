@@ -4,8 +4,7 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  plugins: [
-  ],
+  plugins: [],
   webpack: {
     plugins: [new Dotenv()],
     alias: {
@@ -15,4 +14,4 @@ module.exports = {
       '@public': path.resolve(__dirname, 'public/')
     }
   }
-};
+}

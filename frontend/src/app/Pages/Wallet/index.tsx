@@ -15,7 +15,7 @@ const WalletPage = () => {
 
   // console.log(window.location.pathname.split('/')[2])
   const uId = window.location.pathname.split('/')[3]
-  const { data, error } = getUser({ id: { equals: Number(uId) } })
+  const { data, error } = getUser({ id: { equals: uId } })
   // console.log("data", data)
   // console.log("uId", uId)
 

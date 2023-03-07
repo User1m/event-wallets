@@ -11,7 +11,7 @@ CREATE TABLE "Org" (
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" TEXT NOT NULL PRIMARY KEY,
     "email" TEXT NOT NULL,
     "username" TEXT,
     "orgId" TEXT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE "Account" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "network" TEXT NOT NULL,
     "address" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE "Transaction" (
     "op" TEXT,
     "uoHash" TEXT,
     "txHash" TEXT,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     CONSTRAINT "Transaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
