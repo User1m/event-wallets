@@ -14,7 +14,7 @@ const ConfirmPage = () => {
   const isTransfer = path.includes('/transfer')
 
   const pathSplit = path.split('/')
-  console.log('pathSplit', pathSplit)
+  // console.log('pathSplit', pathSplit)
   const [email, setEmail] = useState(isEmailConf ? pathSplit[3] : '')
   const { data, error } = getUser({
     id: { equals: pathSplit[3] || '' }
@@ -36,12 +36,12 @@ const ConfirmPage = () => {
             }
           },
           onCompleted (data) {
-            console.log('_data', data)
-            toast.success('Wallet Created!')
+            // console.log('_data', data)
+            alert('Wallet Created!')
             // setUser(data?._confirmUser)
           },
           onError (error) {
-            console.log(error)
+            // console.log(error)
             alert(error?.message)
           }
         })

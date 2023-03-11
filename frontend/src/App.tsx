@@ -9,7 +9,7 @@ import ConfirmPage from '@app/Pages/Confirm'
 function App () {
   return (
     <div className="topLevel">
-      <ToastContainer limit={1} style={{ fontSize: '16px' }} />
+      <ToastContainer limit={1} style={{ fontSize: '8px' }} />
       <Routes>
         <Route path="/:orgId" element={<LandingPage />} />
         <Route path="/:orgId/u/:uId/confirm" element={<ConfirmPage />} />
