@@ -5,7 +5,7 @@ import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpc
 
 require('dotenv').config();
 
-const config = require('../config2.json');
+const config = require('../config.json');
 
 /*
   chainId: 5 = goerli,
@@ -328,8 +328,8 @@ export async function transferECR20(
   return { op: opCode, uoHash, txHash };
 }
 
-const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
-const signer = process.env.MMPK;
+// const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
+// const signer = process.env.MMPK;
 
 // createWallet(NETWORKS.goerli, '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', '1', signer, provider).then((x) => console.log(x));
 
