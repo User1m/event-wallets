@@ -7,7 +7,8 @@ export function getSimpleAccount(
   signingKey: string,
   entryPointAddress: string,
   factoryAddress: string,
-  paymasterAPI?: PaymasterAPI
+  salt: number,
+  paymasterAPI?: PaymasterAPI,
 ) {
   // console.log("signingKey", signingKey)
   const owner = new ethers.Wallet(signingKey, provider);
@@ -17,6 +18,7 @@ export function getSimpleAccount(
     owner,
     factoryAddress,
     paymasterAPI,
+    index: salt
   });
 
   // Hack: default getUserOpReceipt does not include fromBlock which causes an error for some RPC providers.

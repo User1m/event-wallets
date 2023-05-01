@@ -3,17 +3,17 @@ import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { sendMail } from '@src/common/mail';
 import { TemplateEmail } from '@src/common/mail/template';
 import { PrismaService } from '@src/prisma/prisma.service';
-import { faucetUrl, getBaseUrl, GET_CONFIG } from '@src/utils';
+import { faucetUrl, getBaseUrl, GET_CONFIG, getSalt } from '@src/utils';
 import { convertGuidToInt } from '@src/wallets/helpers/uuidToBigNum';
 // import erc20Transfer from '@src/wallets/smartAccount/erc20Transfer';
 // import transfer from '@src/wallets/smartAccount/transfer';
 import { Network, NETWORKS } from '@src/wallets/thirdweb/constants';
-import { createWallet, transfer, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
+import { createWallet, transferEth, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
 import { User } from 'prisma/graphql/generated';
 
 @Injectable()
 export class EventsService {
-  constructor(private eventEmitter: EventEmitter2) {}
+  constructor(private eventEmitter: EventEmitter2) { }
   private prisma = new PrismaService();
   private readonly logger = new Logger(EventsService.name);
 
@@ -93,11 +93,10 @@ export class EventsService {
     const _network = NETWORKS[network];
     try {
       // const res = await transfer(config, toAddress, amount, withPM);
-      const res = await transfer(_network, amount, fromAddress, toAddress);
+      const res = await transferEth(amount, toAddress, _network, getSalt(user?.id));
       await this.prisma.transaction.create({
         data: {
-          // ...res,
-          txHash: res,
+          ...res,
           user: {
             connect: {
               id: userId,
@@ -155,11 +154,10 @@ export class EventsService {
 
     try {
       // const res = await erc20Transfer(config, token, toAddress, amount, withPM);
-      const res = await transferECR20(_network, token, amount, fromAddress, toAddress);
+      const res = await transferECR20(token, amount, toAddress, _network, getSalt(user?.id),);
       await this.prisma.transaction.create({
         data: {
-          // ...res,
-          txHash: res,
+          ...res,
           user: {
             connect: {
               id: userId,
@@ -196,7 +194,7 @@ export class EventsService {
   async createWallets(payload: { userId: string }) {
     this.logger.log('Creating Wallets ...');
     const { userId } = payload;
-    const uuidToBigNum = convertGuidToInt(userId);
+    const uuidToBigNum = getSalt(userId);
 
     for (const network of Object.keys(NETWORKS)) {
       //create address

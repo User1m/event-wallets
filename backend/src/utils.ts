@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import * as crypto from 'crypto';
 import { TextEncoder } from 'util';
+import { convertGuidToInt } from './wallets/helpers/uuidToBigNum';
 export const isProd = process.env.NODE_ENV === 'production';
 export const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 export const faucetUrl = `https://goerlifaucet.com/`;
@@ -16,6 +17,8 @@ export interface IConfig {
 export const getBaseUrl = () => {
   return isProd ? 'https://event-wallets.herokuapp.com' : 'http://localhost:3001';
 }
+
+export const getSalt = (userId:string)=>  convertGuidToInt(userId);
 
 export const GET_CONFIG = async (email: string, orgId: string) => {
   // https://www.geeksforgeeks.org/how-to-create-hash-from-string-in-javascript/
