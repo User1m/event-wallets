@@ -4,23 +4,22 @@ import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpc
 // import * as config from "../config.json";
 
 export default async function main(
-    config: IConfig, 
-    t: string, 
-    amt: string, 
-    withPM: boolean
-    ): Promise<{ op: string; uoHash: string; txHash: string }> 
-{
+  config: IConfig,
+  t: string,
+  amt: string,
+  withPM: boolean
+): Promise<{ op: string; uoHash: string; txHash: string }> {
   const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
   const paymasterAPI = withPM ? getVerifyingPaymaster(config.paymasterUrl, config.entryPoint) : undefined;
   console.log("paymasterAPI", paymasterAPI);
 
   const accountAPI = getSimpleAccount(
-                                        provider, 
-                                        config.signingKey, 
-                                        config.entryPoint, 
-                                        config.simpleAccountFactory, 
-                                        paymasterAPI
-                                        );
+    provider,
+    config.signingKey,
+    config.entryPoint,
+    config.simpleAccountFactory,
+    paymasterAPI
+  );
 
   const target = ethers.utils.getAddress(t);
   const value = ethers.utils.parseEther(amt);

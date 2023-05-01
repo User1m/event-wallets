@@ -7,9 +7,8 @@ export function getSimpleAccount(
   signingKey: string,
   entryPointAddress: string,
   factoryAddress: string,
-  index:number,
+  index: number,
   paymasterAPI?: PaymasterAPI,
-
 ) {
   // console.log("signingKey", signingKey)
   const owner = new ethers.Wallet(signingKey, provider);
