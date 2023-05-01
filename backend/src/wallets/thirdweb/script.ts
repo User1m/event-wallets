@@ -71,7 +71,13 @@ export async function _getSimpleAcctFactoryContract(network: Network, signer: st
   return contract;
 }
 
-export async function getWalletAddress(network: Network, salt: string, owner?: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
+export async function getWalletAddress(
+  network: Network,
+  salt: string,
+  owner?: string,
+  signer: string = process.env.MMPK,
+  provider?: ethers.providers.Provider
+) {
   /*
     Returns the address of a SimpleAccount contract when given the owner and salt
   */
@@ -129,7 +135,13 @@ export async function getWalletOwner(network: Network, simpleAccountAddress: str
   return owner;
 }
 
-export async function transferOwner(network: Network, simpleAccountAddress: string, newOwnerAddr: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
+export async function transferOwner(
+  network: Network,
+  simpleAccountAddress: string,
+  newOwnerAddr: string,
+  signer: string = process.env.MMPK,
+  provider?: ethers.providers.Provider
+) {
   /*
     Transfers ownership of a SimpleAccount contract to a new address
 
@@ -152,7 +164,12 @@ export async function transferOwner(network: Network, simpleAccountAddress: stri
   return owner;
 }
 
-export async function getWalletBalance(network: Network, simpleAccountAddress: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
+export async function getWalletBalance(
+  network: Network,
+  simpleAccountAddress: string,
+  signer: string = process.env.MMPK,
+  provider?: ethers.providers.Provider
+) {
   /*
     Returns the balance of a SimpleAccount contract
 
@@ -171,7 +188,12 @@ export async function getWalletBalance(network: Network, simpleAccountAddress: s
   return balance;
 }
 
-export async function getWalletBalanceInEth(network: Network, simpleAccountAddress: string, signer: string = process.env.MMPK, provider: ethers.providers.Provider) {
+export async function getWalletBalanceInEth(
+  network: Network,
+  simpleAccountAddress: string,
+  signer: string = process.env.MMPK,
+  provider: ethers.providers.Provider
+) {
   /*
     Returns the balance of a SimpleAccount contract in ether
 
@@ -189,7 +211,13 @@ export async function getWalletBalanceInEth(network: Network, simpleAccountAddre
   return ethers.utils.formatEther(balance.toBigInt());
 }
 
-export async function depositToWallet(network: Network, simpleAccountAddress, amt: string, signer: string = process.env.MMPK, provider: ethers.providers.Provider) {
+export async function depositToWallet(
+  network: Network,
+  simpleAccountAddress,
+  amt: string,
+  signer: string = process.env.MMPK,
+  provider: ethers.providers.Provider
+) {
   /*
     amt is a string representing the amount of ether to deposit
     
@@ -214,7 +242,7 @@ export async function transferEth(
   salt: string,
   config: any = _config,
   signer: string = process.env.MMPK,
-  provider?: ethers.providers.JsonRpcProvider,
+  provider?: ethers.providers.JsonRpcProvider
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   /*
     Transfers ETH from a SimpleAccount contract to another address
@@ -272,11 +300,10 @@ export async function transferECR20(
   toAddress: string,
   network: Network,
   salt: string,
-  withPM: boolean = false,
+  withPM = false,
   config: any = _config,
   signer: string = process.env.MMPK,
-  provider?: ethers.providers.JsonRpcProvider,
-
+  provider?: ethers.providers.JsonRpcProvider
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   /*
     Transfers ERC20 tokens from a SimpleAccount contract to another address
@@ -349,8 +376,8 @@ export async function transferECR20(
 
 // transferECR20(
 //                 "0xaFF4481D10270F50f203E0763e2597776068CBc5", // WEENUS token
-//                 "200", 
-//                 '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', 
-//                 signer, 
-//                 provider, 
+//                 "200",
+//                 '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb',
+//                 signer,
+//                 provider,
 //                 NETWORKS.goerli, config, 1, false).then((x) => console.log(x));

@@ -16,9 +16,9 @@ export interface IConfig {
 
 export const getBaseUrl = () => {
   return isProd ? 'https://event-wallets.herokuapp.com' : 'http://localhost:3001';
-}
+};
 
-export const getSalt = (userId:string)=>  convertGuidToInt(userId);
+export const getSalt = (userId: string) => convertGuidToInt(userId);
 
 export const GET_CONFIG = async (email: string, orgId: string) => {
   // https://www.geeksforgeeks.org/how-to-create-hash-from-string-in-javascript/
@@ -33,7 +33,7 @@ export const GET_CONFIG = async (email: string, orgId: string) => {
   return {
     bundlerUrl: 'https://node.stackup.sh/api/v1/bundler/caa091b2db4dd5777273a9a32af5352f41954e788ef551508a6eb3ab08553a86',
     // rpcUrl: 'https://endpoints.omniatech.io/v1/eth/goerli/public',
-    rpcUrl: "https://node.stackup.sh/v1/rpc/caa091b2db4dd5777273a9a32af5352f41954e788ef551508a6eb3ab08553a86",
+    rpcUrl: 'https://node.stackup.sh/v1/rpc/caa091b2db4dd5777273a9a32af5352f41954e788ef551508a6eb3ab08553a86',
     signingKey, //https://stackoverflow.com/a/48762658
     entryPoint: '0x0F46c65C17AA6b4102046935F33301f0510B163A',
     simpleAccountFactory: '0x63658F82752688E3E2Dd2FA8C511E85e919F62D7',
@@ -49,9 +49,8 @@ export const GET_CONFIG = async (email: string, orgId: string) => {
 // https://docs.stackup.sh/docs/introduction/contract-addresses -> https://goerli.etherscan.io/tx/0x25e8abeab017a6e86a10083fa657ff0023c129e633c06ea4b08d52e4f2145601
 // https://ethereum.stackexchange.com/questions/11484/how-can-contract-ownership-be-transferred-from-one-account-to-another
 
-
 // {
-//   "bundlerUrl": "https://node.stackup.sh/api/v1/bundler/ccd63252e4316eba4dac12989fe47cf6576d0cd7cd05260fad4cc493b7db13bc", 
+//   "bundlerUrl": "https://node.stackup.sh/api/v1/bundler/ccd63252e4316eba4dac12989fe47cf6576d0cd7cd05260fad4cc493b7db13bc",
 //   "rpcUrl": "https://endpoints.omniatech.io/v1/eth/goerli/public",
 //   "signingKey": "0x2ae2783b2cb8686f3996537221b1a2573058e57df35f8a551f58061281d46cb2",
 //   "entryPoint": "0x0F46c65C17AA6b4102046935F33301f0510B163A",

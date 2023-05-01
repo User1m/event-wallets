@@ -25,7 +25,7 @@ export const NETWORKS: { [key: string]: Network } = {
     url: process.env.GOERLI_INFURA_URL,
     chainId: 5,
     scanUrl: 'https://goerli.etherscan.io',
-    SAFAddress: '0xfB5A68B43c521E98DbA812e3C4D4d6654476a70f',//'0x822cFC6B982285Ccb35Df85287DE57f44cb25814',
+    SAFAddress: '0xfB5A68B43c521E98DbA812e3C4D4d6654476a70f', //'0x822cFC6B982285Ccb35Df85287DE57f44cb25814',
     owner: WAGMI_OWNER,
   },
   mumbai: {

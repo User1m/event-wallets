@@ -13,7 +13,7 @@ import { User } from 'prisma/graphql/generated';
 
 @Injectable()
 export class EventsService {
-  constructor(private eventEmitter: EventEmitter2) { }
+  constructor(private eventEmitter: EventEmitter2) {}
   private prisma = new PrismaService();
   private readonly logger = new Logger(EventsService.name);
 
@@ -154,7 +154,7 @@ export class EventsService {
 
     try {
       // const res = await erc20Transfer(config, token, toAddress, amount, withPM);
-      const res = await transferECR20(token, amount, toAddress, _network, getSalt(user?.id),);
+      const res = await transferECR20(token, amount, toAddress, _network, getSalt(user?.id));
       await this.prisma.transaction.create({
         data: {
           ...res,

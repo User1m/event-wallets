@@ -1,6 +1,6 @@
-import { SimpleAccountAPI, PaymasterAPI } from "@account-abstraction/sdk";
-import { ethers } from "ethers";
-import { JsonRpcProvider } from "@ethersproject/providers";
+import { SimpleAccountAPI, PaymasterAPI } from '@account-abstraction/sdk';
+import { ethers } from 'ethers';
+import { JsonRpcProvider } from '@ethersproject/providers';
 
 export function getSimpleAccount(
   provider: JsonRpcProvider,
@@ -8,7 +8,7 @@ export function getSimpleAccount(
   entryPointAddress: string,
   factoryAddress: string,
   salt: number,
-  paymasterAPI?: PaymasterAPI,
+  paymasterAPI?: PaymasterAPI
 ) {
   // console.log("signingKey", signingKey)
   const owner = new ethers.Wallet(signingKey, provider);
@@ -18,17 +18,13 @@ export function getSimpleAccount(
     owner,
     factoryAddress,
     paymasterAPI,
-    index: salt
+    index: salt,
   });
 
   // Hack: default getUserOpReceipt does not include fromBlock which causes an error for some RPC providers.
-  sw.getUserOpReceipt = async (
-    userOpHash: string,
-    timeout = 30000,
-    interval = 5000
-  ): Promise<string | null> => {
+  sw.getUserOpReceipt = async (userOpHash: string, timeout = 30000, interval = 5000): Promise<string | null> => {
     const endtime = Date.now() + timeout;
-    const block = await sw.provider.getBlock("latest");
+    const block = await sw.provider.getBlock('latest');
     while (Date.now() < endtime) {
       // @ts-ignore
       const events = await sw.entryPointView.queryFilter(
