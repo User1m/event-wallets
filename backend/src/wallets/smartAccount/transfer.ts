@@ -8,7 +8,7 @@ export default async function main(config: IConfig, _target: string, amt: string
   const paymasterAPI = withPM ? getVerifyingPaymaster(config.paymasterUrl, config.entryPoint) : undefined;
   // console.log("paymasterAPI", paymasterAPI);
 
-  const accountAPI = getSimpleAccount(provider, config.signingKey, config.entryPoint, config.simpleAccountFactory, 0, paymasterAPI);
+  const accountAPI = getSimpleAccount(provider, config.signingKey, config.entryPoint, config.simpleAccountFactory, paymasterAPI, 0);
 
   const target = ethers.utils.getAddress(_target);
   const value = ethers.utils.parseEther(amt);

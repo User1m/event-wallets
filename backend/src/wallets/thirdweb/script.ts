@@ -266,7 +266,7 @@ export async function transferEth(
   const paymasterAPI = undefined;
   const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
 
-  const accountAPI = getSimpleAccount(_provider, signer, config.entryPoint, network.SAFAddress, Number(salt), paymasterAPI);
+  const accountAPI = getSimpleAccount(_provider, signer, config.entryPoint, network.SAFAddress, paymasterAPI, Number(salt));
 
   const target = ethers.utils.getAddress(toAddress);
   const value = ethers.utils.parseEther(amount);
@@ -329,7 +329,7 @@ export async function transferECR20(
 
   const paymasterAPI = withPM ? getVerifyingPaymaster(config.paymasterUrl, config.entryPoint) : undefined;
 
-  const accountAPI = getSimpleAccount(_provider, signer, config.entryPoint, network.SAFAddress, Number(salt), paymasterAPI);
+  const accountAPI = getSimpleAccount(_provider, signer, config.entryPoint, network.SAFAddress, paymasterAPI, Number(salt));
 
   const _token = ethers.utils.getAddress(token);
 

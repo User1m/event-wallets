@@ -5,13 +5,14 @@ import { convertGuidToInt } from './wallets/helpers/uuidToBigNum';
 export const isProd = process.env.NODE_ENV === 'production';
 export const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 export const faucetUrl = `https://goerlifaucet.com/`;
+
 export interface IConfig {
   bundlerUrl: string;
   rpcUrl: string;
-  signingKey: string;
   entryPoint: string;
   simpleAccountFactory: string;
   paymasterUrl: string;
+  signingKey?: string;
 }
 
 export const getBaseUrl = () => {
