@@ -238,7 +238,6 @@ export async function transferEth(
   const paymasterAPI = undefined;
   const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
 
-
   const accountAPI = getSimpleAccount(_provider, signer, config.entryPoint, network.SAFAddress, Number(salt), paymasterAPI);
 
   const target = ethers.utils.getAddress(toAddress);
@@ -339,12 +338,12 @@ export async function transferECR20(
   return { op: opCode, uoHash, txHash };
 }
 
-const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
-const signer = process.env.MMPK;
+// const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
+// const signer = process.env.MMPK;
 
-createWallet(NETWORKS.goerli, '1', '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', signer, provider).then((x) => console.log(x));
+// createWallet(NETWORKS.goerli, '1', '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', signer, provider).then((x) => console.log(x));
 
-// getSimpleAccount(provider, signer, config.entryPoint, NETWORKS.goerli.SAFAddress, 1, undefined)
+// getSimpleAccount(provider, signer, _config.entryPoint, NETWORKS.goerli.SAFAddress, 1, undefined)
 //   .getCounterFactualAddress()
 //   .then((x) => console.log(x));
 

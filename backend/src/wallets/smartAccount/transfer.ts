@@ -5,7 +5,7 @@ import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpc
 
 export default async function main(
   config: IConfig,
-  t: string,
+  _target: string,
   amt: string,
   withPM: boolean
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
@@ -22,7 +22,7 @@ export default async function main(
     paymasterAPI
   );
 
-  const target = ethers.utils.getAddress(t);
+  const target = ethers.utils.getAddress(_target);
   const value = ethers.utils.parseEther(amt);
   const op = await accountAPI.createSignedUserOp({
     target,
