@@ -7,7 +7,7 @@ export function getSimpleAccount(
   signingKey: string,
   entryPointAddress: string,
   factoryAddress: string,
-  index: number,
+  salt: number,
   paymasterAPI?: PaymasterAPI,
 ) {
   // console.log("signingKey", signingKey)
@@ -18,7 +18,7 @@ export function getSimpleAccount(
     owner,
     factoryAddress,
     paymasterAPI,
-    index
+    index: salt
   });
 
   // Hack: default getUserOpReceipt does not include fromBlock which causes an error for some RPC providers.

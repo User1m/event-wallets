@@ -5,7 +5,7 @@ import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpc
 
 require('dotenv').config();
 
-const config = require('../config.json');
+const _config = require('../config.json');
 
 /*
   chainId: 5 = goerli,
@@ -71,16 +71,19 @@ export async function _getSimpleAcctFactoryContract(network: Network, signer: st
   return contract;
 }
 
-export async function getWalletAddress(network: Network, owner: string, salt: string, signer: string, provider: ethers.providers.Provider) {
+export async function getWalletAddress(network: Network, salt: string, owner?: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
   /*
     Returns the address of a SimpleAccount contract when given the owner and salt
   */
-  const factory = await _getSimpleAcctFactoryContract(network, signer, provider);
-  const SimpleAcctAddress = await factory.call('getAddress', owner, salt);
+
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
+  const _owner = owner || network?.owner;
+  const factory = await _getSimpleAcctFactoryContract(network, signer, _provider);
+  const SimpleAcctAddress = await factory.call('getAddress', _owner, salt);
   return SimpleAcctAddress;
 }
 
-export async function createWallet(network: Network, owner: string, salt: string, signer: string, provider: ethers.providers.Provider) {
+export async function createWallet(network: Network, salt: string, owner?: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
   /*
     Creates a new SimpleAccount contract
 
@@ -97,16 +100,19 @@ export async function createWallet(network: Network, owner: string, salt: string
     @param provider: ethers.providers.Provider
   */
 
-  const factory = await _getSimpleAcctFactoryContract(network, signer, provider);
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
+  const _owner = owner || network?.owner;
 
-  const newSimpleAcct = await factory.call('createAccount', owner, salt);
+  const factory = await _getSimpleAcctFactoryContract(network, signer, _provider);
+
+  const newSimpleAcct = await factory.call('createAccount', _owner, salt);
   return {
     receipt: newSimpleAcct,
-    address: await getWalletAddress(network, owner, salt, signer, provider),
+    address: await getWalletAddress(network, _owner, salt, signer, _provider),
   };
 }
 
-export async function getWalletOwner(network: Network, simpleAccountAddress: string, signer: string, provider: ethers.providers.Provider) {
+export async function getWalletOwner(network: Network, simpleAccountAddress: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
   /*
     Returns the owner of a SimpleAccount contract
 
@@ -117,13 +123,13 @@ export async function getWalletOwner(network: Network, simpleAccountAddress: str
       This is the private key of the wallet that will be used to sign transactions
     @param provider: ethers.providers.Provider
   */
-
-  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, provider);
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
+  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, _provider);
   const owner = await contract.call('owner');
   return owner;
 }
 
-export async function transferOwner(network: Network, simpleAccountAddress: string, newOwnerAddr: string, signer: string, provider: ethers.providers.Provider) {
+export async function transferOwner(network: Network, simpleAccountAddress: string, newOwnerAddr: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
   /*
     Transfers ownership of a SimpleAccount contract to a new address
 
@@ -137,7 +143,8 @@ export async function transferOwner(network: Network, simpleAccountAddress: stri
     @param provider: ethers.providers.Provider
   */
 
-  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, provider);
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
+  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, _provider);
 
   // When this function is called, if the signer is not the owner of the SimpleAccount contract, it will throw an error
   await contract.call('setOwner', newOwnerAddr);
@@ -145,7 +152,7 @@ export async function transferOwner(network: Network, simpleAccountAddress: stri
   return owner;
 }
 
-export async function getWalletBalance(network: Network, simpleAccountAddress: string, signer: string, provider: ethers.providers.Provider) {
+export async function getWalletBalance(network: Network, simpleAccountAddress: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
   /*
     Returns the balance of a SimpleAccount contract
 
@@ -157,12 +164,14 @@ export async function getWalletBalance(network: Network, simpleAccountAddress: s
     @param provider: ethers.providers.Provider
   */
 
-  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, provider);
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
+
+  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, _provider);
   const balance = await contract.call('getDeposit');
   return balance;
 }
 
-export async function getWalletBalanceInEth(network: Network, simpleAccountAddress: string, signer: string, provider: ethers.providers.Provider) {
+export async function getWalletBalanceInEth(network: Network, simpleAccountAddress: string, signer: string = process.env.MMPK, provider: ethers.providers.Provider) {
   /*
     Returns the balance of a SimpleAccount contract in ether
 
@@ -173,13 +182,14 @@ export async function getWalletBalanceInEth(network: Network, simpleAccountAddre
       This is the private key of the wallet that will be used to sign transactions
     @param provider: ethers.providers.Provider
   */
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
 
-  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, provider);
+  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, _provider);
   const balance = await contract.call('getDeposit');
   return ethers.utils.formatEther(balance.toBigInt());
 }
 
-export async function depositToWallet(network: Network, simpleAccountAddress, amt: string, signer: string, provider: ethers.providers.Provider) {
+export async function depositToWallet(network: Network, simpleAccountAddress, amt: string, signer: string = process.env.MMPK, provider: ethers.providers.Provider) {
   /*
     amt is a string representing the amount of ether to deposit
     
@@ -188,7 +198,8 @@ export async function depositToWallet(network: Network, simpleAccountAddress, am
     
   */
 
-  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, provider);
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
+  const contract = await _getSimpleAcctContract(network, simpleAccountAddress, signer, _provider);
 
   return await contract.call('addDeposit', {
     gasLimit: 1000000, // override default gas limit
@@ -199,13 +210,11 @@ export async function depositToWallet(network: Network, simpleAccountAddress, am
 export async function transferEth(
   amount: string,
   toAddress: string,
-
-  signer: string,
-  provider: ethers.providers.JsonRpcProvider,
-
   network: Network,
-  config: any,
-  salt: number
+  salt: string,
+  config: any = _config,
+  signer: string = process.env.MMPK,
+  provider?: ethers.providers.JsonRpcProvider,
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   /*
     Transfers ETH from a SimpleAccount contract to another address
@@ -227,8 +236,10 @@ export async function transferEth(
   // DON'T worry about PM for now
   //const paymasterAPI = undefined //withPM ? getVerifyingPaymaster(config.paymasterUrl, config.entryPoint) : undefined;
   const paymasterAPI = undefined;
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
 
-  const accountAPI = getSimpleAccount(provider, signer, config.entryPoint, network.SAFAddress, salt, paymasterAPI);
+
+  const accountAPI = getSimpleAccount(_provider, signer, config.entryPoint, network.SAFAddress, Number(salt), paymasterAPI);
 
   const target = ethers.utils.getAddress(toAddress);
   const value = ethers.utils.parseEther(amount);
@@ -260,15 +271,13 @@ export async function transferECR20(
   token: string,
   amount: string,
   toAddress: string,
-
-  signer: string,
-  provider: ethers.providers.JsonRpcProvider,
-
   network: Network,
-  config: any,
-  salt: number,
+  salt: string,
+  withPM: boolean = false,
+  config: any = _config,
+  signer: string = process.env.MMPK,
+  provider?: ethers.providers.JsonRpcProvider,
 
-  withPM: boolean = false
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   /*
     Transfers ERC20 tokens from a SimpleAccount contract to another address
@@ -290,9 +299,11 @@ export async function transferECR20(
     @param withPM: boolean
       Whether or not to use a paymaster
   */
+  const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
+
   const paymasterAPI = withPM ? getVerifyingPaymaster(config.paymasterUrl, config.entryPoint) : undefined;
 
-  const accountAPI = getSimpleAccount(provider, signer, config.entryPoint, network.SAFAddress, salt, paymasterAPI);
+  const accountAPI = getSimpleAccount(_provider, signer, config.entryPoint, network.SAFAddress, Number(salt), paymasterAPI);
 
   const _token = ethers.utils.getAddress(token);
 
@@ -328,10 +339,10 @@ export async function transferECR20(
   return { op: opCode, uoHash, txHash };
 }
 
-// const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
-// const signer = process.env.MMPK;
+const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
+const signer = process.env.MMPK;
 
-// createWallet(NETWORKS.goerli, '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', '1', signer, provider).then((x) => console.log(x));
+createWallet(NETWORKS.goerli, '1', '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', signer, provider).then((x) => console.log(x));
 
 // getSimpleAccount(provider, signer, config.entryPoint, NETWORKS.goerli.SAFAddress, 1, undefined)
 //   .getCounterFactualAddress()
