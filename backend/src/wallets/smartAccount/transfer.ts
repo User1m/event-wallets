@@ -11,13 +11,14 @@ export default async function main(
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   const provider = new ethers.providers.JsonRpcProvider(config.rpcUrl);
   const paymasterAPI = withPM ? getVerifyingPaymaster(config.paymasterUrl, config.entryPoint) : undefined;
-  console.log("paymasterAPI", paymasterAPI);
+  // console.log("paymasterAPI", paymasterAPI);
 
   const accountAPI = getSimpleAccount(
     provider,
     config.signingKey,
     config.entryPoint,
     config.simpleAccountFactory,
+    0,
     paymasterAPI
   );
 
