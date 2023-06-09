@@ -30,3 +30,7 @@ npm-debug.log
 **/*.txt
 **/*.log
 **/*.git/
+
+# Python
+venv/
+/venv

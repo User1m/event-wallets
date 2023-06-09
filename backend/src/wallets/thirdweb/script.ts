@@ -165,8 +165,8 @@ export async function depositToWallet(
     signer
   );
   return await contract.call('addDeposit', {
-    gasLimit: 1000000, // override default gas limit
-    value: ethers.utils.parseEther(amt), // send 0.1 ether with the contract call
+  gasLimit: 1000000, // override default gas limit
+  value: ethers.utils.parseEther(amt), // send 0.1 ether with the contract call
   });
 }
 
@@ -195,10 +195,10 @@ export async function transferEth(
   const value = ethers.utils.parseEther(amount);
 
   const op = await accountAPI.createSignedUserOp({
-    target,
-    value,
-    data: '0x',
-    ...(await getGasFee(provider)),
+  target,
+  value,
+  data: '0x',
+  ...(await getGasFee(provider)),
   });
 
   const opCode = await printOp(op);
@@ -264,9 +264,9 @@ export async function transferECR20(
   console.log(`Transferring ${amount} ${symbol}...`);
 
   const op = await accountAPI.createSignedUserOp({
-    target: erc20.address,
-    data: erc20.interface.encodeFunctionData('transfer', [to, _amount]),
-    ...(await getGasFee(provider)),
+  target: erc20.address,
+  data: erc20.interface.encodeFunctionData('transfer', [to, _amount]),
+  ...(await getGasFee(provider)),
   });
   const opCode = await printOp(op);
   console.log(`Signed UserOperation: ${opCode}`);

@@ -1,0 +1,13 @@
+{
+  "_default": {
+    "1": {
+      "deploy_timestamp": "2023-05-26 20:14:55",
+      "network": "goerli",
+      "entrypoint_address": "0x0576a174D229E3cFA37253523E645A78A0C91B57",
+      "pk_used": "gAAAAABkcUt_z5Keq-Y7NUOcr7LQDfHwRWNDaUxN779aTJzAue0ZLnMGGtR3kAmycbIRoUsAjMAGP5_hDkFe2WVVuDOKPAfwPKsRuLVVCsamUPR0HhhGAXQr2IZACIDtd-43p3a_rCLxlEV4DwL9QMboekuSUTZJOilp6BHV_uP19RHw4thNsO8=",
+      "contract_address": "0xe16B0712FEed4D24a1dE6cFC5bcB5c3b481C44C2",
+      "etherscan_link": "https://goerli.etherscan.io/address/0xe16B0712FEed4D24a1dE6cFC5bcB5c3b481C44C2",
+      "nick_name": null
+    }
+  }
+}

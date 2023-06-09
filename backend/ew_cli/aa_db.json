@@ -1,0 +1,20 @@
+{
+  "_default": {
+    "1": {
+      "deploy_timestamp": "2023-05-26 21:14:35",
+      "account_address": "0x38B4c8200f4Abc4806E34e27ac43DBb771B72911",
+      "network": "goerli",
+      "owner_address": "0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb",
+      "salt": "\"1\"",
+      "SAF_address": "0xe16B0712FEed4D24a1dE6cFC5bcB5c3b481C44C2"
+    },
+    "2": {
+      "deploy_timestamp": "2023-06-06 23:40:09",
+      "account_address": "0x8488116B1B8B19cc3235edec337eeDA190F28954",
+      "network": "goerli",
+      "owner_address": "0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb",
+      "salt": "2",
+      "SAF_address": "0xe16B0712FEed4D24a1dE6cFC5bcB5c3b481C44C2"
+    }
+  }
+}

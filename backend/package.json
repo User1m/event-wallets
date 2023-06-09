@@ -37,7 +37,7 @@
     "db:seed:dev": "DEBUG='prisma*' yarn prisma db seed",
     "db:gen:migrate": "yarn db:gen && yarn db:migrate",
     "db:gen:migrate:ci": "yarn db:gen && yarn db:migrate:ci",
-    "prepare": "husky install "
+    "prepare": "husky install"
   },
   "dependencies": {
     "@account-abstraction/sdk": "^0.4.0",
