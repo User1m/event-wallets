@@ -22,7 +22,7 @@ const WAGMI_OWNER = '0x8b559858E63f14d323A1ad7c5238A96b273f999c';
 
 export const NETWORKS: { [key: string]: Network } = {
   goerli: {
-    url: process.env.GOERLI_INFURA_URL,
+    url: "https://goerli.infura.io/v3/884a1eec1b9343bb81fc7778dfad1f39", //process.env.GOERLI_INFURA_URL,
     chainId: 5,
     scanUrl: 'https://goerli.etherscan.io',
     SAFAddress: '0xfB5A68B43c521E98DbA812e3C4D4d6654476a70f', //'0x822cFC6B982285Ccb35Df85287DE57f44cb25814',

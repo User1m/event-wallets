@@ -3,7 +3,16 @@ import { ethers, providers } from 'ethers';
 import { abis, Network, NETWORKS } from './constants';
 import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpcClient, ERC20_ABI } from '../helpers';
 
-require('dotenv').config();
+const _signer = "10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a"; //_signer;
+
+
+const path = require('path');
+
+const dotenv = require('dotenv');
+const envPath = path.resolve(__dirname, '../../../../', '.env');
+
+// dotenv.config({ path: envPath });
+dotenv.config({ path: '../../../../.env' });
 
 const _config = require('../config.json');
 
@@ -77,7 +86,7 @@ export async function getWalletAddress(
   network: Network,
   salt: string,
   owner?: string,
-  signer: string = process.env.MMPK,
+  signer: string = _signer,
   provider?: ethers.providers.Provider
 ) {
   /*
@@ -91,7 +100,7 @@ export async function getWalletAddress(
   return SimpleAcctAddress;
 }
 
-export async function createWallet(network: Network, salt: string, owner?: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
+export async function createWallet(network: Network, salt: string, owner?: string, signer: string = _signer, provider?: ethers.providers.Provider) {
   /*
     Creates a new SimpleAccount contract
 
@@ -124,7 +133,7 @@ export async function createWallet(network: Network, salt: string, owner?: strin
   };
 }
 
-export async function getWalletOwner(network: Network, simpleAccountAddress: string, signer: string = process.env.MMPK, provider?: ethers.providers.Provider) {
+export async function getWalletOwner(network: Network, simpleAccountAddress: string, signer: string = _signer, provider?: ethers.providers.Provider) {
   /*
     Returns the owner of a SimpleAccount contract
 
@@ -145,7 +154,7 @@ export async function transferOwner(
   network: Network,
   simpleAccountAddress: string,
   newOwnerAddr: string,
-  signer: string = process.env.MMPK,
+  signer: string = _signer,
   provider?: ethers.providers.Provider
 ) {
   /*
@@ -173,7 +182,7 @@ export async function transferOwner(
 export async function getWalletBalance(
   network: Network,
   simpleAccountAddress: string,
-  signer: string = process.env.MMPK,
+  signer: string = _signer,
   provider?: ethers.providers.Provider
 ) {
   /*
@@ -197,7 +206,7 @@ export async function getWalletBalance(
 export async function getWalletBalanceInEth(
   network: Network,
   simpleAccountAddress: string,
-  signer: string = process.env.MMPK,
+  signer: string = _signer,
   provider: ethers.providers.Provider
 ) {
   /*
@@ -221,7 +230,7 @@ export async function depositToWallet(
   network: Network,
   simpleAccountAddress,
   amt: string,
-  signer: string = process.env.MMPK,
+  signer: string = _signer,
   provider: ethers.providers.Provider
 ) {
   /*
@@ -247,7 +256,7 @@ export async function transferEth(
   network: Network,
   salt: string,
   config: any = _config,
-  signer: string = process.env.MMPK,
+  signer: string = _signer,
   provider?: ethers.providers.JsonRpcProvider
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   /*
@@ -308,7 +317,7 @@ export async function transferECR20(
   salt: string,
   withPM = false,
   config: any = _config,
-  signer: string = process.env.MMPK,
+  signer: string = _signer,
   provider?: ethers.providers.JsonRpcProvider
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   /*
@@ -371,10 +380,12 @@ export async function transferECR20(
   return { op: opCode, uoHash, txHash };
 }
 
-// const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
-// const signer = process.env.MMPK;
+const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
+// console.log("provider", provider)
+const signer = "10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a"; //_signer;
+console.log("signer", signer)
 
-// createWallet(NETWORKS.goerli, '1', '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', signer, provider).then((x) => console.log(x));
+createWallet(NETWORKS.goerli, '1', '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', signer, provider).then((x) => console.log(x));
 
 // getSimpleAccount(provider, signer, _config.entryPoint, NETWORKS.goerli.SAFAddress, 1, undefined)
 //   .getCounterFactualAddress()
