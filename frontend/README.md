@@ -50,6 +50,7 @@ https://event-wallets.herokuapp.com/bfb88629-0091-43fa-87f0-2d17a39d5b8c/u/b64c5
 
 http://localhost:3001/eth-denver-2023/u/4c954220-5aa6-495e-b114-bf25263b71e9/wallet
 
+https://event-wallets.herokuapp.com/eth-denver-2023?fbclid%3DIwAR09Q_HpWGJziYMHukC3JinVHWsdmGgzdUDS-adwTprPc78DTf526r2Xq3I
 
 ```
 
