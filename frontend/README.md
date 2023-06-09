@@ -25,7 +25,7 @@ RUN
 > yarn schema:gen:ci   
 > yarn start 
 
-export GRAPHQL_URL=https://event-wallets-api.herokuapp.com/graphql && yarn schema:gen:ci && yarn start 
+export GRAPHQL_URL=http[label](https://event-wallets.herokuapp.com/eth-denver-2023?fbclid%3DIwAR09Q_HpWGJziYMHukC3JinVHWsdmGgzdUDS-adwTprPc78DTf526r2Xq3I)s://event-wallets-api.herokuapp.com/graphql && yarn schema:gen:ci && yarn start 
 export GRAPHQL_URL=http://localhost:3000/graphql && yarn schema:gen:ci && yarn start 
 ```
 

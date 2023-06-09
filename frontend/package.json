@@ -83,7 +83,7 @@
     "schema:gen:ci": "yarn clean:gen && [ -z \"${GRAPHQL_URL}\" ] && echo 'ERROR: export GRAPHQL_URL= env not set....'; yarn apollo codegen:generate --endpoint $GRAPHQL_URL --target=typescript --globalTypesFile=src/graphql/__generated__/globalTypes.ts  --tagName=gql",
     "cypress": "npx cypress open",
     "cypress:open": "npx cypress open",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install",
     "clean:gen": "rm -rf **/**/__generated__",
     "clean": "rm -rf node_modules && yarn clean:gen",
     "ci": "yarn install --ignore-engines",
