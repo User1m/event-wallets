@@ -12,6 +12,7 @@ Leveraging ERC4337 to create Smart Contract Wallets for events.
 - https://www.stackup.sh/blog/the-future-of-ethereum-access-oauth-and-account-abstraction
 - https://www.youtube.com/watch?v=r3ZSk4PeqxQ&ab_channel=BlockExplorer
 - https://github.com/OpenZeppelin/solidity-jwt
+- https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts
 - https://era.zksync.io/docs/dev/developer-guides/aa.html#the-transaction-flow
 - https://www.gelato.network/relay
 - https://dashboard.alchemy.com/

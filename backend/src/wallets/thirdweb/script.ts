@@ -67,7 +67,9 @@ export async function _getSimpleAcctFactoryContract(network: Network, signer: st
   */
 
   const sdk = await _initThirdWeb(network, provider, signer);
+  // console.log("sdk", sdk)
   const contract = await sdk.getContractFromAbi(network.SAFAddress, abis.simpleAccountFactory.abi);
+  // console.log("contract", contract)
   return contract;
 }
 
@@ -109,12 +111,16 @@ export async function createWallet(network: Network, salt: string, owner?: strin
   const _provider = provider || new ethers.providers.JsonRpcProvider(network.url);
   const _owner = owner || network?.owner;
 
-  const factory = await _getSimpleAcctFactoryContract(network, signer, _provider);
+  // console.log("_provider", _provider)
+  // console.log("_owner", _owner)
 
+  const factory = await _getSimpleAcctFactoryContract(network, signer, _provider);
   const newSimpleAcct = await factory.call('createAccount', _owner, salt);
+  const address = await getWalletAddress(network, _owner, salt, signer, _provider);
+
   return {
     receipt: newSimpleAcct,
-    address: await getWalletAddress(network, _owner, salt, signer, _provider),
+    address,
   };
 }
 

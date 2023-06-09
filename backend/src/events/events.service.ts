@@ -196,6 +196,8 @@ export class EventsService {
     const { userId } = payload;
     const uuidToBigNum = getSalt(userId);
 
+    console.log("uuidToBigNum:", uuidToBigNum);
+
     for (const network of Object.keys(NETWORKS)) {
       //create address
       // const accAddress = await genAddress(config);
