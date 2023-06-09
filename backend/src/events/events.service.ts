@@ -8,7 +8,7 @@ import { convertGuidToInt } from '@src/wallets/helpers/uuidToBigNum';
 // import erc20Transfer from '@src/wallets/smartAccount/erc20Transfer';
 // import transfer from '@src/wallets/smartAccount/transfer';
 import { Network, NETWORKS } from '@src/wallets/thirdweb/constants';
-import { createWallet, transferEth, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
+import { createWallet, transferEth, transferECR20, transferOwner } from '@src/wallets/thirdweb/script.old';
 import { User } from 'prisma/graphql/generated';
 
 @Injectable()
