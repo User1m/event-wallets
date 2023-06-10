@@ -23,7 +23,8 @@ RUN
 > mv .env.sample .env
 > export GRAPHQL_URL=https://event-wallets-api.herokuapp.com/graphql (or your gQL endpoint)
 > yarn schema:gen:ci   
-> yarn start 
+> yarn start | start:local | start:api
+
 
 export GRAPHQL_URL=https://event-wallets-api.herokuapp.com/graphql && yarn schema:gen:ci && yarn start 
 export GRAPHQL_URL=http://localhost:3000/graphql && yarn schema:gen:ci && yarn start 

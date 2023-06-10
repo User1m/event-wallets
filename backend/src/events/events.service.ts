@@ -4,11 +4,12 @@ import { sendMail } from '@src/common/mail';
 import { TemplateEmail } from '@src/common/mail/template';
 import { PrismaService } from '@src/prisma/prisma.service';
 import { faucetUrl, getBaseUrl, GET_CONFIG, getSalt } from '@src/utils';
-import { convertGuidToInt } from '@src/wallets/helpers/uuidToBigNum';
+// import { convertGuidToInt } from '@src/wallets/helpers/uuidToBigNum';
 // import erc20Transfer from '@src/wallets/smartAccount/erc20Transfer';
 // import transfer from '@src/wallets/smartAccount/transfer';
-import { Network, NETWORKS } from '@src/wallets/thirdweb/constants';
+import { abis, Network, NETWORKS } from '@src/wallets/thirdweb/constants';
 import { createWallet, transferEth, transferECR20, transferOwner } from '@src/wallets/thirdweb/script';
+import { ethers } from 'ethers';
 import { User } from 'prisma/graphql/generated';
 
 @Injectable()
@@ -49,8 +50,11 @@ export class EventsService {
 
     const fromAddress = user.accounts.find((x) => x.network === network).address;
     const _network = NETWORKS[network];
+    const _provider = new ethers.providers.JsonRpcProvider(_network.url);
+    const _signer = process.env.MMPK;
+
     try {
-      const res = await transferOwner(_network, fromAddress, toAddress);
+      const res = await transferOwner(fromAddress, toAddress, _network.chainId, _provider, _signer);
 
       this.eventEmitter.emit('sendEmail', {
         subject: 'Owner Transfer Completed',
@@ -91,9 +95,22 @@ export class EventsService {
     // const withPM = Boolean(usePaymaster || false);
     const fromAddress = user.accounts.find((x) => x.network === network).address;
     const _network = NETWORKS[network];
+    const _provider = new ethers.providers.JsonRpcProvider(_network.url);
+    const _signer = process.env.MMPK;
+
     try {
       // const res = await transfer(config, toAddress, amount, withPM);
-      const res = await transferEth(amount, toAddress, _network, getSalt(user?.id));
+      const res = await transferEth(
+        amount,
+        toAddress,
+        getSalt(user?.id),
+        _network.SAFAddress,
+        process.env.ENTRYPOINT,
+        process.env.BUNDLER_URL,
+        _provider,
+        _signer
+      );
+
       await this.prisma.transaction.create({
         data: {
           ...res,
@@ -151,10 +168,24 @@ export class EventsService {
     // const withPM = Boolean(usePaymaster || false);
     const fromAddress = user.accounts.find((x) => x.network === network).address;
     const _network = NETWORKS[network];
+    const _provider = new ethers.providers.JsonRpcProvider(_network.url);
+    const _signer = process.env.MMPK;
 
     try {
       // const res = await erc20Transfer(config, token, toAddress, amount, withPM);
-      const res = await transferECR20(token, amount, toAddress, _network, getSalt(user?.id));
+      const res = await transferECR20(
+        token,
+        amount,
+        toAddress,
+        getSalt(user?.id),
+        false,
+        process.env.ENTRYPOINT,
+        process.env.BUNDLER_URL,
+        _network.SAFAddress,
+        '',
+        _provider,
+        _signer
+      );
       await this.prisma.transaction.create({
         data: {
           ...res,
@@ -194,12 +225,25 @@ export class EventsService {
   async createWallets(payload: { userId: string }) {
     this.logger.log('Creating Wallets ...');
     const { userId } = payload;
-    const uuidToBigNum = getSalt(userId);
+    const salt = getSalt(userId);
+
+    // console.log("uuidToBigNum:", uuidToBigNum);
 
     for (const network of Object.keys(NETWORKS)) {
       //create address
       // const accAddress = await genAddress(config);
-      const { address } = await createWallet(NETWORKS[network], `${uuidToBigNum}`);
+      const _network = NETWORKS[network];
+      const _provider = new ethers.providers.JsonRpcProvider(_network.url);
+      const _signer = process.env.MMPK;
+      const { address } = await createWallet(
+        _network.chainId,
+        _network.SAFAddress,
+        abis.simpleAccountFactory.abi,
+        `${salt}`,
+        _network.owner,
+        _provider,
+        _signer
+      );
 
       //save address
       await this.prisma.account.create({

@@ -72,6 +72,8 @@
     "ts-jest": "^29.0.5"
   },
   "scripts": {
+    "start:local": "export GRAPHQL_URL=http://localhost:3000/graphql && yarn schema:gen:ci && yarn start",
+    "start:api": "export GRAPHQL_URL=https://event-wallets-api.herokuapp.com/graphql && yarn schema:gen:ci && yarn start",
     "start": "craco start",
     "start:prod": "serve -s build",
     "build": "yarn schema:gen:ci || true && craco build",

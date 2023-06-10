@@ -1,31 +1,29 @@
 import { transferECR20 } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
-
-console.log("////////// MAIN //////////\n");
+console.log('////////// MAIN //////////\n');
 
 transferECR20(
-                constants.weenus_token_addr,
-                "50",
-                constants.owner,
-                "1",
-                false,
-                constants.entrypoint,
-                constants.bundler_url,
-                constants.simple_account_factory_addr,
-                "",
-                constants.provider,
-                constants.signer
-            ).then((x) => console.log(x));
-
+  constants.weenus_token_addr,
+  '50',
+  constants.owner,
+  '1',
+  false,
+  constants.entrypoint,
+  constants.bundler_url,
+  constants.simple_account_factory_addr,
+  '',
+  constants.provider,
+  constants.signer
+).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 ////////// PROVIDER ///////////
@@ -59,13 +57,11 @@ transferECR20(
 //         },
 //         _nextId: 42
 //       }
-           
-      
-//       ////////// SIGNER //////////      
+
+//       ////////// SIGNER //////////
 //       10......55a
-            
-      
-//       ////////// MAIN //////////      
+
+//       ////////// MAIN //////////
 //       Transferring 50 WEENUS...
 //       Signed UserOperation: {
 //         "sender": "0x38B4c8200f4Abc4806E34e27ac43DBb771B72911",
@@ -95,7 +91,7 @@ transferECR20(
 //           '  "maxPriorityFeePerGas": "0x2f",\n' +
 //           '  "paymasterAndData": "0x",\n' +
 //           '  "preVerificationGas": "0xbb1c",\n' +
-//           '  "signature": "0xdfcc545f42d85b700692632ef4c08fcdb28a8953a6c5b507c7fbb0d2cdfcd90408f3d452a5341e899792b24e66e78e509e9b2dd6b302ba76d8806df145eb97051c"\n' +       
+//           '  "signature": "0xdfcc545f42d85b700692632ef4c08fcdb28a8953a6c5b507c7fbb0d2cdfcd90408f3d452a5341e899792b24e66e78e509e9b2dd6b302ba76d8806df145eb97051c"\n' +
 //           '}',
 //         uoHash: '0x9ff13d6529df3413cee796ad7a88650ba38df4f2aa22a69a235ad74c1bb286c5',
 //         txHash: '0x51149f2b02a1508016de3057d4ee3e98d38706e12fb888cbbad28cc76ccc1b2d'

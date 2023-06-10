@@ -1,16 +1,15 @@
 import { _initThirdWeb } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
-
-console.log("////////// MAIN //////////\n");
+console.log('////////// MAIN //////////\n');
 _initThirdWeb(constants.chain_id, constants.provider, constants.signer).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
@@ -44,15 +43,11 @@ _initThirdWeb(constants.chain_id, constants.provider, constants.signer).then((x)
 //     connection: { url: 'http://localhost:8545' },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e843b........39255a
-  
-  
-  
+
 //   ////////// MAIN //////////
 //   ThirdwebSDK {
 //     _events: Events <[Object: null prototype] {}> {},
