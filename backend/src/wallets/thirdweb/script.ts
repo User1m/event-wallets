@@ -13,17 +13,10 @@ import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpc
   chainId: 80001 = mumbai,
 */
 
-
-export async function _initThirdWeb(
-  chainId: number,
-  provider: ethers.providers.Provider,
-  signer: string
-): Promise<ThirdwebSDK> {
-
+export async function _initThirdWeb(chainId: number, provider: ethers.providers.Provider, signer: string): Promise<ThirdwebSDK> {
   const _signer = new ethers.Wallet(signer, provider);
   const sdk = ThirdwebSDK.fromSigner(_signer, chainId);
   return sdk;
-
 }
 
 export async function _getSimpleAcctFactoryContract(
@@ -31,20 +24,14 @@ export async function _getSimpleAcctFactoryContract(
   simpleAccountFactoryAddress: string,
   simpleAccountFactoryABI: any,
   provider: ethers.providers.Provider,
-  signer: string,
+  signer: string
 ) {
   const sdk = await _initThirdWeb(chainId, provider, signer);
   const contract = await sdk.getContractFromAbi(simpleAccountFactoryAddress, simpleAccountFactoryABI);
   return contract;
 }
 
-export async function _getSimpleAcctContract(
-  contractAddr: string,
-  chainId: number,
-  provider: ethers.providers.Provider,
-  signer: string
-) {
-
+export async function _getSimpleAcctContract(contractAddr: string, chainId: number, provider: ethers.providers.Provider, signer: string) {
   const sdk = await _initThirdWeb(chainId, provider, signer);
   const contract = await sdk.getContractFromAbi(contractAddr, abis.simpleAccount.abi);
   return contract;
@@ -57,18 +44,9 @@ export async function getWalletAddress(
   salt: string,
   owner: string,
   provider: ethers.providers.Provider,
-  signer: string,
-
+  signer: string
 ): Promise<string> {
-
-  const factory = await _getSimpleAcctFactoryContract(
-    chainId,
-    simpleAccountFactoryAddress,
-    simpleAccountFactoryABI,
-    provider,
-    signer,
-
-  );
+  const factory = await _getSimpleAcctFactoryContract(chainId, simpleAccountFactoryAddress, simpleAccountFactoryABI, provider, signer);
 
   const SimpleAcctAddress = await factory.call('getAddress', owner, salt);
   return SimpleAcctAddress;
@@ -81,29 +59,14 @@ export async function createWallet(
   salt: string,
   owner: string,
   provider: ethers.providers.Provider,
-  signer: string,
-
+  signer: string
 ) {
-  const factory = await _getSimpleAcctFactoryContract(
-    chainId,
-    simpleAccountFactoryAddress,
-    simpleAccountFactoryABI,
-    provider,
-    signer,
-  );
+  const factory = await _getSimpleAcctFactoryContract(chainId, simpleAccountFactoryAddress, simpleAccountFactoryABI, provider, signer);
 
   const newSimpleAcct = await factory.call('createAccount', owner, salt);
   return {
     receipt: newSimpleAcct,
-    address: await getWalletAddress(
-      chainId,
-      simpleAccountFactoryAddress,
-      simpleAccountFactoryABI,
-      salt,
-      owner,
-      provider,
-      signer
-    ),
+    address: await getWalletAddress(chainId, simpleAccountFactoryAddress, simpleAccountFactoryABI, salt, owner, provider, signer),
   };
 }
 
@@ -111,7 +74,7 @@ export async function getWalletOwner(
   simpleAccountAddress: string,
   chainId: number,
   provider: ethers.providers.JsonRpcProvider,
-  signer: string,
+  signer: string
 ): Promise<string> {
   const contract = await _getSimpleAcctContract(simpleAccountAddress, chainId, provider, signer);
   const owner = await contract.call('owner');
@@ -122,14 +85,9 @@ export async function getWalletBalance(
   simpleAccountAddress: string,
   chainId: number,
   provider: ethers.providers.JsonRpcProvider,
-  signer: string,
+  signer: string
 ): Promise<ethers.BigNumber> {
-  const contract = await _getSimpleAcctContract(
-    simpleAccountAddress,
-    chainId,
-    provider,
-    signer
-  );
+  const contract = await _getSimpleAcctContract(simpleAccountAddress, chainId, provider, signer);
   const balance = await contract.call('getDeposit');
   return balance;
 }
@@ -138,32 +96,15 @@ export async function getWalletBalanceInEth(
   simpleAccountAddress: string,
   chainId: number,
   provider: ethers.providers.JsonRpcProvider,
-  signer: string,
-): Promise<String> {
-  const contract = await _getSimpleAcctContract(
-    simpleAccountAddress,
-    chainId,
-    provider,
-    signer
-  );
+  signer: string
+): Promise<string> {
+  const contract = await _getSimpleAcctContract(simpleAccountAddress, chainId, provider, signer);
   const balance = await contract.call('getDeposit');
   return ethers.utils.formatEther(balance.toBigInt());
 }
 
-export async function depositToWallet(
-  amt: string,
-  simpleAccountAddress: string,
-  chainId: number,
-  provider: ethers.providers.JsonRpcProvider,
-  signer: string,
-) {
-
-  const contract = await _getSimpleAcctContract(
-    simpleAccountAddress,
-    chainId,
-    provider,
-    signer
-  );
+export async function depositToWallet(amt: string, simpleAccountAddress: string, chainId: number, provider: ethers.providers.JsonRpcProvider, signer: string) {
+  const contract = await _getSimpleAcctContract(simpleAccountAddress, chainId, provider, signer);
   return await contract.call('addDeposit', {
     gasLimit: 1000000, // override default gas limit
     value: ethers.utils.parseEther(amt), // send 0.1 ether with the contract call
@@ -178,18 +119,10 @@ export async function transferEth(
   simple_account_entrypoint: string,
   simple_account_bundler_url: string,
   provider: ethers.providers.JsonRpcProvider,
-  signer: string,
-
+  signer: string
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
   const paymasterAPI = undefined;
-  const accountAPI = getSimpleAccount(
-    provider,
-    signer,
-    simple_account_entrypoint,
-    simple_account_factory_addr,
-    paymasterAPI,
-    Number(salt)
-  );
+  const accountAPI = getSimpleAccount(provider, signer, simple_account_entrypoint, simple_account_factory_addr, paymasterAPI, Number(salt));
 
   const target = ethers.utils.getAddress(toAddress);
   const value = ethers.utils.parseEther(amount);
@@ -204,11 +137,7 @@ export async function transferEth(
   const opCode = await printOp(op);
   console.log(`Signed UserOperation: ${opCode}`);
 
-  const client = await getHttpRpcClient(
-    provider,
-    simple_account_bundler_url,
-    simple_account_entrypoint
-  );
+  const client = await getHttpRpcClient(provider, simple_account_bundler_url, simple_account_entrypoint);
 
   console.log(client);
 
@@ -231,22 +160,13 @@ export async function transferECR20(
   simple_account_entrypoint: string,
   simple_account_bundler_url: string,
   simple_account_factory_addr: string,
-  simple_account_pm_url: string = "",
+  simple_account_pm_url = '',
   provider: ethers.providers.JsonRpcProvider,
-  signer: string,
+  signer: string
 ): Promise<{ op: string; uoHash: string; txHash: string }> {
-
-
   const paymasterAPI = withPM ? getVerifyingPaymaster(simple_account_pm_url, simple_account_entrypoint) : undefined;
 
-  const accountAPI = getSimpleAccount(
-    provider,
-    signer,
-    simple_account_entrypoint,
-    simple_account_factory_addr,
-    paymasterAPI,
-    Number(salt)
-  );
+  const accountAPI = getSimpleAccount(provider, signer, simple_account_entrypoint, simple_account_factory_addr, paymasterAPI, Number(salt));
 
   const _token = ethers.utils.getAddress(token);
 
@@ -282,27 +202,14 @@ export async function transferECR20(
   return { op: opCode, uoHash, txHash };
 }
 
-export async function transferOwner(
-  simpleAccountAddress: string,
-  newOwnerAddr: string,
-  chainId: number,
-  provider: ethers.providers.Provider,
-  signer: string
-) {
-
-  const contract = await _getSimpleAcctContract(
-    simpleAccountAddress,
-    chainId,
-    provider,
-    signer
-  );
+export async function transferOwner(simpleAccountAddress: string, newOwnerAddr: string, chainId: number, provider: ethers.providers.Provider, signer: string) {
+  const contract = await _getSimpleAcctContract(simpleAccountAddress, chainId, provider, signer);
 
   // When this function is called, if the signer is not the owner of the SimpleAccount contract, it will throw an error
   await contract.call('setOwner', newOwnerAddr);
   const owner = await contract.call('owner');
   return owner;
 }
-
 
 // const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
 // // console.log("provider", provider)

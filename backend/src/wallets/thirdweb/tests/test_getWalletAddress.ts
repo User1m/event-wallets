@@ -1,28 +1,25 @@
 import { getWalletAddress } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
+console.log('////////// MAIN //////////\n');
 
-console.log("////////// MAIN //////////\n");
-
-getWalletAddress(                
-                    constants.chain_id,
-                    constants.simple_account_factory_addr,
-                    constants.simple_account_factory_abi,
-                    constants.salt,
-                    constants.owner,
-                    constants.provider,
-                    constants.signer
-                ).then((x) => console.log(x));
-
-
+getWalletAddress(
+  constants.chain_id,
+  constants.simple_account_factory_addr,
+  constants.simple_account_factory_abi,
+  constants.salt,
+  constants.owner,
+  constants.provider,
+  constants.signer
+).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 ////////// PROVIDER ///////////
@@ -55,14 +52,9 @@ getWalletAddress(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
 //   10e843...11e9639255a
-  
-  
-  
+
 //   ////////// MAIN //////////
 //   0x38B4c8200f4Abc4806E34e27ac43DBb771B72911
-

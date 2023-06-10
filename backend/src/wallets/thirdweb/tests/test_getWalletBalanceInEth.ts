@@ -1,24 +1,17 @@
 import { getWalletBalanceInEth } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
+console.log('////////// MAIN //////////\n');
 
-console.log("////////// MAIN //////////\n");
-
-getWalletBalanceInEth(
-                        constants.simple_account_contract_address,
-                        constants.chain_id,
-                        constants.provider,
-                        constants.signer
-                    ).then((x) => console.log(x));
-
+getWalletBalanceInEth(constants.simple_account_contract_address, constants.chain_id, constants.provider, constants.signer).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 ////////// PROVIDER ///////////
@@ -48,15 +41,11 @@ getWalletBalanceInEth(
 //     _fastQueryDate: 0,
 //     connection: {
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e........255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   0.097609021302530477

@@ -14,7 +14,7 @@ import { User } from 'prisma/graphql/generated';
 
 @Injectable()
 export class EventsService {
-  constructor(private eventEmitter: EventEmitter2) { }
+  constructor(private eventEmitter: EventEmitter2) {}
   private prisma = new PrismaService();
   private readonly logger = new Logger(EventsService.name);
 
@@ -54,13 +54,7 @@ export class EventsService {
     const _signer = process.env.MMPK;
 
     try {
-      const res = await transferOwner(
-        fromAddress,
-        toAddress,
-        _network.chainId,
-        _provider,
-        _signer
-      );
+      const res = await transferOwner(fromAddress, toAddress, _network.chainId, _provider, _signer);
 
       this.eventEmitter.emit('sendEmail', {
         subject: 'Owner Transfer Completed',
@@ -114,7 +108,7 @@ export class EventsService {
         process.env.ENTRYPOINT,
         process.env.BUNDLER_URL,
         _provider,
-        _signer,
+        _signer
       );
 
       await this.prisma.transaction.create({

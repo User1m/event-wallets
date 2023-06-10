@@ -1,25 +1,17 @@
 import { depositToWallet } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
+console.log('////////// MAIN //////////\n');
 
-console.log("////////// MAIN //////////\n");
-
-
-depositToWallet(
-                    "0.01",
-                    constants.simple_account_contract_address,
-                    constants.chain_id,
-                    constants.provider,
-                    constants.signer
-                    ).then((x) => console.log(x));
+depositToWallet('0.01', constants.simple_account_contract_address, constants.chain_id, constants.provider, constants.signer).then((x) => console.log(x));
 
 // Expected output:
 ////////// PROVIDER ///////////
@@ -53,17 +45,13 @@ depositToWallet(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e8...9255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   {
 //     receipt: {
 //       to: '0x38B4c8200f4Abc4806E34e27ac43DBb771B72911',

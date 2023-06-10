@@ -1,26 +1,24 @@
 import { createWallet } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
-
-console.log("////////// MAIN //////////\n");
+console.log('////////// MAIN //////////\n');
 createWallet(
-                constants.chain_id,
-                constants.simple_account_factory_addr,
-                constants.simple_account_factory_abi,
-                constants.salt,
-                constants.owner,
-                constants.provider,
-                constants.signer
-            ).then((x) => console.log(x));
-
+  constants.chain_id,
+  constants.simple_account_factory_addr,
+  constants.simple_account_factory_abi,
+  constants.salt,
+  constants.owner,
+  constants.provider,
+  constants.signer
+).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 ////////// PROVIDER ///////////
@@ -53,17 +51,13 @@ createWallet(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e8...39255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   SmartContract {
 //     contractWrapper: ContractWrapper {
 //       _events: Events <[Object: null prototype] {}> {},
@@ -297,10 +291,10 @@ createWallet(
 //     },
 //     _chainId: 5
 //   }
-//   hmbem@LAPTOP-UAROB6VC ~\Desktop\Scripts\Temp_Projects\event_wallets_latest_05_14_2023-12_47AM\event-wallets\backend\src\wallets\thirdweb\tests main # npx ts-node tes 
+//   hmbem@LAPTOP-UAROB6VC ~\Desktop\Scripts\Temp_Projects\event_wallets_latest_05_14_2023-12_47AM\event-wallets\backend\src\wallets\thirdweb\tests main # npx ts-node tes
 //   t_getSimpleAcctContract.ts
 //   ////////// PROVIDER ///////////
-  
+
 //   JsonRpcProvider {
 //     _isProvider: true,
 //     _events: [],
@@ -330,17 +324,13 @@ createWallet(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   SmartContract {
 //     contractWrapper: ContractWrapper {
 //       _events: Events <[Object: null prototype] {}> {},
@@ -747,11 +737,11 @@ createWallet(
 //   }
 //   hmbem@LAPTOP-UAROB6VC ~\Desktop\Scripts\Temp_Projects\event_wallets_latest_05_14_2023-12_47AM\event-wallets\backend\src\wallets\thirdweb\tests main # CLS
 //   xonsh: subprocess mode: permission denied: CLS
-  
-//   hmbem@LAPTOP-UAROB6VC ~\Desktop\Scripts\Temp_Projects\event_wallets_latest_05_14_2023-12_47AM\event-wallets\backend\src\wallets\thirdweb\tests main [1] # npx ts-node 
+
+//   hmbem@LAPTOP-UAROB6VC ~\Desktop\Scripts\Temp_Projects\event_wallets_latest_05_14_2023-12_47AM\event-wallets\backend\src\wallets\thirdweb\tests main [1] # npx ts-node
 //    test_createWallet.ts
 //   ////////// PROVIDER ///////////
-  
+
 //   JsonRpcProvider {
 //     _isProvider: true,
 //     _events: [],
@@ -781,17 +771,13 @@ createWallet(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   {
 //     receipt: {
 //       receipt: {

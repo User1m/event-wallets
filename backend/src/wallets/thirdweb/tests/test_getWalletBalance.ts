@@ -1,24 +1,17 @@
 import { getWalletBalance } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
+console.log('////////// MAIN //////////\n');
 
-console.log("////////// MAIN //////////\n");
-
-getWalletBalance(
-                    constants.simple_account_contract_address,
-                    constants.chain_id,
-                    constants.provider,
-                    constants.signer
-                ).then((x) => console.log(x));
-
+getWalletBalance(constants.simple_account_contract_address, constants.chain_id, constants.provider, constants.signer).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 ////////// PROVIDER ///////////
@@ -51,15 +44,11 @@ getWalletBalance(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   BigNumber { _hex: '0x015ac6e3419c61ad', _isBigNumber: true }

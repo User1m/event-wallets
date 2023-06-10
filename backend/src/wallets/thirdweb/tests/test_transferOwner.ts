@@ -1,43 +1,26 @@
-import { getWalletOwner, transferOwner} from '../script';
+import { getWalletOwner, transferOwner } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
+console.log('////////// MAIN //////////\n');
 
-console.log("////////// MAIN //////////\n");
+console.log('////////// OLD OWNER //////////\n');
+getWalletOwner(constants.simple_account_contract_address_2, constants.chain_id, constants.provider, constants.signer).then((x) => console.log(x));
 
-console.log("////////// OLD OWNER //////////\n");
-getWalletOwner(        
-    constants.simple_account_contract_address_2,
-    constants.chain_id,
-    constants.provider,
-    constants.signer
-).then((x) => console.log(x));
+console.log('////////// TRANSFER OWNER //////////\n');
+transferOwner(constants.simple_account_contract_address_2, constants.owner_2, constants.chain_id, constants.provider, constants.signer).then((x) =>
+  console.log(x)
+);
 
-
-console.log("////////// TRANSFER OWNER //////////\n");
-transferOwner(
-                constants.simple_account_contract_address_2,
-                constants.owner_2,
-                constants.chain_id,
-                constants.provider,
-                constants.signer
-            ).then((x) => console.log(x));
-
-console.log("////////// NEW OWNER //////////\n");
-getWalletOwner(        
-    constants.simple_account_contract_address_2,
-    constants.chain_id,
-    constants.provider,
-    constants.signer
-).then((x) => console.log(x));
-
+console.log('////////// NEW OWNER //////////\n');
+getWalletOwner(constants.simple_account_contract_address_2, constants.chain_id, constants.provider, constants.signer).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 
@@ -72,24 +55,19 @@ getWalletOwner(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e84.....255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   ////////// OLD OWNER //////////
-  
+
 //   ////////// TRANSFER OWNER //////////
-  
+
 //   ////////// NEW OWNER //////////
-  
+
 //   0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb
 //   0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb
 //   0xb2aB9159345e405ff1442f32FEF403A9552e86AA
-

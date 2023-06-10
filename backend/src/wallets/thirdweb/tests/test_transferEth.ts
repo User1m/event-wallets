@@ -1,28 +1,26 @@
 import { transferEth } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
-
-console.log("////////// MAIN //////////\n");
+console.log('////////// MAIN //////////\n');
 
 transferEth(
-                "0.001", 
-                constants.owner,
-                constants.salt,
-                constants.simple_account_factory_addr ,
-                constants.entrypoint,
-                constants.bundler_url,
-                constants.provider,
-                constants.signer
-                ).then((x) => console.log(x));
-
+  '0.001',
+  constants.owner,
+  constants.salt,
+  constants.simple_account_factory_addr,
+  constants.entrypoint,
+  constants.bundler_url,
+  constants.provider,
+  constants.signer
+).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 ////////// PROVIDER ///////////
@@ -55,17 +53,13 @@ transferEth(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e8..............255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   Signed UserOperation: {
 //     "sender": "0x38B4c8200f4Abc4806E34e27ac43DBb771B72911",
 //     "nonce": "0x4",
@@ -119,7 +113,7 @@ transferEth(
 //       '  "maxPriorityFeePerGas": "0x2f",\n' +
 //       '  "paymasterAndData": "0x",\n' +
 //       '  "preVerificationGas": "0xb6e4",\n' +
-//       '  "signature": "0x12c99010eadd86cb47f29574f2e2030ec2ef235103f72ac0829eec30f7455e15717b79db990a964b655e16b0088f602d4f3481918ae7c87582ab95d33d9035a71b"\n' +       
+//       '  "signature": "0x12c99010eadd86cb47f29574f2e2030ec2ef235103f72ac0829eec30f7455e15717b79db990a964b655e16b0088f602d4f3481918ae7c87582ab95d33d9035a71b"\n' +
 //       '}',
 //     uoHash: '0x395f7e074b33b3ddbb2b9178f1d4092411a8584892696d808f6d21c543b6d444',
 //     txHash: '0x5b9888f19ae72b70dd2f5bee466cc5eed3b200956d421562b675abb4105ee093'

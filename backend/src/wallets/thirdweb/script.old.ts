@@ -3,8 +3,7 @@ import { ethers, providers } from 'ethers';
 import { abis, Network, NETWORKS } from './constants';
 import { getVerifyingPaymaster, getSimpleAccount, getGasFee, printOp, getHttpRpcClient, ERC20_ABI } from '../helpers';
 
-const _signer = "10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a"; //_signer;
-
+const _signer = '10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a'; //_signer;
 
 const path = require('path');
 
@@ -82,13 +81,7 @@ export async function _getSimpleAcctFactoryContract(network: Network, signer: st
   return contract;
 }
 
-export async function getWalletAddress(
-  network: Network,
-  salt: string,
-  owner?: string,
-  signer: string = _signer,
-  provider?: ethers.providers.Provider
-) {
+export async function getWalletAddress(network: Network, salt: string, owner?: string, signer: string = _signer, provider?: ethers.providers.Provider) {
   /*
     Returns the address of a SimpleAccount contract when given the owner and salt
   */
@@ -179,12 +172,7 @@ export async function transferOwner(
   return owner;
 }
 
-export async function getWalletBalance(
-  network: Network,
-  simpleAccountAddress: string,
-  signer: string = _signer,
-  provider?: ethers.providers.Provider
-) {
+export async function getWalletBalance(network: Network, simpleAccountAddress: string, signer: string = _signer, provider?: ethers.providers.Provider) {
   /*
     Returns the balance of a SimpleAccount contract
 
@@ -203,12 +191,7 @@ export async function getWalletBalance(
   return balance;
 }
 
-export async function getWalletBalanceInEth(
-  network: Network,
-  simpleAccountAddress: string,
-  signer: string = _signer,
-  provider: ethers.providers.Provider
-) {
+export async function getWalletBalanceInEth(network: Network, simpleAccountAddress: string, signer: string = _signer, provider: ethers.providers.Provider) {
   /*
     Returns the balance of a SimpleAccount contract in ether
 
@@ -226,13 +209,7 @@ export async function getWalletBalanceInEth(
   return ethers.utils.formatEther(balance.toBigInt());
 }
 
-export async function depositToWallet(
-  network: Network,
-  simpleAccountAddress,
-  amt: string,
-  signer: string = _signer,
-  provider: ethers.providers.Provider
-) {
+export async function depositToWallet(network: Network, simpleAccountAddress, amt: string, signer: string = _signer, provider: ethers.providers.Provider) {
   /*
     amt is a string representing the amount of ether to deposit
     
@@ -382,8 +359,8 @@ export async function transferECR20(
 
 const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
 // console.log("provider", provider)
-const signer = "10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a"; //_signer;
-console.log("signer", signer)
+const signer = '10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a'; //_signer;
+console.log('signer', signer);
 
 createWallet(NETWORKS.goerli, '1', '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb', signer, provider).then((x) => console.log(x));
 

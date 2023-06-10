@@ -1,25 +1,23 @@
 import { _getSimpleAcctFactoryContract } from '../script';
 import * as constants from './constants';
 
-console.log("////////// PROVIDER ///////////\n");
+console.log('////////// PROVIDER ///////////\n');
 console.log(constants.provider);
-console.log("\n\n");
+console.log('\n\n');
 
-console.log("////////// SIGNER //////////\n");
+console.log('////////// SIGNER //////////\n');
 console.log(constants.signer);
-console.log("\n\n");
+console.log('\n\n');
 
-
-console.log("////////// MAIN //////////\n");
+console.log('////////// MAIN //////////\n');
 
 _getSimpleAcctFactoryContract(
-                                    constants.chain_id,
-                                    constants.simple_account_contract_address,
-                                    constants.simple_account_factory_abi,
-                                    constants.provider,
-                                    constants.signer
-                            ).then((x) => console.log(x));
-
+  constants.chain_id,
+  constants.simple_account_contract_address,
+  constants.simple_account_factory_abi,
+  constants.provider,
+  constants.signer
+).then((x) => console.log(x));
 
 // EXPECTED OUTPUT
 
@@ -54,17 +52,13 @@ _getSimpleAcctFactoryContract(
 //     },
 //     _nextId: 42
 //   }
-  
-  
-  
+
 //   ////////// SIGNER //////////
-  
+
 //   10e843b..b881105bf11e9639255a
-  
-  
-  
+
 //   ////////// MAIN //////////
-  
+
 //   SmartContract {
 //     contractWrapper: ContractWrapper {
 //       _events: Events <[Object: null prototype] {}> {},
@@ -298,5 +292,3 @@ _getSimpleAcctFactoryContract(
 //     },
 //     _chainId: 5
 //   }
-
-
