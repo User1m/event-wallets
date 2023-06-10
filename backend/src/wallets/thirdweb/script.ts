@@ -165,8 +165,8 @@ export async function depositToWallet(
     signer
   );
   return await contract.call('addDeposit', {
-  gasLimit: 1000000, // override default gas limit
-  value: ethers.utils.parseEther(amt), // send 0.1 ether with the contract call
+    gasLimit: 1000000, // override default gas limit
+    value: ethers.utils.parseEther(amt), // send 0.1 ether with the contract call
   });
 }
 
@@ -195,10 +195,10 @@ export async function transferEth(
   const value = ethers.utils.parseEther(amount);
 
   const op = await accountAPI.createSignedUserOp({
-  target,
-  value,
-  data: '0x',
-  ...(await getGasFee(provider)),
+    target,
+    value,
+    data: '0x',
+    ...(await getGasFee(provider)),
   });
 
   const opCode = await printOp(op);
@@ -264,9 +264,9 @@ export async function transferECR20(
   console.log(`Transferring ${amount} ${symbol}...`);
 
   const op = await accountAPI.createSignedUserOp({
-  target: erc20.address,
-  data: erc20.interface.encodeFunctionData('transfer', [to, _amount]),
-  ...(await getGasFee(provider)),
+    target: erc20.address,
+    data: erc20.interface.encodeFunctionData('transfer', [to, _amount]),
+    ...(await getGasFee(provider)),
   });
   const opCode = await printOp(op);
   console.log(`Signed UserOperation: ${opCode}`);
@@ -304,17 +304,17 @@ export async function transferOwner(
 }
 
 
-const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
-// console.log("provider", provider)
-const signer = "10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a"; //process.env.MMPK;
-console.log("signer", signer)
+// const provider = new ethers.providers.JsonRpcProvider(NETWORKS.goerli.url);
+// // console.log("provider", provider)
+// const signer = "10e843b4cde1e0d1093b71289351d509c8660b361ba4b881105bf11e9639255a"; //process.env.MMPK;
+// console.log("signer", signer)
 
-createWallet(
-  NETWORKS.goerli.chainId,
-  NETWORKS.goerli.SAFAddress,
-  abis.simpleAccountFactory.abi,
-  '1',
-  '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb',
-  provider,
-  signer
-).then((x) => console.log(x));
+// createWallet(
+//   NETWORKS.goerli.chainId,
+//   NETWORKS.goerli.SAFAddress,
+//   abis.simpleAccountFactory.abi,
+//   '1',
+//   '0x90c9BD12Bd1c20Bf61736f819886cF7983044Fdb',
+//   provider,
+//   signer
+// ).then((x) => console.log(x));
