@@ -54,7 +54,13 @@ export class EventsService {
     const _signer = process.env.MMPK;
 
     try {
-      const res = await transferOwner(fromAddress, toAddress, _network.chainId, _provider, _signer);
+      const res = await transferOwner(
+        fromAddress,
+        toAddress,
+        _network.chainId,
+        _provider,
+        _signer
+      );
 
       this.eventEmitter.emit('sendEmail', {
         subject: 'Owner Transfer Completed',
@@ -101,13 +107,16 @@ export class EventsService {
     try {
       // const res = await transfer(config, toAddress, amount, withPM);
       const res = await transferEth(
-        amount, toAddress, getSalt(user?.id),
+        amount,
+        toAddress,
+        getSalt(user?.id),
         _network.SAFAddress,
         process.env.ENTRYPOINT,
         process.env.BUNDLER_URL,
         _provider,
         _signer,
       );
+
       await this.prisma.transaction.create({
         data: {
           ...res,
@@ -171,13 +180,17 @@ export class EventsService {
     try {
       // const res = await erc20Transfer(config, token, toAddress, amount, withPM);
       const res = await transferECR20(
-        token, amount, toAddress,
+        token,
+        amount,
+        toAddress,
         getSalt(user?.id),
         false,
         process.env.ENTRYPOINT,
         process.env.BUNDLER_URL,
         _network.SAFAddress,
-        '', _provider, _signer
+        '',
+        _provider,
+        _signer
       );
       await this.prisma.transaction.create({
         data: {
@@ -229,8 +242,13 @@ export class EventsService {
       const _provider = new ethers.providers.JsonRpcProvider(_network.url);
       const _signer = process.env.MMPK;
       const { address } = await createWallet(
-        _network.chainId, _network.SAFAddress, abis.simpleAccountFactory.abi,
-        `${salt}`, _network.owner, _provider, _signer
+        _network.chainId,
+        _network.SAFAddress,
+        abis.simpleAccountFactory.abi,
+        `${salt}`,
+        _network.owner,
+        _provider,
+        _signer
       );
 
       //save address
